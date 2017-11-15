@@ -1,0 +1,23 @@
+<form name="studentRemarkUpdateForm" action="/studentRemark/save" method="POST" data-resultType="JSON">
+	<table class="table table-bordered table-striped formLayout m0">
+		<tr>
+			<td>id:</td>
+			<td><input type="text" name="id" value="$!{studentRemark.id}" placeholder="id" readonly/></td>
+			<td>studentId:</td>
+			<td><input type="text" name="studentId" value="$!{studentRemark.studentId}" placeholder="studentId"/></td>
+		</tr>
+		<tr>
+			<td>备注:</td>
+			<td><input type="text" name="remark" value="$!{studentRemark.remark}" placeholder="备注"/></td>
+			<td>备注时间:</td>
+			<td><input type="text" name="remarkTime" value="$!{studentRemark.remarkTime}" placeholder="备注时间"/></td>
+		</tr>
+		<tr>
+			<td>更新时间:</td>
+			<td colspan="3"><input type="text" name="updateTime" value="$!{studentRemark.updateTime}" placeholder="更新时间"/></td>
+		</tr>
+	</table>
+</form>
+<div class="bottomBar">
+	<button class="btn btn-primary" onclick="$('form[name=studentRemarkUpdateForm]').submit()">保存更改</button>
+</div>

@@ -1,0 +1,24 @@
+<table class="table table-bordered table-striped formLayout m0">
+	<tr>
+		<td>id:</td>
+		<td>$!{studentChengji.id}</td>
+		<td>学生编号:</td>
+		<td>$!{studentChengji.studentId}</td>
+	</tr>
+	<tr>
+		<td>学期:</td>
+		<td>$!{studentChengji.xueqi}</td>
+		<td>专业成绩排名:</td>
+		<td>$!{studentChengji.zhuanyePaiming}</td>
+	</tr>
+	<tr>
+		<td>综合成绩排名:</td>
+		<td>$!{studentChengji.zonghePaiming}</td>
+		<td>补考科目:</td>
+		<td>$!{studentChengji.bukaokemu}</td>
+	</tr>
+	<tr>
+		<td>更新时间:</td>
+		<td colspan="3">$!{studentChengji.updateTime}</td>
+	</tr>
+</table>

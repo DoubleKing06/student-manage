@@ -1,0 +1,20 @@
+<table class="table table-bordered table-striped formLayout m0">
+	<tr>
+		<td>学号:</td>
+		<td>$!{studentWeiji.id}</td>
+		<td>学生编号:</td>
+		<td>$!{studentWeiji.studentId}</td>
+	</tr>
+	<tr>
+		<td>违纪时间:</td>
+		<td>$!{studentWeiji.weijiTime}</td>
+		<td>违纪情况:</td>
+		<td>$!{studentWeiji.weijiInfo}</td>
+	</tr>
+	<tr>
+		<td>违纪备注:</td>
+		<td>$!{studentWeiji.result}</td>
+		<td>更新时间:</td>
+		<td>$!{studentWeiji.updateTime}</td>
+	</tr>
+</table>

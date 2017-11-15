@@ -1,0 +1,25 @@
+<form name="studentWeijiUpdateForm" action="/studentWeiji/save" method="POST" data-resultType="JSON">
+	<table class="table table-bordered table-striped formLayout m0">
+		<tr>
+			<td>学号:</td>
+			<td><input type="text" name="id" value="$!{studentWeiji.id}" placeholder="学号" readonly/></td>
+			<td>学生编号:</td>
+			<td><input type="text" name="studentId" value="$!{studentWeiji.studentId}" placeholder="学生编号"/></td>
+		</tr>
+		<tr>
+			<td>违纪时间:</td>
+			<td><input type="text" name="weijiTime" value="$!{studentWeiji.weijiTime}" placeholder="违纪时间"/></td>
+			<td>违纪情况:</td>
+			<td><input type="text" name="weijiInfo" value="$!{studentWeiji.weijiInfo}" placeholder="违纪情况"/></td>
+		</tr>
+		<tr>
+			<td>违纪备注:</td>
+			<td><input type="text" name="result" value="$!{studentWeiji.result}" placeholder="违纪备注"/></td>
+			<td>更新时间:</td>
+			<td><input type="text" name="updateTime" value="$!{studentWeiji.updateTime}" placeholder="更新时间"/></td>
+		</tr>
+	</table>
+</form>
+<div class="bottomBar">
+	<button class="btn btn-primary" onclick="$('form[name=studentWeijiUpdateForm]').submit()">保存更改</button>
+</div>

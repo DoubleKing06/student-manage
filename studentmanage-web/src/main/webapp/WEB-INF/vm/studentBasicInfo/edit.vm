@@ -1,0 +1,79 @@
+<form name="studentBasicInfoUpdateForm" action="/studentBasicInfo/save" method="POST" data-resultType="JSON">
+	<table class="table table-bordered table-striped formLayout m0">
+		<tr>
+			<td>id:</td>
+			<td><input type="text" name="id" value="$!{studentBasicInfo.id}" placeholder="id" readonly/></td>
+			<td>学号:</td>
+			<td><input type="text" name="xuehao" value="$!{studentBasicInfo.xuehao}" placeholder="学号"/></td>
+		</tr>
+		<tr>
+			<td>姓名:</td>
+			<td><input type="text" name="name" value="$!{studentBasicInfo.name}" placeholder="姓名"/></td>
+			<td>民族:</td>
+			<td><input type="text" name="minzu" value="$!{studentBasicInfo.minzu}" placeholder="民族"/></td>
+		</tr>
+		<tr>
+			<td>政治面貌:</td>
+			<td><input type="text" name="zhengzhi" value="$!{studentBasicInfo.zhengzhi}" placeholder="政治面貌"/></td>
+			<td>身份证号:</td>
+			<td><input type="text" name="idNumber" value="$!{studentBasicInfo.idNumber}" placeholder="身份证号"/></td>
+		</tr>
+		<tr>
+			<td>籍贯:</td>
+			<td><input type="text" name="jiguan" value="$!{studentBasicInfo.jiguan}" placeholder="籍贯"/></td>
+			<td>学院:</td>
+			<td><input type="text" name="xueyuan" value="$!{studentBasicInfo.xueyuan}" placeholder="学院"/></td>
+		</tr>
+		<tr>
+			<td>专业:</td>
+			<td><input type="text" name="zhuanye" value="$!{studentBasicInfo.zhuanye}" placeholder="专业"/></td>
+			<td>录取批次:</td>
+			<td><input type="text" name="luqupici" value="$!{studentBasicInfo.luqupici}" placeholder="录取批次"/></td>
+		</tr>
+		<tr>
+			<td>班级:</td>
+			<td><input type="text" name="jclass" value="$!{studentBasicInfo.jclass}" placeholder="班级"/></td>
+			<td>校区:</td>
+			<td><input type="text" name="xiaoqu" value="$!{studentBasicInfo.xiaoqu}" placeholder="校区"/></td>
+		</tr>
+		<tr>
+			<td>公寓:</td>
+			<td><input type="text" name="gongyu" value="$!{studentBasicInfo.gongyu}" placeholder="公寓"/></td>
+			<td>寝室号:</td>
+			<td><input type="text" name="qinshihao" value="$!{studentBasicInfo.qinshihao}" placeholder="寝室号"/></td>
+		</tr>
+		<tr>
+			<td>家庭地址:</td>
+			<td><input type="text" name="address" value="$!{studentBasicInfo.address}" placeholder="家庭地址"/></td>
+			<td>手机号码:</td>
+			<td><input type="text" name="phone" value="$!{studentBasicInfo.phone}" placeholder="手机号码"/></td>
+		</tr>
+		<tr>
+			<td>QQ:</td>
+			<td><input type="text" name="qq" value="$!{studentBasicInfo.qq}" placeholder="QQ"/></td>
+			<td>家长1:</td>
+			<td><input type="text" name="jiazhang1" value="$!{studentBasicInfo.jiazhang1}" placeholder="家长1"/></td>
+		</tr>
+		<tr>
+			<td>家长1电话:</td>
+			<td><input type="text" name="jiazhang1Phone" value="$!{studentBasicInfo.jiazhang1Phone}" placeholder="家长1电话"/></td>
+			<td>家长2:</td>
+			<td><input type="text" name="jiazhang2" value="$!{studentBasicInfo.jiazhang2}" placeholder="家长2"/></td>
+		</tr>
+		<tr>
+			<td>家长2电话:</td>
+			<td><input type="text" name="jiazhang2Phone" value="$!{studentBasicInfo.jiazhang2Phone}" placeholder="家长2电话"/></td>
+			<td>更新时间:</td>
+			<td><input type="text" name="updateTime" value="$!{studentBasicInfo.updateTime}" placeholder="更新时间"/></td>
+		</tr>
+		<tr>
+			<td>年级:</td>
+			<td><input type="text" name="nianji" value="$!{studentBasicInfo.nianji}" placeholder="年级"/></td>
+			<td>性别:</td>
+			<td><input type="text" name="sex" value="$!{studentBasicInfo.sex}" placeholder="性别"/></td>
+		</tr>
+	</table>
+</form>
+<div class="bottomBar">
+	<button class="btn btn-primary" onclick="$('form[name=studentBasicInfoUpdateForm]').submit()">保存更改</button>
+</div>

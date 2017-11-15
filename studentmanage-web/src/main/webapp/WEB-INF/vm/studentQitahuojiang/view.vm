@@ -1,0 +1,18 @@
+<table class="table table-bordered table-striped formLayout m0">
+	<tr>
+		<td>id:</td>
+		<td>$!{studentQitahuojiang.id}</td>
+		<td>学生编号:</td>
+		<td>$!{studentQitahuojiang.studentId}</td>
+	</tr>
+	<tr>
+		<td>获奖时间:</td>
+		<td>$!{studentQitahuojiang.time}</td>
+		<td>获奖信息:</td>
+		<td>$!{studentQitahuojiang.huojianginfo}</td>
+	</tr>
+	<tr>
+		<td>更新时间:</td>
+		<td colspan="3">$!{studentQitahuojiang.updateTime}</td>
+	</tr>
+</table>

@@ -1,0 +1,23 @@
+<form name="studentQitahuojiangUpdateForm" action="/studentQitahuojiang/save" method="POST" data-resultType="JSON">
+	<table class="table table-bordered table-striped formLayout m0">
+		<tr>
+			<td>id:</td>
+			<td><input type="text" name="id" value="$!{studentQitahuojiang.id}" placeholder="id" readonly/></td>
+			<td>学生编号:</td>
+			<td><input type="text" name="studentId" value="$!{studentQitahuojiang.studentId}" placeholder="学生编号"/></td>
+		</tr>
+		<tr>
+			<td>获奖时间:</td>
+			<td><input type="text" name="time" value="$!{studentQitahuojiang.time}" placeholder="获奖时间"/></td>
+			<td>获奖信息:</td>
+			<td><input type="text" name="huojianginfo" value="$!{studentQitahuojiang.huojianginfo}" placeholder="获奖信息"/></td>
+		</tr>
+		<tr>
+			<td>更新时间:</td>
+			<td colspan="3"><input type="text" name="updateTime" value="$!{studentQitahuojiang.updateTime}" placeholder="更新时间"/></td>
+		</tr>
+	</table>
+</form>
+<div class="bottomBar">
+	<button class="btn btn-primary" onclick="$('form[name=studentQitahuojiangUpdateForm]').submit()">保存更改</button>
+</div>

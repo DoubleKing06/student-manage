@@ -1,0 +1,26 @@
+<table class="table table-bordered table-striped formLayout m0">
+	<tr>
+		<td>id:</td>
+		<td>$!{studentZizhu.id}</td>
+		<td>studentId:</td>
+		<td>$!{studentZizhu.studentId}</td>
+	</tr>
+	<tr>
+		<td>学期:</td>
+		<td>$!{studentZizhu.xueqi}</td>
+		<td>国家奖学金:</td>
+		<td>$!{studentZizhu.gjjxj}</td>
+	</tr>
+	<tr>
+		<td>国家励志奖学金:</td>
+		<td>$!{studentZizhu.gjlzjxj}</td>
+		<td>国家助学金:</td>
+		<td>$!{studentZizhu.gjzxj}</td>
+	</tr>
+	<tr>
+		<td>其他社会资助:</td>
+		<td>$!{studentZizhu.other}</td>
+		<td>更新时间:</td>
+		<td>$!{studentZizhu.updateTime}</td>
+	</tr>
+</table>

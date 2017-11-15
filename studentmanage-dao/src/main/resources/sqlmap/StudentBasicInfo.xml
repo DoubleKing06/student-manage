@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cwnu.studentmanage.dao.StudentBasicInfoDao">
+
+	<!-- student_basic_info 所有查询列 -->
+	<sql id="QUERY_COLUMN_LIST">
+		<![CDATA[id,xuehao,name,minzu,zhengzhi,id_number AS idNumber,jiguan,xueyuan,zhuanye,luqupici,class AS jclass,xiaoqu,gongyu,qinshihao,address,phone,qq,jiazhang1,jiazhang1_phone AS jiazhang1Phone,jiazhang2,jiazhang2_phone AS jiazhang2Phone,update_time AS updateTime,nianji,sex]]>
+	</sql>
+
+	<!-- student_basic_info 查询列来源表-->
+	<sql id="QUERY_FROM_TABLE"><![CDATA[FROM student_basic_info]]></sql>
+	
+	<!-- 全部条件(更多功能可以通过queryData扩展实现)  -->
+	<sql id="QUERY_WHERE_CLAUSE">
+		<where>
+			<if test="id != null and id != ''"><![CDATA[AND id = #{id}]]></if>
+			<if test="xuehao != null and xuehao != ''"><![CDATA[AND xuehao = #{xuehao}]]></if>
+			<if test="name != null and name != ''"><![CDATA[AND name = #{name}]]></if>
+			<if test="minzu != null and minzu != ''"><![CDATA[AND minzu = #{minzu}]]></if>
+			<if test="zhengzhi != null and zhengzhi != ''"><![CDATA[AND zhengzhi = #{zhengzhi}]]></if>
+			<if test="idNumber != null and idNumber != ''"><![CDATA[AND id_number = #{idNumber}]]></if>
+			<if test="jiguan != null and jiguan != ''"><![CDATA[AND jiguan = #{jiguan}]]></if>
+			<if test="xueyuan != null and xueyuan != ''"><![CDATA[AND xueyuan = #{xueyuan}]]></if>
+			<if test="zhuanye != null and zhuanye != ''"><![CDATA[AND zhuanye = #{zhuanye}]]></if>
+			<if test="luqupici != null and luqupici != ''"><![CDATA[AND luqupici = #{luqupici}]]></if>
+			<if test="jclass != null and jclass != ''"><![CDATA[AND class = #{jclass}]]></if>
+			<if test="xiaoqu != null and xiaoqu != ''"><![CDATA[AND xiaoqu = #{xiaoqu}]]></if>
+			<if test="gongyu != null and gongyu != ''"><![CDATA[AND gongyu = #{gongyu}]]></if>
+			<if test="qinshihao != null and qinshihao != ''"><![CDATA[AND qinshihao = #{qinshihao}]]></if>
+			<if test="address != null and address != ''"><![CDATA[AND address = #{address}]]></if>
+			<if test="phone != null and phone != ''"><![CDATA[AND phone = #{phone}]]></if>
+			<if test="qq != null and qq != ''"><![CDATA[AND qq = #{qq}]]></if>
+			<if test="jiazhang1 != null and jiazhang1 != ''"><![CDATA[AND jiazhang1 = #{jiazhang1}]]></if>
+			<if test="jiazhang1Phone != null and jiazhang1Phone != ''"><![CDATA[AND jiazhang1_phone = #{jiazhang1Phone}]]></if>
+			<if test="jiazhang2 != null and jiazhang2 != ''"><![CDATA[AND jiazhang2 = #{jiazhang2}]]></if>
+			<if test="jiazhang2Phone != null and jiazhang2Phone != ''"><![CDATA[AND jiazhang2_phone = #{jiazhang2Phone}]]></if>
+			<if test="updateTime != null and updateTime != ''"><![CDATA[AND update_time = #{updateTime}]]></if>
+			<if test="nianji != null and nianji != ''"><![CDATA[AND nianji = #{nianji}]]></if>
+			<if test="sex != null and sex != ''"><![CDATA[AND sex = #{sex}]]></if>
+		</where>
+	</sql>
+	
+	<!-- 智能排序与分页 -->
+	<sql id="QUERY_ORDER_LIMIT_CONDTION">
+		<if test="orderField != null and orderField != '' and orderFieldType != null and orderFieldType != ''"><![CDATA[ORDER BY ${orderField} ${orderFieldType}]]></if>
+		<if test="startIndex != null and startIndex &gt;= 0 and pageSize != null and pageSize &gt; 0"><![CDATA[LIMIT #{startIndex},#{pageSize}]]></if>
+	</sql>
+
+	<!-- 更新列字段,只要不为NULL则更新,除开主键列 -->
+	<sql id="UPDATE_COLUMN_SET">
+		<set>
+			<if test="xuehao != null"><![CDATA[xuehao = #{xuehao},]]></if>
+			<if test="name != null"><![CDATA[name = #{name},]]></if>
+			<if test="minzu != null"><![CDATA[minzu = #{minzu},]]></if>
+			<if test="zhengzhi != null"><![CDATA[zhengzhi = #{zhengzhi},]]></if>
+			<if test="idNumber != null"><![CDATA[id_number = #{idNumber},]]></if>
+			<if test="jiguan != null"><![CDATA[jiguan = #{jiguan},]]></if>
+			<if test="xueyuan != null"><![CDATA[xueyuan = #{xueyuan},]]></if>
+			<if test="zhuanye != null"><![CDATA[zhuanye = #{zhuanye},]]></if>
+			<if test="luqupici != null"><![CDATA[luqupici = #{luqupici},]]></if>
+			<if test="jclass != null"><![CDATA[class = #{jclass},]]></if>
+			<if test="xiaoqu != null"><![CDATA[xiaoqu = #{xiaoqu},]]></if>
+			<if test="gongyu != null"><![CDATA[gongyu = #{gongyu},]]></if>
+			<if test="qinshihao != null"><![CDATA[qinshihao = #{qinshihao},]]></if>
+			<if test="address != null"><![CDATA[address = #{address},]]></if>
+			<if test="phone != null"><![CDATA[phone = #{phone},]]></if>
+			<if test="qq != null"><![CDATA[qq = #{qq},]]></if>
+			<if test="jiazhang1 != null"><![CDATA[jiazhang1 = #{jiazhang1},]]></if>
+			<if test="jiazhang1Phone != null"><![CDATA[jiazhang1_phone = #{jiazhang1Phone},]]></if>
+			<if test="jiazhang2 != null"><![CDATA[jiazhang2 = #{jiazhang2},]]></if>
+			<if test="jiazhang2Phone != null"><![CDATA[jiazhang2_phone = #{jiazhang2Phone},]]></if>
+			<if test="updateTime != null"><![CDATA[update_time = #{updateTime},]]></if>
+			<if test="nianji != null"><![CDATA[nianji = #{nianji},]]></if>
+			<if test="sex != null"><![CDATA[sex = #{sex},]]></if>
+		</set>
+	</sql>
+
+	<!-- 插入student_basic_info记录 -->
+	<insert id="insertEntry" parameterType="studentBasicInfo" >
+		<![CDATA[
+			INSERT INTO student_basic_info (id,xuehao,name,minzu,zhengzhi,id_number,jiguan,xueyuan,zhuanye,luqupici,class,xiaoqu,gongyu,qinshihao,address,phone,qq,jiazhang1,jiazhang1_phone,jiazhang2,jiazhang2_phone,update_time,nianji,sex)
+			VALUES (#{id},#{xuehao},#{name},#{minzu},#{zhengzhi},#{idNumber},#{jiguan},#{xueyuan},#{zhuanye},#{luqupici},#{jclass},#{xiaoqu},#{gongyu},#{qinshihao},#{address},#{phone},#{qq},#{jiazhang1},#{jiazhang1Phone},#{jiazhang2},#{jiazhang2Phone},#{updateTime},#{nianji},#{sex})
+		]]>
+	</insert>
+	
+	<!-- 返回插入的编号,在事务开启状态下有效 -->
+	<select id="lastSequence" resultType="int"><![CDATA[SELECT LAST_INSERT_ID() AS id]]></select>
+
+	<!-- 删除记录,主键IN(array) -->
+	<delete id="deleteByArrayKey" parameterType="java.lang.reflect.Array" >
+		<![CDATA[DELETE FROM student_basic_info WHERE id IN]]>
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			<![CDATA[#{id}]]>
+		</foreach>
+	</delete>
+
+	<!-- 删除,通过条件 -->
+	<update id="deleteByCondtion" parameterType="studentBasicInfo" >
+		<![CDATA[DELETE FROM student_basic_info]]>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+	</update>
+
+	<!-- 修改记录通过主键 -->
+	<update id="updateByKey" parameterType="studentBasicInfo" >
+		<![CDATA[UPDATE student_basic_info]]>
+		<include refid="UPDATE_COLUMN_SET"/>
+		<![CDATA[WHERE id = #{id}]]>
+	</update>
+
+	<!-- 查询,通过主键IN(array) -->
+	<select id="selectEntryArray" parameterType="java.lang.reflect.Array" resultType="studentBasicInfo">
+		<![CDATA[SELECT]]>
+		<include refid="QUERY_COLUMN_LIST"/>
+		<include refid="QUERY_FROM_TABLE"/>
+		<![CDATA[WHERE id IN]]>
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			<![CDATA[#{id}]]>
+		</foreach>
+	</select>
+
+	<!-- 查询,通过条件 -->
+	<select id="selectEntryList" parameterType="studentBasicInfo" resultType="studentBasicInfo">
+		<![CDATA[SELECT]]>
+		<include refid="QUERY_COLUMN_LIST"/>
+		<include refid="QUERY_FROM_TABLE"/>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+		<include refid="QUERY_ORDER_LIMIT_CONDTION"/>
+	</select>
+
+	<!-- 总数查询,通过条件 -->
+	<select id="selectEntryListCount" parameterType="studentBasicInfo" resultType="int">
+		<![CDATA[SELECT COUNT(id) AS dataCount]]>
+		<include refid="QUERY_FROM_TABLE"/>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+	</select>
+	
+	<!-- 其它SQL语句 -->
+	
+	
+</mapper>
