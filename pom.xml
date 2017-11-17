@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>cn.edu.cwnu</groupId>
-	<artifactId>studentmanage</artifactId>
-	<version>1.0</version>
-	<packaging>pom</packaging>
-	<name>studentmanage</name>
-	
-	<modules>
-		<module>studentmanage-common</module>
-		<module>studentmanage-rpc</module>
-		<module>studentmanage-domain</module>
-		<module>studentmanage-dao</module>
-		<module>studentmanage-service</module>
-		<module>studentmanage-web</module>
-	</modules>
-	
-	 <properties>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>cn.edu.cwnu</groupId>
+    <artifactId>studentmanage</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <name>studentmanage</name>
+
+    <modules>
+        <module>studentmanage-common</module>
+        <module>studentmanage-rpc</module>
+        <module>studentmanage-domain</module>
+        <module>studentmanage-dao</module>
+        <module>studentmanage-service</module>
+        <module>studentmanage-web</module>
+    </modules>
+
+    <properties>
         <jdk.version>1.7</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <spring.version>3.2.2.RELEASE</spring.version>
-		<aspectj.version>1.6.11</aspectj.version>
-		<jackson.version>1.9.2</jackson.version>
-		<slf4j.version>1.6.4</slf4j.version>
-		<maven.war.plugin.version>2.5</maven.war.plugin.version>
-		<maven.compiler.plugin.version>3.2</maven.compiler.plugin.version>
+        <aspectj.version>1.6.11</aspectj.version>
+        <jackson.version>1.9.2</jackson.version>
+        <slf4j.version>1.6.4</slf4j.version>
+        <maven.war.plugin.version>2.5</maven.war.plugin.version>
+        <maven.compiler.plugin.version>3.2</maven.compiler.plugin.version>
         <log4j.version>1.2.17</log4j.version>
         <commons.lang.version>2.5</commons.lang.version>
         <commons.codec.version>1.2</commons.codec.version>
@@ -42,314 +42,309 @@
         <velocity.tools.version>2.0</velocity.tools.version>
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
     </properties>
-    
-    <!-- 打包配置信息 -->
-	<profiles>
-		<profile>
-			<!-- 开发环境 -->
-			<id>develop</id>
-			<!-- 默认 -->
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<!--jdbc type -->
-				<studentmanage.jdbc.datasource.type>dbcp</studentmanage.jdbc.datasource.type>
-				<!-- 数据库 -->
-				<studentmanage.jdbc.driver>com.mysql.jdbc.Driver</studentmanage.jdbc.driver>
-				<studentmanage.jdbc.url>jdbc:mysql://127.0.0.1:3306/student-manage?characterEncoding=utf-8</studentmanage.jdbc.url>
-				<studentmanage.jdbc.username>root</studentmanage.jdbc.username>
-				<studentmanage.jdbc.password>123456</studentmanage.jdbc.password>
-				<!-- 日志 -->
-				<studentmanage.log.level>DEBUG</studentmanage.log.level>
-				<studentmanage.log.path>/export/logs</studentmanage.log.path>
-				<!--打包编码 -->
-				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-			</properties>
-		</profile>
-		<profile>
-			<!-- 测试环境 -->
-			<id>test</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<properties>
-				<!--jdbc type -->
-				<studentmanage.jdbc.datasource.type>dbcp</studentmanage.jdbc.datasource.type>
-				<!-- 数据库 -->
-				<studentmanage.jdbc.driver>com.mysql.jdbc.Driver</studentmanage.jdbc.driver>
-				<studentmanage.jdbc.url>jdbc:mysql://127.0.0.1:3306/student-manage?characterEncoding=utf-8</studentmanage.jdbc.url>
-				<studentmanage.jdbc.username>root</studentmanage.jdbc.username>
-				<studentmanage.jdbc.password>123456</studentmanage.jdbc.password>
-				<!-- 日志 -->
-				<studentmanage.log.level>DEBUG</studentmanage.log.level>
-				<studentmanage.log.path>/export/logs</studentmanage.log.path>
-				<!--打包编码 -->
-				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-			</properties>
-		</profile>
-		<profile>
-			<!-- 生产环境 -->
-			<id>product</id>
-			<properties>
-				<!--jdbc type -->
-				<studentmanage.jdbc.datasource.type>dbcp</studentmanage.jdbc.datasource.type>
-				<!-- 数据库 -->
-				<studentmanage.jdbc.driver>com.mysql.jdbc.Driver</studentmanage.jdbc.driver>
-				<studentmanage.jdbc.url>jdbc:mysql://127.0.0.1:3306/student-manage?characterEncoding=utf-8</studentmanage.jdbc.url>
-				<studentmanage.jdbc.username>root</studentmanage.jdbc.username>
-				<studentmanage.jdbc.password>123456</studentmanage.jdbc.password>
-				<!-- 日志 -->
-				<studentmanage.log.level>DEBUG</studentmanage.log.level>
-				<studentmanage.log.path>/export/logs</studentmanage.log.path>
-				<!--打包编码 -->
-				<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-			</properties>
-		</profile>
-	</profiles>
-   
-	<dependencyManagement>
-		<dependencies>
-			<!-- spring -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-webmvc</artifactId>
-				<version>${spring.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>commons-logging</groupId>
-						<artifactId>commons-logging</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-jdbc</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-	        	<groupId>org.springframework</groupId>
-	            <artifactId>spring-tx</artifactId>
-	            <version>${spring.version}</version>
-	        </dependency>
-	        <dependency>
-	        	<groupId>org.springframework</groupId>
-	            <artifactId>spring-webmvc</artifactId>
-	            <version>${spring.version}</version>
-	        </dependency>
-	        <dependency>
-	        	<groupId>org.springframework</groupId>
-	            <artifactId>spring-asm</artifactId>
-	            <version>${spring.version}</version>
-	        </dependency>
-	        <dependency>
-	        	<groupId>org.springframework</groupId>
-	            <artifactId>spring-context</artifactId>
-	            <version>${spring.version}</version>
-	        </dependency>
-	        <dependency>
-	        	<groupId>org.springframework</groupId>
-	            <artifactId>spring-context-support</artifactId>
-	            <version>${spring.version}</version>
-	        </dependency>
-	        <dependency>
-	        	<groupId>org.springframework</groupId>
-	            <artifactId>spring-expression</artifactId>
-	            <version>${spring.version}</version>
-	        </dependency>
-	        <dependency>
-	        	<groupId>org.springframework</groupId>
-	            <artifactId>spring-web</artifactId>
-	            <version>${spring.version}</version>
-	        </dependency>
-	        
-	        <!-- LOG4J日志记录 -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-log4j12</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>${log4j.version}</version>
-			</dependency>
-			<!-- common logging replacer -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jcl-over-slf4j</artifactId>
-				<version>${slf4j.version}</version>
-			</dependency>
-	
-	        <dependency>
-	            <groupId>commons-lang</groupId>
-	            <artifactId>commons-lang</artifactId>
-	            <version>${commons.lang.version}</version>
-	        </dependency>
-	        
-	        <dependency>
-	            <groupId>commons-codec</groupId>
-	            <artifactId>commons-codec</artifactId>
-	            <version>${commons.codec.version}</version>
-	        </dependency>
-	
-	        <dependency>
-	            <groupId>javax.servlet</groupId>
-	            <artifactId>servlet-api</artifactId>
-	            <version>${servlet.api.version}</version>
-	            <scope>provided</scope>
-	        </dependency>
-	        
-	        <dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis</artifactId>
-				<version>${org.mybatis.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mybatis</groupId>
-				<artifactId>mybatis-spring</artifactId>
-				<version>${org.mybatis.spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.jolbox</groupId>
-				<artifactId>bonecp</artifactId>
-				<version>0.7.1.RELEASE</version>
-			</dependency>
-			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>${mysql.connector.java}</version>
-			</dependency>
-			
-			<!-- 工具类 -->
-			<!-- google sets,maps -->
-			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>${com.google.guava.version}</version>
-			</dependency>
-			<!-- JSON -->
-			<dependency>
-				<groupId>com.alibaba</groupId>
-				<artifactId>fastjson</artifactId>
-				<version>${com.alibaba.fastjson.version}</version>
-			</dependency>
 
-			<!-- if you enable @AspectJ style AOP in spring. -->
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjrt</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjweaver</artifactId>
-				<version>1.7.2</version>
-			</dependency>
-			<dependency>
-				<groupId>cglib</groupId>
-				<artifactId>cglib-nodep</artifactId>
-				<version>2.1_3</version>
-			</dependency>
-			
-			<!-- 单元测试 -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-				<scope>test</scope>
-			</dependency>
-				
-			<!-- if you enable JSR303 (Bean Validation) in spring. -->
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-validator</artifactId>
-				<version>${org.hibernate.validator.version}</version>
-			</dependency>
-			<!-- if you use velocity view in springmvc -->
-			<dependency>
-				<groupId>org.apache.velocity</groupId>
-				<artifactId>velocity</artifactId>
-				<version>${velocity.version}</version>
-			</dependency>
-			<!-- if you use velocity layout view in springmvc -->
-			<dependency>
-				<groupId>org.apache.velocity</groupId>
-				<artifactId>velocity-tools</artifactId>
-				<version>${velocity.tools.version}</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.apache.struts</groupId>
-						<artifactId>struts-core</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.apache.struts</groupId>
-						<artifactId>struts-taglib</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.apache.struts</groupId>
-						<artifactId>struts-tiles</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>sslext</groupId>
-						<artifactId>sslext</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<!-- if you enable json support in spring mvc. -->
-			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-mapper-asl</artifactId>
-				<version>${jackson.version}</version>
-			</dependency>
-			<!-- if you use fileupload in spring mvc -->
-			<dependency>
-				<groupId>commons-fileupload</groupId>
-				<artifactId>commons-fileupload</artifactId>
-				<version>${commons.fileupload.version}</version>
-				<optional>true</optional>
-			</dependency>
-			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-			</dependency>			
-			</dependencies>
-	</dependencyManagement>
-    
+    <!-- 打包配置信息 -->
+    <profiles>
+        <profile>
+            <!-- 开发环境 -->
+            <id>develop</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!--jdbc type -->
+                <studentmanage.jdbc.datasource.type>dbcp</studentmanage.jdbc.datasource.type>
+                <!-- 数据库 -->
+                <studentmanage.jdbc.driver>com.mysql.jdbc.Driver</studentmanage.jdbc.driver>
+                <studentmanage.jdbc.url>jdbc:mysql://127.0.0.1:3306/student-manage?characterEncoding=utf-8
+                </studentmanage.jdbc.url>
+                <studentmanage.jdbc.username>root</studentmanage.jdbc.username>
+                <studentmanage.jdbc.password>123456</studentmanage.jdbc.password>
+                <!-- 日志 -->
+                <studentmanage.log.level>DEBUG</studentmanage.log.level>
+                <studentmanage.log.path>/export/logs</studentmanage.log.path>
+                <!--打包编码 -->
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            </properties>
+        </profile>
+        <profile>
+            <!-- 测试环境 -->
+            <id>test</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!--jdbc type -->
+                <studentmanage.jdbc.datasource.type>dbcp</studentmanage.jdbc.datasource.type>
+                <!-- 数据库 -->
+                <studentmanage.jdbc.driver>com.mysql.jdbc.Driver</studentmanage.jdbc.driver>
+                <studentmanage.jdbc.url>jdbc:mysql://127.0.0.1:3306/student-manage?characterEncoding=utf-8
+                </studentmanage.jdbc.url>
+                <studentmanage.jdbc.username>root</studentmanage.jdbc.username>
+                <studentmanage.jdbc.password>123456</studentmanage.jdbc.password>
+                <!-- 日志 -->
+                <studentmanage.log.level>DEBUG</studentmanage.log.level>
+                <studentmanage.log.path>/export/logs</studentmanage.log.path>
+                <!--打包编码 -->
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            </properties>
+        </profile>
+        <profile>
+            <!-- 生产环境 -->
+            <id>product</id>
+            <properties>
+                <!--jdbc type -->
+                <studentmanage.jdbc.datasource.type>dbcp</studentmanage.jdbc.datasource.type>
+                <!-- 数据库 -->
+                <studentmanage.jdbc.driver>com.mysql.jdbc.Driver</studentmanage.jdbc.driver>
+                <studentmanage.jdbc.url>jdbc:mysql://127.0.0.1:3306/student-manage?characterEncoding=utf-8
+                </studentmanage.jdbc.url>
+                <studentmanage.jdbc.username>root</studentmanage.jdbc.username>
+                <studentmanage.jdbc.password>123456</studentmanage.jdbc.password>
+                <!-- 日志 -->
+                <studentmanage.log.level>DEBUG</studentmanage.log.level>
+                <studentmanage.log.path>/export/logs</studentmanage.log.path>
+                <!--打包编码 -->
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-asm</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <!-- LOG4J日志记录 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <!-- common logging replacer -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commons.lang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons.codec.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>${servlet.api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${org.mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${org.mybatis.spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jolbox</groupId>
+                <artifactId>bonecp</artifactId>
+                <version>0.7.1.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.connector.java}</version>
+            </dependency>
+
+            <!-- 工具类 -->
+            <!-- google sets,maps -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${com.google.guava.version}</version>
+            </dependency>
+            <!-- JSON -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${com.alibaba.fastjson.version}</version>
+            </dependency>
+
+            <!-- if you enable @AspectJ style AOP in spring. -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>1.7.2</version>
+            </dependency>
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib-nodep</artifactId>
+                <version>2.1_3</version>
+            </dependency>
+
+            <!-- 单元测试 -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- if you enable JSR303 (Bean Validation) in spring. -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${org.hibernate.validator.version}</version>
+            </dependency>
+            <!-- if you use velocity view in springmvc -->
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity</artifactId>
+                <version>${velocity.version}</version>
+            </dependency>
+            <!-- if you use velocity layout view in springmvc -->
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-tools</artifactId>
+                <version>${velocity.tools.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.struts</groupId>
+                        <artifactId>struts-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.struts</groupId>
+                        <artifactId>struts-taglib</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.struts</groupId>
+                        <artifactId>struts-tiles</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>sslext</groupId>
+                        <artifactId>sslext</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- if you enable json support in spring mvc. -->
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- if you use fileupload in spring mvc -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons.fileupload.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <!-- 插件管理 -->
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<!-- war插件 -->
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>${maven.war.plugin.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven.compiler.plugin.version}</version>
-					<configuration>
-						<source>${jdk.version}</source>
-						<target>${jdk.version}</target>
-						<encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-				<!-- 配置构建时忽略测试用例 -->
-	            <plugin>
-	                <groupId>org.apache.maven.plugins</groupId>
-	                <artifactId>maven-surefire-plugin</artifactId>
-	                <configuration>
-	                    <skipTests>true</skipTests>
-	                </configuration>
-	            </plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!-- war插件 -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven.war.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin.version}</version>
+                    <configuration>
+                        <source>${jdk.version}</source>
+                        <target>${jdk.version}</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
