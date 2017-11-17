@@ -1,0 +1,31 @@
+<form name="studentZizhuUpdateForm" action="/studentZizhu/save" method="POST" data-resultType="JSON">
+	<table class="table table-bordered table-striped formLayout m0">
+		<tr>
+			<td>id:</td>
+			<td><input type="text" name="id" value="$!{studentZizhu.id}" placeholder="id" readonly/></td>
+			<td>studentId:</td>
+			<td><input type="text" name="studentId" value="$!{studentZizhu.studentId}" placeholder="studentId"/></td>
+		</tr>
+		<tr>
+			<td>学期:</td>
+			<td><input type="text" name="xueqi" value="$!{studentZizhu.xueqi}" placeholder="学期"/></td>
+			<td>国家奖学金:</td>
+			<td><input type="text" name="gjjxj" value="$!{studentZizhu.gjjxj}" placeholder="国家奖学金"/></td>
+		</tr>
+		<tr>
+			<td>国家励志奖学金:</td>
+			<td><input type="text" name="gjlzjxj" value="$!{studentZizhu.gjlzjxj}" placeholder="国家励志奖学金"/></td>
+			<td>国家助学金:</td>
+			<td><input type="text" name="gjzxj" value="$!{studentZizhu.gjzxj}" placeholder="国家助学金"/></td>
+		</tr>
+		<tr>
+			<td>其他社会资助:</td>
+			<td><input type="text" name="other" value="$!{studentZizhu.other}" placeholder="其他社会资助"/></td>
+			<td>更新时间:</td>
+			<td><input type="text" name="updateTime" value="$!{studentZizhu.updateTime}" placeholder="更新时间"/></td>
+		</tr>
+	</table>
+</form>
+<div class="bottomBar">
+	<button class="btn btn-primary" onclick="$('form[name=studentZizhuUpdateForm]').submit()">保存更改</button>
+</div>

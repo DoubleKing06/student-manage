@@ -1,0 +1,20 @@
+<table class="table table-bordered table-striped formLayout m0">
+	<tr>
+		<td>id:</td>
+		<td>$!{studentXueye.id}</td>
+		<td>学生编号:</td>
+		<td>$!{studentXueye.studentId}</td>
+	</tr>
+	<tr>
+		<td>cet4:</td>
+		<td>$!{studentXueye.cet4}</td>
+		<td>三笔字:</td>
+		<td>$!{studentXueye.sanbizi}</td>
+	</tr>
+	<tr>
+		<td>普通话:</td>
+		<td>$!{studentXueye.putonghua}</td>
+		<td>更新时间:</td>
+		<td>$!{studentXueye.updateTime}</td>
+	</tr>
+</table>

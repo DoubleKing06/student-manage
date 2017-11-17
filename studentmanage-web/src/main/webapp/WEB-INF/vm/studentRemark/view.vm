@@ -1,0 +1,20 @@
+<table class="table table-bordered table-striped formLayout m0">
+	<tr>
+		<td>id:</td>
+		<td>$!{studentRemark.id}</td>
+		<td>studentId:</td>
+		<td>$!{studentRemark.studentId}</td>
+	</tr>
+	<tr>
+		<td>学期:</td>
+		<td>$!{studentRemark.xueqi}</td>
+		<td>备注:</td>
+		<td>$!{studentRemark.remark}</td>
+	</tr>
+	<tr>
+		<td>备注时间:</td>
+		<td>$!{studentRemark.remarkTime}</td>
+		<td>更新时间:</td>
+		<td>$!{studentRemark.updateTime}</td>
+	</tr>
+</table>

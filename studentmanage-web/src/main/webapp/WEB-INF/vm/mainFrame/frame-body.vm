@@ -1,0 +1,19 @@
+<div class="content">
+	<div class="header">
+		<div class="header-info">
+			<span id="serverDate" class="label" data-serverTime="1510922476796">2017-11-17 20:41:16</span>
+		</div>
+		<h1 class="page-title">&nbsp;</h1>
+	</div>
+	<ul class="breadcrumb">&nbsp;</ul>
+	<div class="container-fluid">
+		<div id="vmContainer" class="row-fluid">
+						#parse('index.vm')
+		</div>
+		<footer>
+			<hr>
+			&copy; 2017 <a href="http://cwnu.edu.cn" target="_blank">cwnu.edu.cn</a>
+			<p class="pull-right"><span>Design by cwnu.edu.cn<a></a></span></p>
+		</footer>
+	</div>
+</div>

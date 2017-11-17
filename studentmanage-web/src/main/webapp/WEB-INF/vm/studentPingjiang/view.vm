@@ -1,0 +1,32 @@
+<table class="table table-bordered table-striped formLayout m0">
+	<tr>
+		<td>id:</td>
+		<td>$!{studentPingjiang.id}</td>
+		<td>学生编号:</td>
+		<td>$!{studentPingjiang.studentId}</td>
+	</tr>
+	<tr>
+		<td>学期:</td>
+		<td>$!{studentPingjiang.xueqi}</td>
+		<td>奖学金:</td>
+		<td>$!{studentPingjiang.jiangxuejin}</td>
+	</tr>
+	<tr>
+		<td>单项奖学金:</td>
+		<td>$!{studentPingjiang.danxiangjiangxuejin}</td>
+		<td>学优:</td>
+		<td>$!{studentPingjiang.xueyou}</td>
+	</tr>
+	<tr>
+		<td>团优:</td>
+		<td>$!{studentPingjiang.tuanyou}</td>
+		<td>优秀大学毕业生:</td>
+		<td>$!{studentPingjiang.yxdxbys}</td>
+	</tr>
+	<tr>
+		<td>党校学习:</td>
+		<td>$!{studentPingjiang.dxxx}</td>
+		<td>更新时间:</td>
+		<td>$!{studentPingjiang.updateTime}</td>
+	</tr>
+</table>
