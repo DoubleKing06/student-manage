@@ -60,7 +60,7 @@
                 <studentmanage.jdbc.url>jdbc:mysql://127.0.0.1:3306/student-manage?characterEncoding=utf-8
                 </studentmanage.jdbc.url>
                 <studentmanage.jdbc.username>root</studentmanage.jdbc.username>
-                <studentmanage.jdbc.password>123456</studentmanage.jdbc.password>
+                <studentmanage.jdbc.password>root</studentmanage.jdbc.password>
                 <!-- 日志 -->
                 <studentmanage.log.level>DEBUG</studentmanage.log.level>
                 <studentmanage.log.path>/export/logs</studentmanage.log.path>
@@ -309,6 +309,11 @@
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.3.2</version>
             </dependency>
             <!-- if you use fileupload in spring mvc -->
             <dependency>
