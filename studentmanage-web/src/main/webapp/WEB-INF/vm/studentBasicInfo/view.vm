@@ -59,12 +59,13 @@
 		<td>家长2:</td>
 		<td>$!{studentBasicInfo.jiazhang2}</td>
 	</tr>
+	<!--
 	<tr>
 		<td>家长2电话:</td>
 		<td>$!{studentBasicInfo.jiazhang2Phone}</td>
 		<td>更新时间:</td>
 		<td>$!{studentBasicInfo.updateTime}</td>
-	</tr>
+	</tr> -->
 	<tr>
 		<td>年级:</td>
 		<td>$!{studentBasicInfo.nianji}</td>

@@ -1,6 +1,6 @@
-<DIV id="navBar" title="studentBasicInfo">
+<DIV id="navBar" title="学生基本信息">
 	<li><a href="#springUrl('')/">首页</a><span class="divider">/</span></li>
-	<li class="active">studentBasicInfo</li>
+	<li class="active">学生基本信息</li>
 </DIV>
 <form class="well form-search" name="studentBasicInfoListForm" action="/studentBasicInfo" method="POST">
 	<!-- 智能分页与排序 -->
@@ -9,9 +9,11 @@
 	<input type="hidden" name="orderField" value="$!{studentBasicInfo.orderField}"/>
 	<input type="hidden" name="orderFieldType" value="$!{studentBasicInfo.orderFieldType}"/>
 	<!-- 查询条件 -->
-	<input class="span2" type="text" name="id" value="$!{studentBasicInfo.id}" placeholder="id"/>
 	<input class="span2" type="text" name="xuehao" value="$!{studentBasicInfo.xuehao}" placeholder="学号"/>
 	<input class="span2" type="text" name="name" value="$!{studentBasicInfo.name}" placeholder="姓名"/>
+	<input class="span2" type="text" name="nianji" value="$!{studentBasicInfo.nianji}" placeholder="年级"/>
+	<input class="span2" type="text" name="banji" value="$!{studentBasicInfo.banji}" placeholder="班级"/>
+	<input class="span2" type="text" name="idNumber" value="$!{studentBasicInfo.idNumber}" placeholder="身份证号"/>
 	<button type="submit" class="btn"><i class="icon-search"></i>搜索</button>
 	<!-- 新增按钮 -->
 	<div class="btn-group pull-right">
@@ -23,32 +25,38 @@
 <table class="table table-striped table-bordered table-condensed grid">
 	<thead>
 		<tr>
-			<th #sorting($!{studentBasicInfo} "id")>id</th>
 			<th #sorting($!{studentBasicInfo} "xuehao")>学号</th>
 			<th #sorting($!{studentBasicInfo} "name")>姓名</th>
 			<th #sorting($!{studentBasicInfo} "minzu")>民族</th>
 			<th #sorting($!{studentBasicInfo} "zhengzhi")>政治面貌</th>
 			<th #sorting($!{studentBasicInfo} "idNumber")>身份证号</th>
-			<th #sorting($!{studentBasicInfo} "jiguan")>籍贯</th>
-			<th #sorting($!{studentBasicInfo} "xueyuan")>学院</th>
+			<th #sorting($!{studentBasicInfo} "phone")>手机号码</th>
 			<th #sorting($!{studentBasicInfo} "zhuanye")>专业</th>
-			<th #sorting($!{studentBasicInfo} "luqupici")>录取批次</th>
+			<th #sorting($!{studentBasicInfo} "nianji")>年级</th>
+			<th #sorting($!{studentBasicInfo} "banji")>班级</th>
+			<th #sorting($!{studentBasicInfo} "gongyu")>公寓</th>
+			<th #sorting($!{studentBasicInfo} "qinshihao")>寝室</th>
+			<th #sorting($!{studentBasicInfo} "jiazhang1")>家长1</th>
+			<th #sorting($!{studentBasicInfo} "jiazhang1Phone")>家长1电话</th>
 			<th>操作</th>
 		</tr>
 	</thead>
 	<tbody>
 #foreach(${item} in ${page.result})
 		<tr>
-			<td>$!{item.id}</td>
 			<td>$!{item.xuehao}</td>
 			<td>$!{item.name}</td>
 			<td>$!{item.minzu}</td>
 			<td>$!{item.zhengzhi}</td>
 			<td>$!{item.idNumber}</td>
-			<td>$!{item.jiguan}</td>
-			<td>$!{item.xueyuan}</td>
+			<td>$!{item.phone}</td>
 			<td>$!{item.zhuanye}</td>
-			<td>$!{item.luqupici}</td>
+			<td>$!{item.nianji}</td>
+			<td>$!{item.banji}</td>
+			<td>$!{item.gongyu}</td>
+			<td>$!{item.qinshihao}</td>
+			<td>$!{item.jiazhang1}</td>
+			<td>$!{item.jiazhang1Phone}</td>
 			<td class="textC">
 				<div class="btn-group">
 					<a class="btn btn-mini" onclick="XUI.ajax.delete('/studentBasicInfo/${item.id}',null,{refresh:true})"><i class="icon-trash"></i> 删除</a>
