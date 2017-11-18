@@ -10,58 +10,59 @@
  		</tr>
  	</thead>
  	<tbody>
-		<tr>
+ 		<tr>
  			<td>1</td>
- 			<td>StudentChengji</td>
+ 			<td>学生基本信息查询</td>
+ 			<td class="textC">
+ 				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentBasicInfo')">查看详情</a>
+ 			</td>
+ 		</tr>
+		<tr>
+ 			<td>2</td>
+ 			<td>学生成绩信息查询</td>
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentChengji')">查看详情</a>
  			</td>
  		</tr>
 		<tr>
- 			<td>2</td>
- 			<td>StudentXueye</td>
+ 			<td>3</td>
+ 			<td>学生学业状况查询</td>
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentXueye')">查看详情</a>
  			</td>
  		</tr>
-		<tr>
- 			<td>3</td>
- 			<td>StudentQitahuojiang</td>
- 			<td class="textC">
- 				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentQitahuojiang')">查看详情</a>
- 			</td>
- 		</tr>
+
 		<tr>
  			<td>4</td>
- 			<td>StudentPingjiang</td>
+ 			<td>学生评奖信息查询</td>
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentPingjiang')">查看详情</a>
  			</td>
  		</tr>
 		<tr>
  			<td>5</td>
- 			<td>StudentBasicInfo</td>
- 			<td class="textC">
- 				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentBasicInfo')">查看详情</a>
- 			</td>
- 		</tr>
-		<tr>
- 			<td>6</td>
- 			<td>StudentRemark</td>
- 			<td class="textC">
- 				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentRemark')">查看详情</a>
- 			</td>
- 		</tr>
-		<tr>
- 			<td>7</td>
- 			<td>StudentZizhu</td>
+ 			<td>学生资助信息查询</td>
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentZizhu')">查看详情</a>
  			</td>
  		</tr>
 		<tr>
+ 			<td>6</td>
+ 			<td>学生其他获奖查询</td>
+ 			<td class="textC">
+ 				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentQitahuojiang')">查看详情</a>
+ 			</td>
+ 		</tr>
+		<tr>
+ 			<td>7</td>
+ 			<td>学生其他备注查询</td>
+ 			<td class="textC">
+ 				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentRemark')">查看详情</a>
+ 			</td>
+ 		</tr>
+		<tr>
  			<td>8</td>
- 			<td>StudentWeiji</td>
+ 			<td>学生违纪信息查询</td>
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentWeiji')">查看详情</a>
  			</td>

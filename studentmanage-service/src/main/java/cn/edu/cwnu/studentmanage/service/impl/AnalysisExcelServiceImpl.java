@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -15,7 +16,10 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import cn.edu.cwnu.studentmanage.dao.base.BaseDao;
 import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
@@ -48,7 +52,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
      * @param cell 
      * @return 
      */
-    public static String readCellSecondMethod(HSSFCell cell) {
+    public static String readCellSecondMethod(Cell cell) {
         //DecimalFormat df = new DecimalFormat("#");  
         if (cell == null) {
             return "";
@@ -116,12 +120,15 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
             }  
             sbi=new StudentBasicInfo();
             //再遍历改行的所有列  
-            for(int cellNum = 0; cellNum <= row.getLastCellNum(); cellNum++) {  
+            for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
                 HSSFCell cell = row.getCell(cellNum);  
                 if (cell == null) {  
                     continue;  
                 }
                 String temp =readCellSecondMethod(cell);
+                if (0 == cellNum && StringUtils.isEmpty(temp)) {
+                	break;
+                }
                 switch (cellNum){
 	                case 0:
 	                	sbi.setXiaoqu(temp);
@@ -198,6 +205,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
            //下面判断数据库中是否存在此学生
             StudentBasicInfo studentTemp =new StudentBasicInfo(); 
             studentTemp.setXuehao(sbi.getXuehao());
+            studentTemp.setName(sbi.getName());
             List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
             if(list.isEmpty()){
             	studentBasicInfoService.insertEntry(sbi);
@@ -232,10 +240,12 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
         if (sheet == null) {  
             return null;  
         }  
-  
         //遍历该sheet的行  
-        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
-            HSSFRow row = sheet.getRow(rowNum);  
+        Iterator<Row> iter = sheet.iterator();
+        if (iter.hasNext()) iter.next();
+        while (iter.hasNext()) {  
+        	
+            Row row = iter.next();  
             if (row == null) {  
                 continue;  
             }  
@@ -245,12 +255,16 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
             String nameTemp="";//excel中的姓名
             
             //再遍历改行的所有列  
-            for(int cellNum = 0; cellNum <= row.getLastCellNum(); cellNum++) {  
-                HSSFCell cell = row.getCell(cellNum);  
+            for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) { 
+//            	System.out.println(rowNum +":"+cellNum);
+                Cell cell = row.getCell(cellNum);  
                 if (cell == null) {  
                     continue;  
                 }
                 String temp =readCellSecondMethod(cell);
+                if (0 == cellNum && StringUtils.isEmpty(temp)) {
+                	break;
+                }
                 switch (cellNum){
                 	case 0:
                 		xueHaoTemp =temp;
@@ -273,11 +287,11 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
                 }  
                 chengji.setUpdateTime(new Date());
             }  
-            System.out.println(chengji.toString());
+            //System.out.println(chengji.toString());
 
            //下面判断数据库中是否存在此学生相同学期的成绩信息
             StudentBasicInfo studentTemp =new StudentBasicInfo(); 
-            if(!xueHaoTemp.equals("") && !nameTemp.equals("")){
+            if(xueHaoTemp.equals("") && nameTemp.equals("")){
             	continue; 
             }
         	studentTemp.setXuehao(xueHaoTemp);
@@ -290,7 +304,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
             	continue;
             }
             //如果excel中的姓名与基本信息表中不一致，则记录，继续循环
-            if(!nameTemp.equals(list.get(0).getXuehao())){
+            if(!nameTemp.equals(list.get(0).getName())){
             	notMatch.add(xueHaoTemp);
             	continue;
             }
@@ -352,12 +366,15 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
             String nameTemp="";//excel中的姓名
             
             //再遍历改行的所有列  
-            for(int cellNum = 0; cellNum <= row.getLastCellNum(); cellNum++) {  
+            for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
                 HSSFCell cell = row.getCell(cellNum);  
                 if (cell == null) {  
                     continue;  
                 }
                 String temp =readCellSecondMethod(cell);
+                if (0 == cellNum && StringUtils.isEmpty(temp)) {
+                	break;
+                }
                 switch (cellNum){
                 	case 0:
                 		xueHaoTemp =temp;
@@ -381,7 +398,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 
            //下面判断数据库中是否存在此学生相同学期的成绩信息
             StudentBasicInfo studentTemp =new StudentBasicInfo(); 
-            if(!xueHaoTemp.equals("") && !nameTemp.equals("")){
+            if(xueHaoTemp.equals("") && nameTemp.equals("")){
             	continue; 
             }
         	studentTemp.setXuehao(xueHaoTemp);
@@ -394,7 +411,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
             	continue;
             }
             //如果excel中的姓名与基本信息表中不一致，则记录，继续循环
-            if(!nameTemp.equals(list.get(0).getXuehao())){
+            if(!nameTemp.equals(list.get(0).getName())){
             	notMatch.add(xueHaoTemp);
             	continue;
             }
@@ -431,7 +448,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 
 
 	/**
-	 *  解析学生资助情况表
+	 * 解析学生资助情况表
 	 * @param stream 文件对象
 	 * @return list<List> 不存在的学号,与姓名不匹配的学号
 	 * @throws IOException
@@ -464,12 +481,15 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 			String nameTemp="";//excel中的姓名
 			
 			//再遍历改行的所有列  
-			for(int cellNum = 0; cellNum <= row.getLastCellNum(); cellNum++) {  
+			for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
 				HSSFCell cell = row.getCell(cellNum);  
 				if (cell == null) {  
 					continue;  
 				}
 				String temp =readCellSecondMethod(cell);
+                if (0 == cellNum && StringUtils.isEmpty(temp)) {
+                	break;
+                }
 				switch (cellNum){
 				case 0:
 					xueHaoTemp =temp;
@@ -499,7 +519,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 			
 			//下面判断数据库中是否存在此学生相同学期的成绩信息
 			StudentBasicInfo studentTemp =new StudentBasicInfo(); 
-			if(!xueHaoTemp.equals("") && !nameTemp.equals("")){
+			if(xueHaoTemp.equals("") && nameTemp.equals("")){
 				continue; 
 			}
 			studentTemp.setXuehao(xueHaoTemp);
@@ -512,7 +532,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 				continue;
 			}
 			//如果excel中的姓名与基本信息表中不一致，则记录，继续循环
-			if(!nameTemp.equals(list.get(0).getXuehao())){
+			if(!nameTemp.equals(list.get(0).getName())){
 				notMatch.add(xueHaoTemp);
 				continue;
 			}
@@ -574,12 +594,15 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 			String nameTemp="";//excel中的姓名
 			
 			//再遍历改行的所有列  
-			for(int cellNum = 0; cellNum <= row.getLastCellNum(); cellNum++) {  
+			for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
 				HSSFCell cell = row.getCell(cellNum);  
 				if (cell == null) {  
 					continue;  
 				}
 				String temp =readCellSecondMethod(cell);
+                if (0 == cellNum && StringUtils.isEmpty(temp)) {
+                	break;
+                }
 				switch (cellNum){
 				case 0:
 					xueHaoTemp =temp;
@@ -615,7 +638,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 			
 			//下面判断数据库中是否存在此学生相同学期的成绩信息
 			StudentBasicInfo studentTemp =new StudentBasicInfo(); 
-			if(!xueHaoTemp.equals("") && !nameTemp.equals("")){
+			if(xueHaoTemp.equals("") && nameTemp.equals("")){
 				continue; 
 			}
 			studentTemp.setXuehao(xueHaoTemp);
@@ -628,7 +651,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 				continue;
 			}
 			//如果excel中的姓名与基本信息表中不一致，则记录，继续循环
-			if(!nameTemp.equals(list.get(0).getXuehao())){
+			if(!nameTemp.equals(list.get(0).getName())){
 				notMatch.add(xueHaoTemp);
 				continue;
 			}

@@ -1,8 +1,11 @@
 <form class="well form-search" name="studentUploadForm" action="/upload" method="POST" enctype="multipart/form-data">
     <div>
         <select name="type">
-            <option value="BASIC_INFO">基本信息</option>
-            <option value="CHENGJI">成绩信息</option>
+            <option value="BASIC_INFO">学生基本情况</option>
+            <option value="CHENGJI">学期成绩</option>
+            <option value="PINGJIANG">评优评奖</option>
+            <option value="XUEYE">学业状况</option>
+            <option value="ZIZHU">资助情况</option>
         </select>
     </div>
     <div>
