@@ -28,6 +28,7 @@ import cn.edu.cwnu.studentmanage.domain.common.Message;
 import cn.edu.cwnu.studentmanage.domain.common.Page;
 import cn.edu.cwnu.studentmanage.service.StudentBasicInfoService;
 import cn.edu.cwnu.studentmanage.service.StudentChengjiService;
+import cn.edu.cwnu.studentmanage.service.StudentChengjiVOService;
 import cn.edu.cwnu.studentmanage.web.CustomDateEditor;
 
 /**
@@ -40,6 +41,7 @@ import cn.edu.cwnu.studentmanage.web.CustomDateEditor;
 public class StudentChengjiController{
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentChengjiController.class);
 	@Resource private StudentChengjiService studentChengjiService;
+	@Resource private StudentChengjiVOService studentChengjiVOService;
 	@Resource private StudentBasicInfoService studentBasicInfoService;
 	
 	@InitBinder
@@ -53,7 +55,7 @@ public class StudentChengjiController{
 	 * @param page 分页对象
 	 * @return
 	 */
-	@RequestMapping(method = {RequestMethod.GET,RequestMethod.POST})
+/*	@RequestMapping(method = {RequestMethod.GET,RequestMethod.POST})
 	public String list(StudentChengji studentChengji,Page<StudentChengji> page,Model view) throws Exception{
 		try {
 			view.addAttribute("studentChengji",studentChengji);
@@ -64,7 +66,26 @@ public class StudentChengjiController{
 		}finally{
 		}	
 		return "studentChengji/list";
+	}*/
+	@RequestMapping(method = {RequestMethod.GET,RequestMethod.POST})
+	public String list(StudentChengjiVO studentChengjiVO,Page<StudentChengjiVO> page,Model view) throws Exception{
+		try {
+			view.addAttribute("studentChengji",studentChengjiVO);
+			view.addAttribute("page",studentChengjiVOService.selectPage(studentChengjiVO,page));			
+		} catch (Exception e) {
+			LOGGER.error("失败:"+e.getMessage(),e);
+			throw e;
+		}finally{
+		}	
+		return "studentChengji/list";
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * 响应新增(修改)页面
@@ -160,6 +181,11 @@ public class StudentChengjiController{
     		studentChengji.setXueqi(studentChengjiVO.getXueqi());
     		studentChengji.setBukaokemu(studentChengjiVO.getBukaokemu());
 			int res = studentChengjiService.saveOrUpdate(studentChengji);
+			
+			//studentChengjiVOService.selectEntryList(studentChengjiVO);
+			
+			
+			
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);

@@ -23,8 +23,10 @@
 <table class="table table-striped table-bordered table-condensed grid">
 	<thead>
 		<tr>
-			<th #sorting($!{studentChengji} "id")>id</th>
-			<th #sorting($!{studentChengji} "studentId")>学生编号</th>
+			<!--<th #sorting($!{studentChengji} "id")>id</th>-->
+			<!--<th #sorting($!{studentChengji} "studentId")>学生编号</th>-->
+			<th #sorting($!{studentChengji} "xuehao")>学号</th>
+			<th #sorting($!{studentChengji} "name")>姓名</th>
 			<th #sorting($!{studentChengji} "xueqi")>学期</th>
 			<th #sorting($!{studentChengji} "zhuanyePaiming")>专业成绩排名</th>
 			<th #sorting($!{studentChengji} "zonghePaiming")>综合成绩排名</th>
@@ -36,13 +38,16 @@
 	<tbody>
 #foreach(${item} in ${page.result})
 		<tr>
-			<td>$!{item.id}</td>
-			<td>$!{item.studentId}</td>
+			<!--<td>$!{item.id}</td>
+			<td>$!{item.studentId}</td>-->
+			
+			<td>$!{item.xuehao}</td>
+			<td>$!{item.name}</td>
 			<td>$!{item.xueqi}</td>
 			<td>$!{item.zhuanyePaiming}</td>
 			<td>$!{item.zonghePaiming}</td>
 			<td>$!{item.bukaokemu}</td>
-			<td>$!{item.updateTime}</td>
+			<!--<td>$!{item.updateTime}</td>-->
 			<td class="textC">
 				<div class="btn-group">
 					<a class="btn btn-mini" onclick="XUI.ajax.delete('/studentChengji/${item.id}',null,{refresh:true})"><i class="icon-trash"></i> 删除</a>

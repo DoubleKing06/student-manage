@@ -23,7 +23,9 @@ public abstract class BaseDaoImpl<T, KEY extends Serializable> extends MyBatisSu
 	private static final String DEFAULT_UPDATE_KEY = "updateByKey";
 	private static final String DEFAULT_SELECT_ARRAY_KEY = "selectEntryArray";
 	private static final String DEFAULT_SELECT_CONDTION = "selectEntryList";
+//	private static final String DEFAULT_SELECT_CONDTION_VO = "selectEntryListVO";
 	private static final String DEFAULT_SELECT_CONDTION_COUNT = "selectEntryListCount";
+//	private static final String DEFAULT_SELECT_CONDTION_COUNT_VO = "selectEntryListCountVO";
 
 	/**
 	 * 获取命名空前前缀
@@ -93,7 +95,25 @@ public abstract class BaseDaoImpl<T, KEY extends Serializable> extends MyBatisSu
 		return this.selectList(getNameSpace(DEFAULT_SELECT_CONDTION), t);
 	}
 	
+	/**
+	 * 通过封装的VO查询
+	 * @param t
+	 * @return
+	 */
+/*	public List<T> selectEntryListVO(T t) {
+		return this.selectList(getNameSpace(DEFAULT_SELECT_CONDTION_VO), t);
+	}*/
+	
 	public Integer selectEntryListCount(T t) {
 		return this.select(getNameSpace(DEFAULT_SELECT_CONDTION_COUNT), t);
 	}
+	
+	/**
+	 * 通过封装的VO查询页面所需要的VO
+	 * @param t
+	 * @return
+	 */
+/*	public Integer selectEntryListCountVO(T t) {
+		return this.select(getNameSpace(DEFAULT_SELECT_CONDTION_COUNT_VO), t);
+	}*/
 }

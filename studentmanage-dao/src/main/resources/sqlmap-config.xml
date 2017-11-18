@@ -29,6 +29,7 @@
 	<!-- 映射文件路径 -->
 	<mappers>
 		<mapper resource="sqlmap/StudentChengji.xml" />
+		<mapper resource="sqlmap/StudentChengjiVO.xml" />
 		<mapper resource="sqlmap/StudentXueye.xml" />
 		<mapper resource="sqlmap/StudentQitahuojiang.xml" />
 		<mapper resource="sqlmap/StudentPingjiang.xml" />

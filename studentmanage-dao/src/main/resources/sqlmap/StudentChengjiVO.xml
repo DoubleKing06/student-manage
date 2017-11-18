@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cwnu.studentmanage.dao.StudentChengjiDaoVO">
+
+	
+	<!-- 其它SQL语句 -->
+	<sql id="QUERY_COLUMN_LIST_VO">
+		student_basic_info.xuehao,student_basic_info.`name`,student_chengji.id,student_chengji.student_id AS studentId,student_chengji.xueqi,student_chengji.zhuanye_paiming AS zhuanyePaiming,student_chengji.zonghe_paiming AS zonghePaiming,student_chengji.bukaokemu FROM student_chengji JOIN student_basic_info ON student_chengji.student_id=student_basic_info.id
+	</sql>
+	
+	
+	<!-- 全部条件(更多功能可以通过queryData扩展实现)  -->
+	<sql id="QUERY_WHERE_CLAUSE_VO">
+		<where>
+			<if test="id != null and id != ''"><![CDATA[AND student_chengji.id = #{id}]]></if>
+			<if test="studentId != null and studentId != ''"><![CDATA[AND student_chengji.student_id = #{studentId}]]></if>
+			<if test="xueqi != null and xueqi != ''"><![CDATA[AND student_chengji.xueqi = #{xueqi}]]></if>
+			<if test="zhuanyePaiming != null and zhuanyePaiming != ''"><![CDATA[AND student_chengji.zhuanye_paiming = #{zhuanyePaiming}]]></if>
+			<if test="zonghePaiming != null and zonghePaiming != ''"><![CDATA[AND student_chengji.zonghe_paiming = #{zonghePaiming}]]></if>
+			<if test="bukaokemu != null and bukaokemu != ''"><![CDATA[AND student_chengji.bukaokemu = #{bukaokemu}]]></if>
+			<if test="updateTime != null and updateTime != ''"><![CDATA[AND student_chengji.update_time = #{updateTime}]]></if>
+		</where>
+	</sql>
+	
+		<!-- 智能排序与分页 -->
+	<sql id="QUERY_ORDER_LIMIT_CONDTION">
+		<if test="orderField != null and orderField != '' and orderFieldType != null and orderFieldType != ''"><![CDATA[ORDER BY ${orderField} ${orderFieldType}]]></if>
+		<if test="startIndex != null and startIndex &gt;= 0 and pageSize != null and pageSize &gt; 0"><![CDATA[LIMIT #{startIndex},#{pageSize}]]></if>
+	</sql>
+	
+		<!-- 查询,通过条件 -->
+	<select id="selectEntryList" parameterType="studentChengjiVO" resultType="studentChengjiVO">
+		<![CDATA[SELECT]]>
+		<include refid="QUERY_COLUMN_LIST_VO"/>
+		<include refid="QUERY_WHERE_CLAUSE_VO"/>
+		<include refid="QUERY_ORDER_LIMIT_CONDTION"/>
+	</select>
+
+	<!-- 总数查询,通过条件 -->
+	<select id="selectEntryListCount" parameterType="studentChengjiVO" resultType="int">
+		<![CDATA[SELECT COUNT(*) AS dataCount]]>
+		<include refid="QUERY_WHERE_CLAUSE_VO"/>
+	</select>
+	
+	
+	
+</mapper>

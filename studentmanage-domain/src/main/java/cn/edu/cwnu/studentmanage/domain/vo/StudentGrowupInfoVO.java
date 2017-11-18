@@ -13,7 +13,7 @@ import cn.edu.cwnu.studentmanage.domain.base.BaseDomain;
  * @author kkliu
  * @since 2017-11-17
  */
-public class StudentGrowupInfo extends BaseDomain {
+public class StudentGrowupInfoVO extends BaseDomain {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String xuehao;
@@ -25,7 +25,7 @@ public class StudentGrowupInfo extends BaseDomain {
 	private String dxxx;
 	private List<XueQiInfo> xueQiInfoList;
 
-	public StudentGrowupInfo(){
+	public StudentGrowupInfoVO(){
 		//默认无参构造方法
 	}
 
