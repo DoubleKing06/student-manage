@@ -210,8 +210,9 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
             if(list.isEmpty()){
             	studentBasicInfoService.insertEntry(sbi);
             }else{
-            	studentBasicInfoService.deleteByCondtion(list.get(0));
-            	studentBasicInfoService.insertEntry(sbi);
+            	sbi.setId(list.get(0).getId());
+            	studentBasicInfoService.updateByKey(sbi);
+//            	studentBasicInfoService.insertEntry(sbi);
             }
             
         }  
@@ -320,8 +321,9 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
             	studentChengjiService.insertEntry(chengji);
             }else{
             	//如果数据库中存在此学生excel中学期
-            	studentChengjiService.deleteByCondtion(studentChengjiTemp);
-            	studentChengjiService.insertEntry(chengji);
+            	chengji.setId(chengjiTemp.get(0).getId());
+            	studentChengjiService.updateByKey(chengji);
+            	//studentChengjiService.insertEntry(chengji);
             }
         }  
         stream.close(); 
@@ -426,8 +428,9 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
             	studentXueyeService.insertEntry(xueye);
             }else{
             	//如果数据库中存在此学生excel中学期
-            	studentXueyeService.deleteByCondtion(studentXueyeTemp);
-            	studentXueyeService.insertEntry(xueye);
+            	xueye.setId(xueyeTemp.get(0).getId());
+            	studentXueyeService.updateByKey(xueye);
+//            	studentXueyeService.insertEntry(xueye);
             }
         }  
         stream.close();
@@ -548,8 +551,9 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 				studentZizhuService.insertEntry(zizhu);
 			}else{
 				//如果数据库中存在此学生excel中学期
-				studentZizhuService.deleteByCondtion(studentZizhuTemp);
-				studentZizhuService.insertEntry(zizhu);
+				zizhu.setId(zizhuTemp.get(0).getId());
+				studentZizhuService.updateByKey(zizhu);
+//				studentZizhuService.insertEntry(zizhu);
 			}
 		}  
 		stream.close(); 
@@ -667,8 +671,9 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 				studentPingjiangService.insertEntry(pingjiang);
 			}else{
 				//如果数据库中存在此学生excel中学期
-				studentPingjiangService.deleteByCondtion(studentPingjiangTemp);
-				studentPingjiangService.insertEntry(pingjiang);
+				pingjiang.setId(pingjiangTemp.get(0).getId());
+				studentPingjiangService.updateByKey(pingjiang);
+//				studentPingjiangService.insertEntry(pingjiang);
 			}
 		}  
 		stream.close();

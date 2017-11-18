@@ -101,7 +101,70 @@
 		<include refid="QUERY_WHERE_CLAUSE"/>
 	</select>
 	
+	
+	
+	
+	
+	
+	
+	
 	<!-- 其它SQL语句 -->
+	<sql id="QUERY_COLUMN_LIST_VO">
+		SELECT sbi.xuehao,sbi.`name`,cj.* FROM student_chengji cj JOIN student_basic_info sbi ON cj.student_id=sbi.id
+	</sql>
+	
+	
+	<!-- 全部条件(更多功能可以通过queryData扩展实现)  -->
+	<sql id="QUERY_WHERE_CLAUSE_VO">
+		<where>
+			<if test="id != null and id != ''"><![CDATA[AND cj.id = #{id}]]></if>
+			<if test="studentId != null and studentId != ''"><![CDATA[AND cj.student_id = #{studentId}]]></if>
+			<if test="xueqi != null and xueqi != ''"><![CDATA[AND cj.xueqi = #{xueqi}]]></if>
+			<if test="zhuanyePaiming != null and zhuanyePaiming != ''"><![CDATA[AND cj.zhuanye_paiming = #{zhuanyePaiming}]]></if>
+			<if test="zonghePaiming != null and zonghePaiming != ''"><![CDATA[AND cj.zonghe_paiming = #{zonghePaiming}]]></if>
+			<if test="bukaokemu != null and bukaokemu != ''"><![CDATA[AND cj.bukaokemu = #{bukaokemu}]]></if>
+			<if test="updateTime != null and updateTime != ''"><![CDATA[AND cj.update_time = #{updateTime}]]></if>
+		</where>
+	</sql>
+	
+		<!-- 查询,通过条件 -->
+	<select id="selectEntryListVO" parameterType="studentChengjiVO" resultType="studentChengjiVO">
+		<![CDATA[SELECT]]>
+		<include refid="QUERY_COLUMN_LIST_VO"/>
+		<include refid="QUERY_WHERE_CLAUSE_VO"/>
+		<include refid="QUERY_ORDER_LIMIT_CONDTION"/>
+	</select>
+
+	<!-- 总数查询,通过条件 -->
+	<select id="selectEntryListCountVO" parameterType="studentChengji" resultType="int">
+		<![CDATA[SELECT COUNT(id) AS dataCount]]>
+		<include refid="QUERY_WHERE_CLAUSE_VO"/>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>

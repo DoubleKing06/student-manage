@@ -1,27 +1,31 @@
 <form name="studentChengjiUpdateForm" action="/studentChengji/save" method="POST" data-resultType="JSON">
 	<table class="table table-bordered table-striped formLayout m0">
 		<tr>
-			<td>id:</td>
-			<td><input type="text" name="id" value="$!{studentChengji.id}" placeholder="id" readonly/></td>
-			<td>学生编号:</td>
-			<td><input type="text" name="studentId" value="$!{studentChengji.studentId}" placeholder="学生编号"/></td>
+			<td>学号:</td>
+			<td><input type="text" name="xuehao" value="$!{studentChengjiVO.xuehao}" placeholder="xuehao" readonly/></td>
+			<td>姓名:</td>
+			<td><input type="text" name="name" value="$!{studentChengjiVO.name}" placeholder="姓名"/></td>
 		</tr>
 		<tr>
 			<td>学期:</td>
-			<td><input type="text" name="xueqi" value="$!{studentChengji.xueqi}" placeholder="学期"/></td>
+			<td><input type="text" name="xueqi" value="$!{studentChengjiVO.xueqi}" placeholder="学期"/></td>
 			<td>专业成绩排名:</td>
-			<td><input type="text" name="zhuanyePaiming" value="$!{studentChengji.zhuanyePaiming}" placeholder="专业成绩排名"/></td>
+			<td><input type="text" name="zhuanyePaiming" value="$!{studentChengjiVO.zhuanyePaiming}" placeholder="专业成绩排名"/></td>
 		</tr>
 		<tr>
 			<td>综合成绩排名:</td>
-			<td><input type="text" name="zonghePaiming" value="$!{studentChengji.zonghePaiming}" placeholder="综合成绩排名"/></td>
+			<td><input type="text" name="zonghePaiming" value="$!{studentChengjiVO.zonghePaiming}" placeholder="综合成绩排名"/></td>
 			<td>补考科目:</td>
-			<td><input type="text" name="bukaokemu" value="$!{studentChengji.bukaokemu}" placeholder="补考科目"/></td>
+			<td><input type="text" name="bukaokemu" value="$!{studentChengjiVO.bukaokemu}" placeholder="补考科目"/></td>
 		</tr>
 		<tr>
-			<td>更新时间:</td>
-			<td colspan="3"><input type="text" name="updateTime" value="$!{studentChengji.updateTime}" placeholder="更新时间"/></td>
+			<td>id:</td>
+			<td><input type="text" name="id" value="$!{studentChengjiVO.id}" placeholder="id" readonly/></td>
 		</tr>
+		<!--<tr>
+			<td>更新时间:</td>
+			<td colspan="3"><input type="text" name="updateTime" value="$!{studentChengjiVO.updateTime}" placeholder="更新时间"/></td>
+		</tr>-->
 	</table>
 </form>
 <div class="bottomBar">

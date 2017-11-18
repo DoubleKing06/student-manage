@@ -4,23 +4,31 @@
  */
 package cn.edu.cwnu.studentmanage.web.controller;
 import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import cn.edu.cwnu.studentmanage.web.CustomDateEditor;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.stereotype.Controller;
-import cn.edu.cwnu.studentmanage.domain.StudentChengji;
-import cn.edu.cwnu.studentmanage.domain.common.Message;
-import cn.edu.cwnu.studentmanage.domain.common.Page;
-import cn.edu.cwnu.studentmanage.service.StudentChengjiService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
+
+import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
+import cn.edu.cwnu.studentmanage.domain.StudentChengji;
+import cn.edu.cwnu.studentmanage.domain.StudentChengjiVO;
+import cn.edu.cwnu.studentmanage.domain.common.Message;
+import cn.edu.cwnu.studentmanage.domain.common.Page;
+import cn.edu.cwnu.studentmanage.service.StudentBasicInfoService;
+import cn.edu.cwnu.studentmanage.service.StudentChengjiService;
+import cn.edu.cwnu.studentmanage.web.CustomDateEditor;
 
 /**
  *studentChengji controller层
@@ -32,6 +40,7 @@ import org.slf4j.LoggerFactory;
 public class StudentChengjiController{
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentChengjiController.class);
 	@Resource private StudentChengjiService studentChengjiService;
+	@Resource private StudentBasicInfoService studentBasicInfoService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder, WebRequest request) {
@@ -130,9 +139,26 @@ public class StudentChengjiController{
 	 * @return
 	 */
 	@RequestMapping(value="/save",method = {RequestMethod.POST,RequestMethod.GET},produces="application/json")
-	public @ResponseBody Message save(StudentChengji studentChengji,Model view) throws Exception{
+	public @ResponseBody Message save(StudentChengjiVO studentChengjiVO,Model view) throws Exception{
     	Message msg= null;
     	try {
+    		StudentBasicInfo sbi=new StudentBasicInfo();
+    		if(StringUtils.isEmpty(studentChengjiVO.getXuehao()) && StringUtils.isEmpty(studentChengjiVO.getName())){
+    			throw new Exception("学号或姓名不能为空");
+    		}
+    		sbi.setXuehao(studentChengjiVO.getXuehao());
+    		sbi.setName(studentChengjiVO.getName());
+    		List<StudentBasicInfo> list = studentBasicInfoService.selectEntryList(sbi);
+    		if(list.isEmpty()){
+    			throw new Exception("学号与姓名不匹配");
+    		}
+    		
+    		StudentChengji studentChengji =new StudentChengji();
+    		studentChengji.setStudentId(list.get(0).getId());
+    		studentChengji.setZhuanyePaiming(studentChengjiVO.getZhuanyePaiming());
+    		studentChengji.setZonghePaiming(studentChengjiVO.getZonghePaiming());
+    		studentChengji.setXueqi(studentChengjiVO.getXueqi());
+    		studentChengji.setBukaokemu(studentChengjiVO.getBukaokemu());
 			int res = studentChengjiService.saveOrUpdate(studentChengji);
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {

@@ -2,7 +2,7 @@
 	<a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-home"></i>Home</a>
 	<ul id="dashboard-menu" class="nav nav-list collapse in">
 		<li class="active"><a href="#springUrl('')/">首页</a></li>
-		<li><a onclick="XUI.gotoPage('/studentUpload')">导入数据</a></li>	
+		<li><a onclick="XUI.gotoPage('/initUpload')">导入数据</a></li>	
 		<li><a onclick="XUI.gotoPage('/orders')">订单数据</a></li>
 		<li><a href="/login/logout">注销登录</a></li>
 		

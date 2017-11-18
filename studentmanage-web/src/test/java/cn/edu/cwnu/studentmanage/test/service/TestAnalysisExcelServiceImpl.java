@@ -24,9 +24,9 @@ public class TestAnalysisExcelServiceImpl extends BasicTest {
         InputStream stream = new FileInputStream("C:/Users/DoubleKing/Desktop/west/1/学生基本情况表.xls");
         service.analysisStudentBasicInfo(stream);*/
         
-/*        //读取一个excel表的内容
+        //读取一个excel表的内容
         InputStream stream1 = new FileInputStream("C:/Users/DoubleKing/Desktop/west/1/评优评奖情况.xls");
-        service.analysisStudentPingjiang(stream1);*/
+        service.analysisStudentPingjiang(stream1);
         
 /*        //读取一个excel表的内容
         InputStream stream2 = new FileInputStream("C:/Users/DoubleKing/Desktop/west/1/学期成绩表.xls");
@@ -36,9 +36,9 @@ public class TestAnalysisExcelServiceImpl extends BasicTest {
         InputStream stream3 = new FileInputStream("C:/Users/DoubleKing/Desktop/west/1/资助情况表.xls");
         service.analysisStudentZizhu(stream3);*/
         
-        //读取一个excel表的内容
+/*        //读取一个excel表的内容
         InputStream stream4 = new FileInputStream("C:/Users/DoubleKing/Desktop/west/1/学业状况表.xls");
-        service.analysisStudentXueye(stream4);
+        service.analysisStudentXueye(stream4);*/
         
     }
 }

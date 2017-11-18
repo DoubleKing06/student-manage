@@ -16,6 +16,7 @@
 	<!-- 全局别名设置，在映射文件中只需写别名，而不必写出整个类路径 -->
 	<typeAliases>
 		<typeAlias type="cn.edu.cwnu.studentmanage.domain.StudentChengji" alias="studentChengji"/>
+		<typeAlias type="cn.edu.cwnu.studentmanage.domain.StudentChengjiVO" alias="studentChengjiVO"/>
 		<typeAlias type="cn.edu.cwnu.studentmanage.domain.StudentXueye" alias="studentXueye"/>
 		<typeAlias type="cn.edu.cwnu.studentmanage.domain.StudentQitahuojiang" alias="studentQitahuojiang"/>
 		<typeAlias type="cn.edu.cwnu.studentmanage.domain.StudentPingjiang" alias="studentPingjiang"/>
