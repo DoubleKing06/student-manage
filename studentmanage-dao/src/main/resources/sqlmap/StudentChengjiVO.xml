@@ -39,7 +39,7 @@
 
 	<!-- 总数查询,通过条件 -->
 	<select id="selectEntryListCount" parameterType="studentChengjiVO" resultType="int">
-		<![CDATA[SELECT COUNT(*) AS dataCount]]>
+		<![CDATA[SELECT COUNT(student_chengji.id) AS dataCount FROM student_chengji JOIN student_basic_info ON student_chengji.student_id=student_basic_info.id]]>
 		<include refid="QUERY_WHERE_CLAUSE_VO"/>
 	</select>
 	

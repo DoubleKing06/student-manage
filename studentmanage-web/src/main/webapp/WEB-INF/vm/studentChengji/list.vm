@@ -2,15 +2,15 @@
 	<li><a href="#springUrl('')/">首页</a><span class="divider">/</span></li>
 	<li class="active">学生成绩信息查询</li>
 </DIV>
-<form class="well form-search" name="studentChengjiListForm" action="/studentChengji" method="POST">
+<form class="well form-search" name="studentChengjiListForm" action="/studentChengji/studentChengjiSearch" method="POST">
 	<!-- 智能分页与排序 -->
 	<input type="hidden" name="currentPage" value="$!{page.currentPage}"/>
 	<input type="hidden" name="pageSize" value="$!{page.pageSize}"/>
 	<input type="hidden" name="orderField" value="$!{studentChengji.orderField}"/>
 	<input type="hidden" name="orderFieldType" value="$!{studentChengji.orderFieldType}"/>
 	<!-- 查询条件 -->
-	<input class="span2" type="text" name="id" value="$!{studentChengji.xuehao}" placeholder="学号"/>
-	<input class="span2" type="text" name="studentId" value="$!{studentChengji.name}" placeholder="姓名"/>
+	<input class="span2" type="text" name="xuehao" value="$!{studentChengji.xuehao}" placeholder="学号"/>
+	<!--<input class="span2" type="text" name="name" value="$!{studentChengji.name}" placeholder="姓名"/>-->
 	<input class="span2" type="text" name="xueqi" value="$!{studentChengji.xueqi}" placeholder="学期"/>
 	<button type="submit" class="btn"><i class="icon-search"></i>搜索</button>
 	<!-- 新增按钮 -->

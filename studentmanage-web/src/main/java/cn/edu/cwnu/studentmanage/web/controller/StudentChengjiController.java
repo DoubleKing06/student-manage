@@ -82,7 +82,32 @@ public class StudentChengjiController{
 	
 	
 	
-	
+	@RequestMapping(value = "/studentChengjiSearch" ,method = {RequestMethod.GET,RequestMethod.POST})
+	public String studentChengjiSearch(StudentChengjiVO studentChengjiVO,Page<StudentChengjiVO> page,Model view) throws Exception{
+		try {
+			//view.addAttribute("studentChengji",studentChengjiVO);
+			
+			if(studentChengjiVO.getXuehao() == null || "".equals(studentChengjiVO.getXuehao())){
+				view.addAttribute("page",studentChengjiVOService.selectPage(studentChengjiVO,page));			
+				return "studentChengji/list";
+			}
+			
+			StudentBasicInfo studentBasicInfo =new StudentBasicInfo();
+			studentBasicInfo.setXuehao(studentChengjiVO.getXuehao());
+			List<StudentBasicInfo> list = studentBasicInfoService.selectEntryList(studentBasicInfo);
+			studentChengjiVO.setStudentId(list.get(0).getId());
+			studentChengjiVO.setXueqi(studentChengjiVO.getXueqi());
+			
+			
+			
+			view.addAttribute("page",studentChengjiVOService.selectPage(studentChengjiVO,page));			
+		} catch (Exception e) {
+			LOGGER.error("失败:"+e.getMessage(),e);
+			throw e;
+		}finally{
+		}	
+		return "studentChengji/list";
+	}
 	
 	
 	
@@ -101,7 +126,17 @@ public class StudentChengjiController{
 //					return toJSON(Message.failure("您要修改的数据不存在或者已被删除!"));
 					return null;
 				}
-				view.addAttribute("studentChengji",studentChengji);
+				
+				StudentBasicInfo sbi = studentBasicInfoService.selectEntry(Integer.valueOf(studentChengji.getStudentId().toString()));
+				if(sbi == null){
+					return null;
+				}
+				StudentChengjiVO studentChengjiVO =converToVO(studentChengji);
+				
+				studentChengjiVO.setXuehao(sbi.getXuehao());
+				studentChengjiVO.setName(sbi.getName());
+				
+				view.addAttribute("studentChengji",studentChengjiVO);
 			}			
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
@@ -144,7 +179,18 @@ public class StudentChengjiController{
 			if(studentChengji == null) {
 				return null;
 			}
-			view.addAttribute("studentChengji",studentChengji);
+//			StudentBasicInfo sbi=new StudentBasicInfo();
+			
+			StudentBasicInfo sbi = studentBasicInfoService.selectEntry(Integer.valueOf(studentChengji.getStudentId().toString()));
+			if(sbi == null){
+				return null;
+			}
+			StudentChengjiVO studentChengjiVO =converToVO(studentChengji);
+			
+			studentChengjiVO.setXuehao(sbi.getXuehao());
+			studentChengjiVO.setName(sbi.getName());
+			
+			view.addAttribute("studentChengji",studentChengjiVO);
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
 			throw e;
@@ -162,9 +208,9 @@ public class StudentChengjiController{
 	@RequestMapping(value="/save",method = {RequestMethod.POST,RequestMethod.GET},produces="application/json")
 	public @ResponseBody Message save(StudentChengjiVO studentChengjiVO,Model view) throws Exception{
     	Message msg= null;
-    	try {
-    		StudentBasicInfo sbi=new StudentBasicInfo();
-    		if(StringUtils.isEmpty(studentChengjiVO.getXuehao()) && StringUtils.isEmpty(studentChengjiVO.getName())){
+   	try {
+       		StudentBasicInfo sbi=new StudentBasicInfo();
+    		if(StringUtils.isEmpty(studentChengjiVO.getXuehao()) || StringUtils.isEmpty(studentChengjiVO.getName())){
     			throw new Exception("学号或姓名不能为空");
     		}
     		sbi.setXuehao(studentChengjiVO.getXuehao());
@@ -174,18 +220,21 @@ public class StudentChengjiController{
     			throw new Exception("学号与姓名不匹配");
     		}
     		
-    		StudentChengji studentChengji =new StudentChengji();
-    		studentChengji.setStudentId(list.get(0).getId());
+    		StudentChengji studentChengji =converToPO(studentChengjiVO);
+    		if("".equals(studentChengjiVO.getStudentId()) || studentChengjiVO.getStudentId()==null){
+    			studentChengji.setStudentId(list.get(0).getId());
+    		}
+    		
+    		
+/*    		studentChengji.setStudentId(studentChengjiVO.getId());
     		studentChengji.setZhuanyePaiming(studentChengjiVO.getZhuanyePaiming());
     		studentChengji.setZonghePaiming(studentChengjiVO.getZonghePaiming());
     		studentChengji.setXueqi(studentChengjiVO.getXueqi());
-    		studentChengji.setBukaokemu(studentChengjiVO.getBukaokemu());
+    		studentChengji.setBukaokemu(studentChengjiVO.getBukaokemu());*/
+    		
 			int res = studentChengjiService.saveOrUpdate(studentChengji);
 			
 			//studentChengjiVOService.selectEntryList(studentChengjiVO);
-			
-			
-			
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
@@ -194,5 +243,44 @@ public class StudentChengjiController{
 		}
 		return msg;
 	}
+	
+	/**
+	 * 转换格式
+	 * StudentChengji  to  StudentChengjiVO
+	 * @param studentChengji
+	 * @return
+	 */
+	public StudentChengjiVO converToVO(StudentChengji studentChengji){
+		StudentChengjiVO cjVO=new StudentChengjiVO();
+		cjVO.setId(studentChengji.getId());
+		cjVO.setStudentId(studentChengji.getStudentId());
+		cjVO.setXueqi(studentChengji.getXueqi());
+		cjVO.setZhuanyePaiming(studentChengji.getZhuanyePaiming());
+		cjVO.setZonghePaiming(studentChengji.getZonghePaiming());
+		cjVO.setBukaokemu(studentChengji.getBukaokemu());
+		cjVO.setUpdateTime(new Date());
+		return cjVO;
+	}
+	
+	
+	/**
+	 * VO 转换成 PO
+	 * studentChengjiVO TO studentChengji
+	 * @param studentChengjiVO
+	 * @return
+	 */
+	public StudentChengji converToPO(StudentChengjiVO studentChengjiVO){
+		StudentChengji studentChengji =new StudentChengji();
+		studentChengji.setStudentId(studentChengjiVO.getStudentId());
+		studentChengji.setZhuanyePaiming(studentChengjiVO.getZhuanyePaiming());
+		studentChengji.setZonghePaiming(studentChengjiVO.getZonghePaiming());
+		studentChengji.setXueqi(studentChengjiVO.getXueqi());
+		studentChengji.setBukaokemu(studentChengjiVO.getBukaokemu());
+		studentChengji.setId(studentChengjiVO.getId());
+		studentChengji.setUpdateTime(new Date());
+		return studentChengji;
+	}
+	
+	
 	
 }
