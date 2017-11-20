@@ -1,10 +1,11 @@
 <form name="studentPingjiangUpdateForm" action="/studentPingjiang/save" method="POST" data-resultType="JSON">
 	<table class="table table-bordered table-striped formLayout m0">
+
 		<tr>
-			<td>id:</td>
-			<td><input type="text" name="id" value="$!{studentPingjiang.id}" placeholder="id" readonly/></td>
-			<td>学生编号:</td>
-			<td><input type="text" name="studentId" value="$!{studentPingjiang.studentId}" placeholder="学生编号"/></td>
+			<td>学号:</td>
+			<td><input type="text" name="xuehao" value="$!{studentPingjiang.xuehao}" placeholder="学号"/></td>
+			<td>姓名:</td>
+			<td><input type="text" name="name" value="$!{studentPingjiang.name}" placeholder="姓名"/></td>
 		</tr>
 		<tr>
 			<td>学期:</td>
@@ -27,8 +28,12 @@
 		<tr>
 			<td>党校学习:</td>
 			<td><input type="text" name="dxxx" value="$!{studentPingjiang.dxxx}" placeholder="党校学习"/></td>
-			<td>更新时间:</td>
-			<td><input type="text" name="updateTime" value="$!{studentPingjiang.updateTime}" placeholder="更新时间"/></td>
+			<!--<td>更新时间:</td>
+			<td><input type="text" name="updateTime" value="$!{studentPingjiang.updateTime}" placeholder="更新时间"/></td>-->
+		</tr>
+		<tr>
+			<td><input type="hidden" name="id" value="$!{studentPingjiang.id}" placeholder="id" readonly/></td>
+			<td><input type="hidden" name="studentId" value="$!{studentPingjiang.studentId}" placeholder="学生编号"/></td>
 		</tr>
 	</table>
 </form>

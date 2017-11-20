@@ -81,7 +81,14 @@ public class StudentChengjiController{
 	}
 	
 	
-	
+	/**
+	 * 通过学生学号和学期查询
+	 * @param studentChengjiVO
+	 * @param page
+	 * @param view
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/studentChengjiSearch" ,method = {RequestMethod.GET,RequestMethod.POST})
 	public String studentChengjiSearch(StudentChengjiVO studentChengjiVO,Page<StudentChengjiVO> page,Model view) throws Exception{
 		try {

@@ -1,9 +1,9 @@
 <table class="table table-bordered table-striped formLayout m0">
 	<tr>
-		<td>id:</td>
-		<td>$!{studentPingjiang.id}</td>
-		<td>学生编号:</td>
-		<td>$!{studentPingjiang.studentId}</td>
+		<td>学号:</td>
+		<td>$!{studentPingjiang.xuehao}</td>
+		<td>姓名:</td>
+		<td>$!{studentPingjiang.name}</td>
 	</tr>
 	<tr>
 		<td>学期:</td>
