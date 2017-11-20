@@ -25,6 +25,7 @@
 		<typeAlias type="cn.edu.cwnu.studentmanage.domain.StudentBasicInfo" alias="studentBasicInfo"/>
 		<typeAlias type="cn.edu.cwnu.studentmanage.domain.StudentRemark" alias="studentRemark"/>
 		<typeAlias type="cn.edu.cwnu.studentmanage.domain.StudentZizhu" alias="studentZizhu"/>
+		<typeAlias type="cn.edu.cwnu.studentmanage.domain.StudentZizhuVO" alias="studentZizhuVO"/>
 		<typeAlias type="cn.edu.cwnu.studentmanage.domain.StudentWeiji" alias="studentWeiji"/>
 	</typeAliases>
 
@@ -40,6 +41,7 @@
 		<mapper resource="sqlmap/StudentBasicInfo.xml" />
 		<mapper resource="sqlmap/StudentRemark.xml" />
 		<mapper resource="sqlmap/StudentZizhu.xml" />
+		<mapper resource="sqlmap/StudentZizhuVO.xml" />
 		<mapper resource="sqlmap/StudentWeiji.xml" />
 	</mappers>
 </configuration>
