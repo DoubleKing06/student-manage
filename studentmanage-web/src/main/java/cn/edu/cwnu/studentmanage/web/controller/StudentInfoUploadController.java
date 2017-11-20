@@ -68,7 +68,7 @@ public class StudentInfoUploadController {
 			throw e;
 		}finally{
 		}	
-		return "studentChengji/list";
+		return "/studentBasicInfo";
     	
     	
     	

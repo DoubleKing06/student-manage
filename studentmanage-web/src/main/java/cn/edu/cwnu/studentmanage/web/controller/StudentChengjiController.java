@@ -220,6 +220,18 @@ public class StudentChengjiController{
     			throw new Exception("学号与姓名不匹配");
     		}
     		
+    		/**
+    		 * 需要校验studentID的正确性
+    		 */
+    		if(!"".equals(studentChengjiVO.getStudentId()) && studentChengjiVO.getStudentId()!=null){
+    			if(!studentChengjiVO.getStudentId().equals(list.get(0).getId())){
+    				throw new Exception("学号与姓名不正确");
+    			}
+    		}
+    		
+    		
+    		
+    		
     		StudentChengji studentChengji =converToPO(studentChengjiVO);
     		if("".equals(studentChengjiVO.getStudentId()) || studentChengjiVO.getStudentId()==null){
     			studentChengji.setStudentId(list.get(0).getId());

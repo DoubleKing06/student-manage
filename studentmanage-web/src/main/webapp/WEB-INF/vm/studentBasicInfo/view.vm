@@ -1,13 +1,13 @@
 <table class="table table-bordered table-striped formLayout m0">
 	<tr>
-		<td>id:</td>
-		<td>$!{studentBasicInfo.id}</td>
 		<td>学号:</td>
 		<td>$!{studentBasicInfo.xuehao}</td>
-	</tr>
-	<tr>
 		<td>姓名:</td>
 		<td>$!{studentBasicInfo.name}</td>
+	</tr>
+	<tr>
+		<td>性别:</td>
+		<td>$!{studentBasicInfo.sex}</td>
 		<td>民族:</td>
 		<td>$!{studentBasicInfo.minzu}</td>
 	</tr>
@@ -48,28 +48,25 @@
 		<td>$!{studentBasicInfo.phone}</td>
 	</tr>
 	<tr>
-		<td>QQ:</td>
-		<td>$!{studentBasicInfo.qq}</td>
-		<td>家长1:</td>
-		<td>$!{studentBasicInfo.jiazhang1}</td>
-	</tr>
-	<tr>
-		<td>家长1电话:</td>
-		<td>$!{studentBasicInfo.jiazhang1Phone}</td>
-		<td>家长2:</td>
-		<td>$!{studentBasicInfo.jiazhang2}</td>
-	</tr>
-	<!--
-	<tr>
-		<td>家长2电话:</td>
-		<td>$!{studentBasicInfo.jiazhang2Phone}</td>
-		<td>更新时间:</td>
-		<td>$!{studentBasicInfo.updateTime}</td>
-	</tr> -->
-	<tr>
 		<td>年级:</td>
 		<td>$!{studentBasicInfo.nianji}</td>
-		<td>性别:</td>
-		<td>$!{studentBasicInfo.sex}</td>
+		<td>QQ:</td>
+		<td>$!{studentBasicInfo.qq}</td>
+
+	</tr>
+	<tr>
+		<td>家长1:</td>
+		<td>$!{studentBasicInfo.jiazhang1}</td>
+		<td>家长1电话:</td>
+		<td>$!{studentBasicInfo.jiazhang1Phone}</td>
+
+	</tr>
+	
+	<tr>
+		<td>家长2:</td>
+		<td>$!{studentBasicInfo.jiazhang2}</td>
+		<td>家长2电话:</td>
+		<td>$!{studentBasicInfo.jiazhang2Phone}</td>
+
 	</tr>
 </table>

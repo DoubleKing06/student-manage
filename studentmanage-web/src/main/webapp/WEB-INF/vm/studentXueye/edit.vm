@@ -1,22 +1,27 @@
 <form name="studentXueyeUpdateForm" action="/studentXueye/save" method="POST" data-resultType="JSON">
 	<table class="table table-bordered table-striped formLayout m0">
+
 		<tr>
-			<td>id:</td>
-			<td><input type="text" name="id" value="$!{studentXueye.id}" placeholder="id" readonly/></td>
-			<td>学生编号:</td>
-			<td><input type="text" name="studentId" value="$!{studentXueye.studentId}" placeholder="学生编号"/></td>
+			<td>学号:</td>
+			<td><input type="text" name="xuehao" value="$!{studentXueye.xuehao}" placeholder="学号"/></td>
+			<td>姓名:</td>
+			<td><input type="text" name="name" value="$!{studentXueye.name}" placeholder="姓名"/></td>
 		</tr>
 		<tr>
-			<td>cet4:</td>
-			<td><input type="text" name="cet4" value="$!{studentXueye.cet4}" placeholder="cet4"/></td>
+			<td>英语四级:</td>
+			<td><input type="text" name="cet4" value="$!{studentXueye.cet4}" placeholder="英语四级"/></td>
 			<td>三笔字:</td>
 			<td><input type="text" name="sanbizi" value="$!{studentXueye.sanbizi}" placeholder="三笔字"/></td>
 		</tr>
 		<tr>
 			<td>普通话:</td>
 			<td><input type="text" name="putonghua" value="$!{studentXueye.putonghua}" placeholder="普通话"/></td>
-			<td>更新时间:</td>
-			<td><input type="text" name="updateTime" value="$!{studentXueye.updateTime}" placeholder="更新时间"/></td>
+			<!--<td>更新时间:</td>
+			<td><input type="text" name="updateTime" value="$!{studentXueye.updateTime}" placeholder="更新时间"/></td>-->
+		</tr>
+		<tr>
+			<td><input type="hidden" name="id" value="$!{studentXueye.id}" placeholder="id" readonly/></td>
+			<td><input type="hidden" name="studentId" value="$!{studentXueye.studentId}" placeholder="学生编号" readonly/></td>
 		</tr>
 	</table>
 </form>

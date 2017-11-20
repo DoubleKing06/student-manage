@@ -1,17 +1,16 @@
-<DIV id="navBar" title="studentXueye">
+<DIV id="navBar" title="学业状况信息">
 	<li><a href="#springUrl('')/">首页</a><span class="divider">/</span></li>
-	<li class="active">studentXueye</li>
+	<li class="active">学业状况信息</li>
 </DIV>
-<form class="well form-search" name="studentXueyeListForm" action="/studentXueye" method="POST">
+<form class="well form-search" name="studentXueyeListForm" action="/studentXueye/studentXueyeSearch" method="POST">
 	<!-- 智能分页与排序 -->
 	<input type="hidden" name="currentPage" value="$!{page.currentPage}"/>
 	<input type="hidden" name="pageSize" value="$!{page.pageSize}"/>
 	<input type="hidden" name="orderField" value="$!{studentXueye.orderField}"/>
 	<input type="hidden" name="orderFieldType" value="$!{studentXueye.orderFieldType}"/>
 	<!-- 查询条件 -->
-	<input class="span2" type="text" name="id" value="$!{studentXueye.id}" placeholder="id"/>
-	<input class="span2" type="text" name="studentId" value="$!{studentXueye.studentId}" placeholder="学生编号"/>
-	<input class="span2" type="text" name="cet4" value="$!{studentXueye.cet4}" placeholder="cet4"/>
+	<input class="span2" type="text" name="xuehao" value="$!{studentXueye.xuehao}" placeholder="学号"/>
+	<!--<input class="span2" type="text" name="studentId" value="$!{studentXueye.name}" placeholder="姓名"/>-->
 	<button type="submit" class="btn"><i class="icon-search"></i>搜索</button>
 	<!-- 新增按钮 -->
 	<div class="btn-group pull-right">
@@ -23,9 +22,11 @@
 <table class="table table-striped table-bordered table-condensed grid">
 	<thead>
 		<tr>
-			<th #sorting($!{studentXueye} "id")>id</th>
-			<th #sorting($!{studentXueye} "studentId")>学生编号</th>
-			<th #sorting($!{studentXueye} "cet4")>cet4</th>
+			<!--<th #sorting($!{studentXueye} "id")>id</th>
+			<th #sorting($!{studentXueye} "studentId")>学生编号</th>-->
+			<th #sorting($!{studentXueye} "xuehao")>学号</th>
+			<th #sorting($!{studentXueye} "name")>姓名</th>
+			<th #sorting($!{studentXueye} "cet4")>英语四级</th>
 			<th #sorting($!{studentXueye} "sanbizi")>三笔字</th>
 			<th #sorting($!{studentXueye} "putonghua")>普通话</th>
 			<th #sorting($!{studentXueye} "updateTime")>更新时间</th>
@@ -35,12 +36,13 @@
 	<tbody>
 #foreach(${item} in ${page.result})
 		<tr>
-			<td>$!{item.id}</td>
-			<td>$!{item.studentId}</td>
+			<!--<td>$!{item.id}</td>
+			<td>$!{item.studentId}</td>-->
+			<td>$!{item.xuehao}</td>
+			<td>$!{item.name}</td>
 			<td>$!{item.cet4}</td>
 			<td>$!{item.sanbizi}</td>
 			<td>$!{item.putonghua}</td>
-			<td>$!{item.updateTime}</td>
 			<td class="textC">
 				<div class="btn-group">
 					<a class="btn btn-mini" onclick="XUI.ajax.delete('/studentXueye/${item.id}',null,{refresh:true})"><i class="icon-trash"></i> 删除</a>

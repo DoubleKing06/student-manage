@@ -5,6 +5,7 @@
 		<li><a onclick="XUI.gotoPage('/initUpload')">导入学生数据</a></li>	
 		<li><a onclick="XUI.gotoPage('/studentBasicInfo')">学生基本信息</a></li>
 		<li><a onclick="XUI.gotoPage('/studentChengji')">学生成绩信息</a></li>
+		<li><a onclick="XUI.gotoPage('/studentXueye')">学生学业信息</a></li>
 		<li><a href="/login/logout">注销登录</a></li>
 		
 	</ul>

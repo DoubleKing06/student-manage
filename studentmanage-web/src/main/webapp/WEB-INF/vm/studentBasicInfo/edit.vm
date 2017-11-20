@@ -67,8 +67,7 @@
 			<td><input type="text" name="jiazhang2Phone" value="$!{studentBasicInfo.jiazhang2Phone}" placeholder="家长2电话"/></td>
 		</tr>
 		<tr>
-		<td>id:</td>
-			<td><input type="text" name="id" value="$!{studentBasicInfo.id}" placeholder="id" readonly/></td>
+			<td><input type="hidden" name="id" value="$!{studentBasicInfo.id}" placeholder="id" readonly/></td>
 		</tr>
 	</table>
 </form>

@@ -19,10 +19,8 @@
 			<td><input type="text" name="bukaokemu" value="$!{studentChengji.bukaokemu}" placeholder="补考科目"/></td>
 		</tr>
 		<tr>
-			<td>id:</td>
-			<td><input type="text" name="id" value="$!{studentChengji.id}" placeholder="id" readonly/></td>
-			<td>studentId:</td>
-			<td><input type="text" name="studentId" value="$!{studentChengji.studentId}" placeholder="studentId" readonly/></td>
+			<td><input type="hidden" name="id" value="$!{studentChengji.id}" placeholder="id" readonly/></td>
+			<td><input type="hidden" name="studentId" value="$!{studentChengji.studentId}" placeholder="studentId" readonly/></td>
 		</tr>
 		<!--<tr>
 			<td>更新时间:</td>
