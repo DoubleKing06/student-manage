@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.cwnu.studentmanage.dao.StudentQitahuojiangDaoVO">
+
+	
+	<!-- 其它SQL语句 -->
+	<sql id="QUERY_COLUMN_LIST_VO">
+		student_basic_info.xuehao,student_basic_info.`name`,student_Qitahuojiang.id,student_Qitahuojiang.student_id AS studentId,student_Qitahuojiang.xueqi,student_Qitahuojiang.otherhuojianginfo FROM student_basic_info JOIN student_Qitahuojiang ON student_basic_info.id=student_Qitahuojiang.student_id 
+	</sql>
+	
+	
+	
+		<!-- 全部条件(更多功能可以通过queryData扩展实现)  -->
+	<sql id="QUERY_WHERE_CLAUSE_VO">
+		<where>
+			<if test="id != null and id != ''"><![CDATA[AND student_Qitahuojiang.id = #{id}]]></if>
+			<if test="studentId != null and studentId != ''"><![CDATA[AND student_Qitahuojiang.student_id = #{studentId}]]></if>
+			<if test="xueqi != null and xueqi != ''"><![CDATA[AND student_Qitahuojiang.xueqi = #{xueqi}]]></if>
+			<if test="otherhuojianginfo != null and otherhuojianginfo != ''"><![CDATA[AND student_Qitahuojiang.otherhuojianginfo = #{otherhuojianginfo}]]></if>
+			<if test="updateTime != null and updateTime != ''"><![CDATA[AND student_Qitahuojiang.update_time = #{updateTime}]]></if>
+		</where>
+	</sql>
+	
+	
+	
+	
+		<!-- 智能排序与分页 -->
+	<sql id="QUERY_ORDER_LIMIT_CONDTION">
+		<if test="orderField != null and orderField != '' and orderFieldType != null and orderFieldType != ''"><![CDATA[ORDER BY ${orderField} ${orderFieldType}]]></if>
+		<if test="startIndex != null and startIndex &gt;= 0 and pageSize != null and pageSize &gt; 0"><![CDATA[LIMIT #{startIndex},#{pageSize}]]></if>
+	</sql>
+	
+		<!-- 查询,通过条件 -->
+	<select id="selectEntryList" parameterType="studentQitahuojiangVO" resultType="studentQitahuojiangVO">
+		<![CDATA[SELECT]]>
+		<include refid="QUERY_COLUMN_LIST_VO"/>
+		<include refid="QUERY_WHERE_CLAUSE_VO"/>
+		<include refid="QUERY_ORDER_LIMIT_CONDTION"/>
+	</select>
+
+	<!-- 总数查询,通过条件 -->
+	<select id="selectEntryListCount" parameterType="studentChengjiVO" resultType="int">
+		<![CDATA[SELECT COUNT(student_Qitahuojiang.id) AS dataCount FROM student_basic_info JOIN student_Qitahuojiang ON student_basic_info.id=student_Qitahuojiang.student_id]]>
+		<include refid="QUERY_WHERE_CLAUSE_VO"/>
+	</select>
+	
+	
+	
+</mapper>

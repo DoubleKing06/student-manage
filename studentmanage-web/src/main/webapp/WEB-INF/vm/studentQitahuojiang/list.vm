@@ -1,17 +1,16 @@
-<DIV id="navBar" title="studentQitahuojiang">
+<DIV id="navBar" title="学生其他获奖信息">
 	<li><a href="#springUrl('')/">首页</a><span class="divider">/</span></li>
-	<li class="active">studentQitahuojiang</li>
+	<li class="active">学生其他获奖信息</li>
 </DIV>
-<form class="well form-search" name="studentQitahuojiangListForm" action="/studentQitahuojiang" method="POST">
+<form class="well form-search" name="studentQitahuojiangListForm" action="/studentQitahuojiang/studentQitahuojiangSearch" method="POST">
 	<!-- 智能分页与排序 -->
 	<input type="hidden" name="currentPage" value="$!{page.currentPage}"/>
 	<input type="hidden" name="pageSize" value="$!{page.pageSize}"/>
 	<input type="hidden" name="orderField" value="$!{studentQitahuojiang.orderField}"/>
 	<input type="hidden" name="orderFieldType" value="$!{studentQitahuojiang.orderFieldType}"/>
 	<!-- 查询条件 -->
-	<input class="span2" type="text" name="id" value="$!{studentQitahuojiang.id}" placeholder="id"/>
-	<input class="span2" type="text" name="studentId" value="$!{studentQitahuojiang.studentId}" placeholder="学生编号"/>
-	<input class="span2" type="text" name="xueqi" value="$!{studentQitahuojiang.xueqi}" placeholder="获奖时间"/>
+	<input class="span2" type="text" name="xuehao" value="$!{studentQitahuojiang.xuehao}" placeholder="学号"/>
+	<input class="span2" type="text" name="xueqi" value="$!{studentQitahuojiang.xueqi}" placeholder="学期"/>
 	<button type="submit" class="btn"><i class="icon-search"></i>搜索</button>
 	<!-- 新增按钮 -->
 	<div class="btn-group pull-right">
@@ -23,22 +22,26 @@
 <table class="table table-striped table-bordered table-condensed grid">
 	<thead>
 		<tr>
-			<th #sorting($!{studentQitahuojiang} "id")>id</th>
-			<th #sorting($!{studentQitahuojiang} "studentId")>学生编号</th>
-			<th #sorting($!{studentQitahuojiang} "xueqi")>获奖时间</th>
+			<!--<th #sorting($!{studentQitahuojiang} "id")>id</th>
+			<th #sorting($!{studentQitahuojiang} "studentId")>学生编号</th>-->
+			<th #sorting($!{studentQitahuojiang} "xuehao")>学号</th>
+			<th #sorting($!{studentQitahuojiang} "name")>姓名</th>
+			<th #sorting($!{studentQitahuojiang} "xueqi")>获奖学期</th>
 			<th #sorting($!{studentQitahuojiang} "otherhuojianginfo")>获奖信息</th>
-			<th #sorting($!{studentQitahuojiang} "updateTime")>更新时间</th>
+			<!--<th #sorting($!{studentQitahuojiang} "updateTime")>更新时间</th>-->
 			<th>操作</th>
 		</tr>
 	</thead>
 	<tbody>
 #foreach(${item} in ${page.result})
 		<tr>
-			<td>$!{item.id}</td>
-			<td>$!{item.studentId}</td>
+			<!--<td>$!{item.id}</td>
+			<td>$!{item.studentId}</td>-->
+			<td>$!{item.xuehao}</td>
+			<td>$!{item.name}</td>
 			<td>$!{item.xueqi}</td>
 			<td>$!{item.otherhuojianginfo}</td>
-			<td>$!{item.updateTime}</td>
+			<!--<td>$!{item.updateTime}</td>-->
 			<td class="textC">
 				<div class="btn-group">
 					<a class="btn btn-mini" onclick="XUI.ajax.delete('/studentQitahuojiang/${item.id}',null,{refresh:true})"><i class="icon-trash"></i> 删除</a>
