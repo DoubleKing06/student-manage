@@ -6,7 +6,7 @@
 	
 	<!-- 其它SQL语句 -->
 	<sql id="QUERY_COLUMN_LIST_VO">
-		student_basic_info.xuehao,student_basic_info.`name`,student_remark.id,student_remark.student_id AS studentId,student_remark.xueqi,student_remark.remark,student_remark.remark_time FROM student_basic_info JOIN student_remark ON student_basic_info.id=student_remark.student_id 
+		student_basic_info.xuehao,student_basic_info.`name`,student_remark.id,student_remark.student_id AS studentId,student_remark.xueqi,student_remark.remark,student_remark.remark_time AS remarkTime FROM student_basic_info JOIN student_remark ON student_basic_info.id=student_remark.student_id 
 	</sql>
 	
 	

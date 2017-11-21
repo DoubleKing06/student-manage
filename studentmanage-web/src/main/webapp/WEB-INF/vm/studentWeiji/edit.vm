@@ -1,26 +1,26 @@
 <form name="studentWeijiUpdateForm" action="/studentWeiji/save" method="POST" data-resultType="JSON">
 	<table class="table table-bordered table-striped formLayout m0">
 		<tr>
+			<td><input type="hidden" name="id" value="$!{studentWeiji.id}" placeholder="学号" readonly/></td>
+			<td><input type="hidden" name="studentId" value="$!{studentWeiji.studentId}" placeholder="学生编号"/></td>
+		</tr>
+		<tr>
 			<td>学号:</td>
-			<td><input type="text" name="id" value="$!{studentWeiji.id}" placeholder="学号" readonly/></td>
-			<td>学生编号:</td>
-			<td><input type="text" name="studentId" value="$!{studentWeiji.studentId}" placeholder="学生编号"/></td>
+			<td><input type="text" name="xuehao" value="$!{studentWeiji.xuehao}" placeholder="学号"/></td>
+			<td>姓名:</td>
+			<td><input type="text" name="name" value="$!{studentWeiji.name}" placeholder="姓名"/></td>
 		</tr>
 		<tr>
 			<td>学期:</td>
 			<td><input type="text" name="xueqi" value="$!{studentWeiji.xueqi}" placeholder="学期"/></td>
-			<td>违纪时间:</td>
-			<td><input type="text" name="weijiTime" value="$!{studentWeiji.weijiTime}" placeholder="违纪时间"/></td>
-		</tr>
-		<tr>
 			<td>违纪情况:</td>
-			<td><input type="text" name="weijiInfo" value="$!{studentWeiji.weijiInfo}" placeholder="违纪情况"/></td>
-			<td>违纪备注:</td>
-			<td><input type="text" name="result" value="$!{studentWeiji.result}" placeholder="违纪备注"/></td>
+			<td><input type="text" style="width:200px; height:20px;" name="weijiInfo" value="$!{studentWeiji.weijiInfo}" placeholder="违纪情况"/></td>
 		</tr>
 		<tr>
-			<td>更新时间:</td>
-			<td colspan="3"><input type="text" name="updateTime" value="$!{studentWeiji.updateTime}" placeholder="更新时间"/></td>
+			<td>违纪备注:</td>
+			<td><input type="text" style="width:200px; height:20px;" name="result" value="$!{studentWeiji.result}" placeholder="违纪备注"/></td>
+			<td>违纪时间:</td>
+			<td><input type="text" name="weijiTime" value="$!{studentWeiji.weijiTime}" placeholder="YYYY-MM-DD HH:mm:ss"/></td>
 		</tr>
 	</table>
 </form>

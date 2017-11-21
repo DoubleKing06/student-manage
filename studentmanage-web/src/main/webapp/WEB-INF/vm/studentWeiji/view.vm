@@ -1,24 +1,20 @@
 <table class="table table-bordered table-striped formLayout m0">
 	<tr>
 		<td>学号:</td>
-		<td>$!{studentWeiji.id}</td>
-		<td>学生编号:</td>
-		<td>$!{studentWeiji.studentId}</td>
+		<td>$!{studentWeiji.xuehao}</td>
+		<td>姓名:</td>
+		<td>$!{studentWeiji.name}</td>
 	</tr>
 	<tr>
 		<td>学期:</td>
 		<td>$!{studentWeiji.xueqi}</td>
-		<td>违纪时间:</td>
-		<td>$!{studentWeiji.weijiTime}</td>
-	</tr>
-	<tr>
 		<td>违纪情况:</td>
 		<td>$!{studentWeiji.weijiInfo}</td>
-		<td>违纪备注:</td>
-		<td>$!{studentWeiji.result}</td>
 	</tr>
 	<tr>
-		<td>更新时间:</td>
-		<td colspan="3">$!{studentWeiji.updateTime}</td>
+		<td>违纪备注:</td>
+		<td>$!{studentWeiji.result}</td>
+		<td>违纪时间:</td>
+		<td>$!{studentWeiji.weijiTime}</td>
 	</tr>
 </table>
