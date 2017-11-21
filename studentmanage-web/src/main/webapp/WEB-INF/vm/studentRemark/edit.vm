@@ -1,10 +1,14 @@
 <form name="studentRemarkUpdateForm" action="/studentRemark/save" method="POST" data-resultType="JSON">
 	<table class="table table-bordered table-striped formLayout m0">
 		<tr>
-			<td>id:</td>
-			<td><input type="text" name="id" value="$!{studentRemark.id}" placeholder="id" readonly/></td>
-			<td>studentId:</td>
-			<td><input type="text" name="studentId" value="$!{studentRemark.studentId}" placeholder="studentId"/></td>
+			<td><input type="hidden" name="id" value="$!{studentRemark.id}" placeholder="id" readonly/></td>
+			<td><input type="hidden" name="studentId" value="$!{studentRemark.studentId}" placeholder="studentId"/></td>
+		</tr>
+		<tr>
+			<td>学号:</td>
+			<td><input type="text" name="xuehao" value="$!{studentRemark.xuehao}" placeholder="学号"/></td>
+			<td>姓名:</td>
+			<td><input type="text" name="name" value="$!{studentRemark.name}" placeholder="姓名"/></td>
 		</tr>
 		<tr>
 			<td>学期:</td>
@@ -14,9 +18,9 @@
 		</tr>
 		<tr>
 			<td>备注时间:</td>
-			<td><input type="text" name="remarkTime" value="$!{studentRemark.remarkTime}" placeholder="备注时间"/></td>
-			<td>更新时间:</td>
-			<td><input type="text" name="updateTime" value="$!{studentRemark.updateTime}" placeholder="更新时间"/></td>
+			<td><input type="text" maxlength="10" name="remarkTime" value="$!{studentRemark.remarkTime}" placeholder="YYYY-MM-DD HH:mm:ss"/></td>
+			<!--<td>更新时间:</td>
+			<td><input type="text" name="updateTime" value="$!{studentRemark.updateTime}" placeholder="更新时间"/></td>-->
 		</tr>
 	</table>
 </form>

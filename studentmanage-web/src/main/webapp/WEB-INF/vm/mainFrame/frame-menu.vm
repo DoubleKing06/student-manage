@@ -8,6 +8,8 @@
 		<li><a onclick="XUI.gotoPage('/studentXueye')">学生学业信息</a></li>
 		<li><a onclick="XUI.gotoPage('/studentPingjiang')">学生评奖信息</a></li>
 		<li><a onclick="XUI.gotoPage('/studentZizhu')">学生资助信息</a></li>
+		<li><a onclick="XUI.gotoPage('/studentQitahuojiang')">其他获奖信息</a></li>
+		<li><a onclick="XUI.gotoPage('/studentRemark')">学生备注信息</a></li>
 		<li><a href="/login/logout">注销登录</a></li>
 		
 	</ul>

@@ -50,7 +50,14 @@ public class StudentQitahuojiangController{
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(true));
 	}
 	
-	
+	/**
+	 * 通过学号和学期搜索信息
+	 * @param studentQitahuojiangVO
+	 * @param page
+	 * @param view
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/studentQitahuojiangSearch" ,method = {RequestMethod.GET,RequestMethod.POST})
 	public String studentQitahuojiangSearch(StudentQitahuojiangVO studentQitahuojiangVO,Page<StudentQitahuojiangVO> page,Model view) throws Exception{
 		try {
