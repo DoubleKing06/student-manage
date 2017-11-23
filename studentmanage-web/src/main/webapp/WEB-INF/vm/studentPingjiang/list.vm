@@ -9,22 +9,32 @@
 	<input type="hidden" name="orderField" value="$!{studentPingjiang.orderField}"/>
 	<input type="hidden" name="orderFieldType" value="$!{studentPingjiang.orderFieldType}"/>
 	<!-- 查询条件 -->
-	<input class="span2" type="text" name="xuehao" value="$!{studentPingjiang.xuehao}" placeholder="学号"/>
-	<input class="span2" type="text" name="name" value="$!{studentPingjiang.name}" placeholder="姓名"/>
+	<input class="span2" type="text" id="xuehao" name="xuehao" value="$!{studentPingjiang.xuehao}" placeholder="学号"/>
+	<input class="span2" type="text" id="name" name="name" value="$!{studentPingjiang.name}" placeholder="姓名"/>
 	<!--<input class="span2" type="text" name="studentId" value="$!{studentPingjiang.studentId}" placeholder="学生编号"/>-->
-	<input class="span2" type="text" name="xueqi" value="$!{studentPingjiang.xueqi}" placeholder="学期"/>
-	<input class="span2" type="text" name="banji" value="$!{studentPingjiang.banji}" placeholder="班级"/>
-	<input class="span2" type="text" name="jiangxuejin" value="$!{studentPingjiang.jiangxuejin}" placeholder="奖学金"/>
-	<input class="span2" type="text" name="danxiangjiangxuejin" value="$!{studentPingjiang.danxiangjiangxuejin}" placeholder="单项奖学金"/>
-	<input class="span2" type="text" name="xueyou" value="$!{studentPingjiang.xueyou}" placeholder="学优"/>
-	<input class="span2" type="text" name="tuanyou" value="$!{studentPingjiang.tuanyou}" placeholder="团优"/>
-	<input class="span2" type="text" name="yxdxbys" value="$!{studentPingjiang.yxdxbys}" placeholder="优秀大学毕业生"/>
-	<input class="span2" type="text" name="dxxx" value="$!{studentPingjiang.dxxx}" placeholder="党校学习"/>
+	<input class="span2" type="text" id="xueqi" name="xueqi" value="$!{studentPingjiang.xueqi}" placeholder="学期"/>
+	<input class="span2" type="text" id="banji" name="banji" value="$!{studentPingjiang.banji}" placeholder="班级"/>
+	<input class="span2" type="text" id="jiangxuejin" name="jiangxuejin" value="$!{studentPingjiang.jiangxuejin}" placeholder="奖学金"/>
+	<input class="span2" type="text" id="danxiangjiangxuejin" name="danxiangjiangxuejin" value="$!{studentPingjiang.danxiangjiangxuejin}" placeholder="单项奖学金"/>
+	<input class="span2" type="text" id="xueyou" name="xueyou" value="$!{studentPingjiang.xueyou}" placeholder="学优"/>
+	<input class="span2" type="text" id="tuanyou" name="tuanyou" value="$!{studentPingjiang.tuanyou}" placeholder="团优"/>
+	<input class="span2" type="text" id="yxdxbys" name="yxdxbys" value="$!{studentPingjiang.yxdxbys}" placeholder="优秀大学毕业生"/>
+	<input class="span2" type="text" id="dxxx" name="dxxx" value="$!{studentPingjiang.dxxx}" placeholder="党校学习"/>
 	<button type="submit" class="btn"><i class="icon-search"></i>搜索</button>
 	<!-- 新增按钮 -->
 	<div class="btn-group pull-right">
 		<a class="btn" onclick="XUI.window.open('/studentPingjiang/0',null,'PUT',{title:$(this).text()})"><i class="icon-pencil"></i>新增</a>
 	</div>
+	
+	<div class="btn-group pull-right">
+		<a class="btn" href="javascript:download();"><i class="icon-pencil"></i>导出</a>
+	</div>
+	
+	<script>
+		function download() {
+			document.location.href='/studentPingjiang/studentPingjiangExport?xuehao='+ $("#xuehao").val() +'&name='+$("#name").val()+'&xueqi='+$("#xueqi").val()+'&banji='+$("#banji").val()+'&jiangxuejin='+$("#jiangxuejin").val()+'&danxiangjiangxuejin='+$("#danxiangjiangxuejin").val()+'&xueyou='+$("#xueyou").val()+'&tuanyou='+$("#tuanyou").val()+'&yxdxbys='+$("#yxdxbys").val()+'&dxxx='+$("#dxxx").val();
+		}
+	</script>
 </form>
 
 <!-- 表格数据 -->

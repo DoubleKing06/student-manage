@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,10 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
-import cn.edu.cwnu.studentmanage.domain.StudentChengjiVO;
-import cn.edu.cwnu.studentmanage.domain.StudentPingjiang;
-import cn.edu.cwnu.studentmanage.domain.StudentPingjiangVO;
-import cn.edu.cwnu.studentmanage.domain.StudentXueye;
 import cn.edu.cwnu.studentmanage.domain.StudentPingjiang;
 import cn.edu.cwnu.studentmanage.domain.StudentPingjiangVO;
 import cn.edu.cwnu.studentmanage.domain.common.Message;
@@ -91,12 +89,21 @@ public class StudentPingjiangController{
 	
 	
 	
-	
-	
-	
-	
-	
-	
+	/**
+	 * 通过查询条件导出评优评奖信息
+	 * @param studentPingjiangVO
+	 * @param response
+	 * @param view
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/studentPingjiangExport" ,method = {RequestMethod.GET,RequestMethod.POST})
+	public void studentPingjiangExport(StudentPingjiangVO studentPingjiangVO, HttpServletResponse response, Model view) throws Exception{
+		HSSFWorkbook wb = studentPingjiangVOService.studentPingjiangExport(studentPingjiangVO);
+		
+		response.setContentType("application/x-excel;charset=gbk");  
+        response.setHeader("Content-Disposition", "attachment; filename="+ new String("学生评优评奖信息.xls".getBytes("gbk"),"ISO-8859-1"));  
+        wb.write(response.getOutputStream());
+	}
 	
 	
 	
