@@ -9,13 +9,29 @@
 	<input type="hidden" name="orderField" value="$!{studentZizhu.orderField}"/>
 	<input type="hidden" name="orderFieldType" value="$!{studentZizhu.orderFieldType}"/>
 	<!-- 查询条件 -->
-	<input class="span2" type="text" name="xuehao" value="$!{studentZizhu.xuehao}" placeholder="学号"/>
-	<input class="span2" type="text" name="xueqi" value="$!{studentZizhu.xueqi}" placeholder="学期"/>
+	<input class="span2" type="text" id="xuehao" name="xuehao" value="$!{studentZizhu.xuehao}" placeholder="学号"/>
+	<input class="span2" type="text" id="name" name="name" value="$!{studentZizhu.name}" placeholder="姓名"/>
+	<input class="span2" type="text" id="xueqi" name="xueqi" value="$!{studentZizhu.xueqi}" placeholder="学期"/>
+	<input class="span2" type="text" id="banji" name="banji" value="$!{studentZizhu.banji}" placeholder="班级"/>
+	<input class="span2" type="text" id="gjjxj" name="gjjxj" value="$!{studentZizhu.gjjxj}" placeholder="国家奖学金"/>
+	<input class="span2" type="text" id="gjlzjxj" name="gjlzjxj" value="$!{studentZizhu.gjlzjxj}" placeholder="国家励志奖学金"/>
+	<input class="span2" type="text" id="gjzxj" name="gjzxj" value="$!{studentZizhu.gjzxj}" placeholder="国家助学金"/>
+	<input class="span2" type="text" id="other" name="other" value="$!{studentZizhu.other}" placeholder="其他社会资助"/>
 	<button type="submit" class="btn"><i class="icon-search"></i>搜索</button>
 	<!-- 新增按钮 -->
 	<div class="btn-group pull-right">
 		<a class="btn" onclick="XUI.window.open('/studentZizhu/0',null,'PUT',{title:$(this).text()})"><i class="icon-pencil"></i>新增</a>
 	</div>
+	<div class="btn-group pull-right">
+		<a class="btn" href="javascript:download();"><i class="icon-pencil"></i>导出</a>
+	</div>
+	
+	<script>
+		function download() {
+		
+		document.location.href='/studentZizhu/studentZizhuExport?xuehao='+ $("#xuehao").val() +'&name='+$("#name").val()+'&xueqi='+$("#xueqi").val()+'&banji='+$("#banji").val()+'&gjjxj='+$("#gjjxj").val()+'&gjlzjxj='+$("#gjlzjxj").val()+'&gjzxj='+$("#gjzxj").val()+'&other='+$("#other").val();
+		}
+	</script>
 </form>
 
 <!-- 表格数据 -->
@@ -24,6 +40,7 @@
 		<tr>
 			<th #sorting($!{studentZizhu} "xuehao")>学号</th>
 			<th #sorting($!{studentZizhu} "name")>姓名</th>
+			<th #sorting($!{studentZizhu} "banji")>班级</th>
 			<th #sorting($!{studentZizhu} "xueqi")>学期</th>
 			<th #sorting($!{studentZizhu} "gjjxj")>国家奖学金</th>
 			<th #sorting($!{studentZizhu} "gjlzjxj")>国家励志奖学金</th>
@@ -38,6 +55,7 @@
 		<tr>
 			<td>$!{item.xuehao}</td>
 			<td>$!{item.name}</td>
+			<td>$!{item.banji}</td>
 			<td>$!{item.xueqi}</td>
 			<td>$!{item.gjjxj}</td>
 			<td>$!{item.gjlzjxj}</td>

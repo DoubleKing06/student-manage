@@ -6,7 +6,7 @@
 	
 	<!-- 其它SQL语句 -->
 	<sql id="QUERY_COLUMN_LIST_VO">
-		student_basic_info.xuehao,student_basic_info.`name`,student_zizhu.id,student_zizhu.student_id AS studentId,student_zizhu.xueqi,student_zizhu.gjjxj,student_zizhu.gjlzjxj,student_zizhu.gjzxj,student_zizhu.other FROM student_basic_info JOIN student_zizhu ON student_basic_info.id=student_zizhu.student_id
+		student_basic_info.xuehao,student_basic_info.`name`,student_basic_info.banji,student_zizhu.id,student_zizhu.student_id AS studentId,student_zizhu.xueqi,student_zizhu.gjjxj,student_zizhu.gjlzjxj,student_zizhu.gjzxj,student_zizhu.other FROM student_basic_info JOIN student_zizhu ON student_basic_info.id=student_zizhu.student_id
 	</sql>
 	
 	
@@ -15,11 +15,14 @@
 		<where>
 			<if test="id != null and id != ''"><![CDATA[AND student_zizhu.id = #{id}]]></if>
 			<if test="studentId != null and studentId != ''"><![CDATA[AND student_zizhu.student_id = #{studentId}]]></if>
-			<if test="xueqi != null and xueqi != ''"><![CDATA[AND student_zizhu.xueqi = #{xueqi}]]></if>
-			<if test="gjjxj != null and gjjxj != ''"><![CDATA[AND student_zizhu.gjjxj = #{gjjxj}]]></if>
-			<if test="gjlzjxj != null and gjlzjxj != ''"><![CDATA[AND student_zizhu.gjlzjxj = #{gjlzjxj}]]></if>
-			<if test="gjzxj != null and gjzxj != ''"><![CDATA[AND student_zizhu.gjzxj = #{gjzxj}]]></if>
-			<if test="other != null and other != ''"><![CDATA[AND student_zizhu.other = #{other}]]></if>
+			<if test="xuehao != null and xuehao != ''"><![CDATA[AND student_basic_info.xuehao like concat('%',#{xuehao},'%')]]></if>
+			<if test="name != null and name != ''"><![CDATA[AND student_basic_info.name like concat('%',#{name},'%')]]></if>
+			<if test="xueqi != null and xueqi != ''"><![CDATA[AND student_zizhu.xueqi like concat('%',#{xueqi},'%')]]></if>
+			<if test="gjjxj != null and gjjxj != ''"><![CDATA[AND student_zizhu.gjjxj like concat('%',#{gjjxj},'%')]]></if>
+			<if test="gjlzjxj != null and gjlzjxj != ''"><![CDATA[AND student_zizhu.gjlzjxj like concat('%',#{gjlzjxj},'%')]]></if>
+			<if test="gjzxj != null and gjzxj != ''"><![CDATA[AND student_zizhu.gjzxj like concat('%',#{gjzxj},'%')]]></if>
+			<if test="other != null and other != ''"><![CDATA[AND student_zizhu.other like concat('%',#{other},'%')]]></if>
+			<if test="banji != null and banji != ''"><![CDATA[AND student_basic_info.banji like concat('%',#{banji},'%')]]></if>
 			<if test="updateTime != null and updateTime != ''"><![CDATA[AND student_zizhu.update_time = #{updateTime}]]></if>
 		</where>
 	</sql>

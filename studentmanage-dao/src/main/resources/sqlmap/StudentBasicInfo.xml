@@ -15,11 +15,11 @@
 	<sql id="QUERY_WHERE_CLAUSE">
 		<where>
 			<if test="id != null and id != ''"><![CDATA[AND id = #{id}]]></if>
-			<if test="xuehao != null and xuehao != ''"><![CDATA[AND xuehao = #{xuehao}]]></if>
-			<if test="name != null and name != ''"><![CDATA[AND name = #{name}]]></if>
+			<if test="xuehao != null and xuehao != ''"><![CDATA[AND xuehao like concat('%',#{xuehao},'%')]]></if>
+			<if test="name != null and name != ''"><![CDATA[AND name like concat('%',#{name},'%')]]></if>
 			<if test="minzu != null and minzu != ''"><![CDATA[AND minzu = #{minzu}]]></if>
 			<if test="zhengzhi != null and zhengzhi != ''"><![CDATA[AND zhengzhi = #{zhengzhi}]]></if>
-			<if test="idNumber != null and idNumber != ''"><![CDATA[AND id_number = #{idNumber}]]></if>
+			<if test="idNumber != null and idNumber != ''"><![CDATA[AND id_number like concat('%',#{idNumber},'%')]]></if>
 			<if test="jiguan != null and jiguan != ''"><![CDATA[AND jiguan = #{jiguan}]]></if>
 			<if test="xueyuan != null and xueyuan != ''"><![CDATA[AND xueyuan = #{xueyuan}]]></if>
 			<if test="zhuanye != null and zhuanye != ''"><![CDATA[AND zhuanye = #{zhuanye}]]></if>

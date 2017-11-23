@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -62,7 +64,7 @@ public class StudentZizhuController{
 	@RequestMapping(value = "/studentZizhuSearch" ,method = {RequestMethod.GET,RequestMethod.POST})
 	public String studentZizhuSearch(StudentZizhuVO studentZizhuVO,Page<StudentZizhuVO> page,Model view) throws Exception{
 		try {
-			//view.addAttribute("studentZizhu",studentZizhuVO);
+			view.addAttribute("studentZizhu",studentZizhuVO);
 			
 			if(studentZizhuVO.getXuehao() == null || "".equals(studentZizhuVO.getXuehao())){
 				view.addAttribute("page",studentZizhuVOService.selectPage(studentZizhuVO,page));			
@@ -84,6 +86,22 @@ public class StudentZizhuController{
 		}finally{
 		}	
 		return "studentZizhu/list";
+	}
+	/**
+	 * 通过条件导出excel
+	 * @param studentZizhuVO
+	 * @param page
+	 * @param view
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/studentZizhuExport" ,method = {RequestMethod.GET,RequestMethod.POST})
+	public void studentZizhuExport(StudentZizhuVO studentZizhuVO, HttpServletResponse response, Model view) throws Exception{
+		HSSFWorkbook wb = studentZizhuVOService.studentZizhuExport(studentZizhuVO);
+		
+		response.setContentType("application/x-excel;charset=gbk");  
+        response.setHeader("Content-Disposition", "attachment; filename="+ new String("学生资助情况.xls".getBytes("gbk"),"ISO-8859-1"));  
+        wb.write(response.getOutputStream());
 	}
 	
 	

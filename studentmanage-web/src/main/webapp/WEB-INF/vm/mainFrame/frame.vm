@@ -3,7 +3,7 @@
 <HEAD>
 	<META http-equiv="Content-Type" content="" />
 	<META name="viewport" content="width=device-width, initial-scale=1.0">
-	<TITLE>studentmanage</TITLE>
+	<TITLE>学生综合信息管理系统</TITLE>
 	<LINK href="$webUtils.getStaticFilePath('/css/bootstrap.min.css')" rel="stylesheet" type="text/css"/>
 	<LINK href="$webUtils.getStaticFilePath('/css/base.css')" rel="stylesheet" type="text/css"/>
 	<LINK href="$webUtils.getStaticFilePath('/css/page.css')" rel="stylesheet" type="text/css"/>

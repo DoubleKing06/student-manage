@@ -6,7 +6,7 @@
 	
 	<!-- 其它SQL语句 -->
 	<sql id="QUERY_COLUMN_LIST_VO">
-		student_basic_info.xuehao,student_basic_info.`name`,student_pingjiang.id,student_pingjiang.student_id AS studentId,student_pingjiang.xueqi,student_pingjiang.jiangxuejin,student_pingjiang.danxiangjiangxuejin,student_pingjiang.xueyou,student_pingjiang.tuanyou,student_pingjiang.yxdxbys,student_pingjiang.dxxx FROM student_basic_info JOIN student_pingjiang ON student_basic_info.id=student_pingjiang.student_id 
+		student_basic_info.xuehao,student_basic_info.`name`,student_basic_info.banji,student_pingjiang.id,student_pingjiang.student_id AS studentId,student_pingjiang.xueqi,student_pingjiang.jiangxuejin,student_pingjiang.danxiangjiangxuejin,student_pingjiang.xueyou,student_pingjiang.tuanyou,student_pingjiang.yxdxbys,student_pingjiang.dxxx FROM student_basic_info JOIN student_pingjiang ON student_basic_info.id=student_pingjiang.student_id 
 	</sql>
 	
 	
@@ -15,14 +15,17 @@
 		<where>
 			<if test="id != null and id != ''"><![CDATA[AND student_pingjiang.id = #{id}]]></if>
 			<if test="studentId != null and studentId != ''"><![CDATA[AND student_pingjiang.student_id = #{studentId}]]></if>
-			<if test="xueqi != null and xueqi != ''"><![CDATA[AND student_pingjiang.xueqi = #{xueqi}]]></if>
-			<if test="jiangxuejin != null and jiangxuejin != ''"><![CDATA[AND student_pingjiang.jiangxuejin = #{jiangxuejin}]]></if>
-			<if test="danxiangjiangxuejin != null and danxiangjiangxuejin != ''"><![CDATA[AND student_pingjiang.danxiangjiangxuejin = #{danxiangjiangxuejin}]]></if>
-			<if test="xueyou != null and xueyou != ''"><![CDATA[AND student_pingjiang.xueyou = #{xueyou}]]></if>
-			<if test="tuanyou != null and tuanyou != ''"><![CDATA[AND student_pingjiang.tuanyou = #{tuanyou}]]></if>
-			<if test="yxdxbys != null and yxdxbys != ''"><![CDATA[AND student_pingjiang.yxdxbys = #{yxdxbys}]]></if>
-			<if test="dxxx != null and dxxx != ''"><![CDATA[AND student_pingjiang.dxxx = #{dxxx}]]></if>
-			<if test="updateTime != null and updateTime != ''"><![CDATA[AND student_pingjiang.update_time = #{updateTime}]]></if>
+			<if test="xuehao != null and xuehao != ''"><![CDATA[AND student_basic_info.xuehao like concat('%',#{xuehao},'%')]]></if>
+			<if test="name != null and name != ''"><![CDATA[AND student_basic_info.name like concat('%',#{name},'%')]]></if>
+			<if test="xueqi != null and xueqi != ''"><![CDATA[AND student_pingjiang.xueqi like concat('%',#{xueqi},'%')]]></if>
+			<if test="jiangxuejin != null and jiangxuejin != ''"><![CDATA[AND student_pingjiang.jiangxuejin like concat('%',#{jiangxuejin},'%')]]></if>
+			<if test="danxiangjiangxuejin != null and danxiangjiangxuejin != ''"><![CDATA[AND student_pingjiang.danxiangjiangxuejin like concat('%',#{danxiangjiangxuejin},'%')]]></if>
+			<if test="xueyou != null and xueyou != ''"><![CDATA[AND student_pingjiang.xueyou like concat('%',#{xueyou},'%')]]></if>
+			<if test="tuanyou != null and tuanyou != ''"><![CDATA[AND student_pingjiang.tuanyou like concat('%',#{tuanyou},'%')]]></if>
+			<if test="yxdxbys != null and yxdxbys != ''"><![CDATA[AND student_pingjiang.yxdxbys like concat('%',#{yxdxbys},'%')]]></if>
+			<if test="dxxx != null and dxxx != ''"><![CDATA[AND student_pingjiang.dxxx like concat('%',#{dxxx},'%')]]></if>
+			<if test="updateTime != null and updateTime != ''"><![CDATA[AND student_pingjiang.update_time like concat('%',#{updateTime},'%')]]></if>
+			<if test="banji != null and banji != ''"><![CDATA[AND student_basic_info.banji like concat('%',#{banji},'%')]]></if>
 		</where>
 	</sql>
 	

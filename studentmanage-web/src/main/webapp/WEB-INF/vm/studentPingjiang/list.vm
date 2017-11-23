@@ -10,8 +10,16 @@
 	<input type="hidden" name="orderFieldType" value="$!{studentPingjiang.orderFieldType}"/>
 	<!-- 查询条件 -->
 	<input class="span2" type="text" name="xuehao" value="$!{studentPingjiang.xuehao}" placeholder="学号"/>
+	<input class="span2" type="text" name="name" value="$!{studentPingjiang.name}" placeholder="姓名"/>
 	<!--<input class="span2" type="text" name="studentId" value="$!{studentPingjiang.studentId}" placeholder="学生编号"/>-->
 	<input class="span2" type="text" name="xueqi" value="$!{studentPingjiang.xueqi}" placeholder="学期"/>
+	<input class="span2" type="text" name="banji" value="$!{studentPingjiang.banji}" placeholder="班级"/>
+	<input class="span2" type="text" name="jiangxuejin" value="$!{studentPingjiang.jiangxuejin}" placeholder="奖学金"/>
+	<input class="span2" type="text" name="danxiangjiangxuejin" value="$!{studentPingjiang.danxiangjiangxuejin}" placeholder="单项奖学金"/>
+	<input class="span2" type="text" name="xueyou" value="$!{studentPingjiang.xueyou}" placeholder="学优"/>
+	<input class="span2" type="text" name="tuanyou" value="$!{studentPingjiang.tuanyou}" placeholder="团优"/>
+	<input class="span2" type="text" name="yxdxbys" value="$!{studentPingjiang.yxdxbys}" placeholder="优秀大学毕业生"/>
+	<input class="span2" type="text" name="dxxx" value="$!{studentPingjiang.dxxx}" placeholder="党校学习"/>
 	<button type="submit" class="btn"><i class="icon-search"></i>搜索</button>
 	<!-- 新增按钮 -->
 	<div class="btn-group pull-right">
@@ -29,6 +37,7 @@
 			<th #sorting($!{studentPingjiang} "xuehao")>学号</th>
 			<th #sorting($!{studentPingjiang} "name")>姓名</th>
 			<th #sorting($!{studentPingjiang} "xueqi")>学期</th>
+			<th #sorting($!{studentPingjiang} "banji")>班级</th>
 			<th #sorting($!{studentPingjiang} "jiangxuejin")>奖学金</th>
 			<th #sorting($!{studentPingjiang} "danxiangjiangxuejin")>单项奖学金</th>
 			<th #sorting($!{studentPingjiang} "xueyou")>学优</th>
@@ -48,6 +57,7 @@
 			<td>$!{item.xuehao}</td>
 			<td>$!{item.name}</td>
 			<td>$!{item.xueqi}</td>
+			<td>$!{item.banji}</td>
 			<td>$!{item.jiangxuejin}</td>
 			<td>$!{item.danxiangjiangxuejin}</td>
 			<td>$!{item.xueyou}</td>
