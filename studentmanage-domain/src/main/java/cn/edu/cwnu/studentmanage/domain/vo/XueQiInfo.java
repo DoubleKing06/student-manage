@@ -12,7 +12,39 @@ public class XueQiInfo {
 	private String xueyou;
 	private String tuanyou;
 	private String yxdxbys;
+	private String gjjxj;
+	private String gjlzjxj;
+	private String gjzxj;
+	private String other;
 	private List<String> otherhuojianginfo;
+	
+	
+	
+	public String getGjjxj() {
+		return gjjxj;
+	}
+	public void setGjjxj(String gjjxj) {
+		this.gjjxj = gjjxj;
+	}
+	public String getGjlzjxj() {
+		return gjlzjxj;
+	}
+	public void setGjlzjxj(String gjlzjxj) {
+		this.gjlzjxj = gjlzjxj;
+	}
+	public String getGjzxj() {
+		return gjzxj;
+	}
+	public void setGjzxj(String gjzxj) {
+		this.gjzxj = gjzxj;
+	}
+	public String getOther() {
+		return other;
+	}
+	public void setOther(String other) {
+		this.other = other;
+	}
+
 	public String getXueqi() {
 		return xueqi;
 	}

@@ -1,7 +1,9 @@
 package cn.edu.cwnu.studentmanage.service.impl;
 
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -15,6 +17,7 @@ import cn.edu.cwnu.studentmanage.domain.StudentQitahuojiang;
 import cn.edu.cwnu.studentmanage.domain.StudentXueye;
 import cn.edu.cwnu.studentmanage.domain.StudentZizhu;
 import cn.edu.cwnu.studentmanage.domain.vo.StudentGrowupInfoVO;
+import cn.edu.cwnu.studentmanage.domain.vo.XueQiInfo;
 import cn.edu.cwnu.studentmanage.service.GetStudentAllInfoService;
 import cn.edu.cwnu.studentmanage.service.StudentBasicInfoService;
 import cn.edu.cwnu.studentmanage.service.StudentChengjiService;
@@ -59,21 +62,124 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 			sg.setPutonghua(StudentXueye.get(0).getPutonghua());
 			sg.setSanbizi(StudentXueye.get(0).getSanbizi());
 		}
+		/**
+		 * 学生成绩信息
+		 */
+		Map<String,XueQiInfo> xueQiInfoMap =new HashMap<String,XueQiInfo>();
+		
+		List<StudentChengji> chengjiList = getStudentChengji(student_id);
+		if(!chengjiList.isEmpty()){
+			Iterator<StudentChengji> it =chengjiList.iterator();
+			while(it.hasNext()){
+				if(!sg.getXueQiInfo().containsKey(it.next().getXueqi())){
+					
+					XueQiInfo xueqiInfo =new XueQiInfo();
+					StudentChengji cj =it.next();
+					xueqiInfo.setZhuanyePaiming(cj.getZhuanyePaiming());
+					xueqiInfo.setZonghePaiming(cj.getZonghePaiming());
+					xueqiInfo.setBukaokemu(cj.getBukaokemu());
+					xueQiInfoMap.put(it.next().getXueqi(), xueqiInfo);
+					sg.setXueQiInfo(xueQiInfoMap);
+				}
+			}
+		}
+		
+		/**
+		 * 学生评奖信息
+		 */
+		List<StudentPingjiang> pjList = getStudentPingjiang(student_id);
+		if(!pjList.isEmpty()){
+			Iterator<StudentPingjiang> pj =pjList.iterator();
+			while(pj.hasNext()){
+				StudentPingjiang pjTemp =pj.next();
+				if(xueQiInfoMap.containsKey(pjTemp.getXueqi())){
+					XueQiInfo xqInfo =xueQiInfoMap.get(pjTemp.getXueqi());
+					xqInfo.setJiangxuejin(pjTemp.getJiangxuejin());
+					xqInfo.setDanxiangjiangxuejin(pjTemp.getDanxiangjiangxuejin());
+					xqInfo.setXueyou(pjTemp.getXueyou());
+					xqInfo.setTuanyou(pjTemp.getTuanyou());
+					xqInfo.setYxdxbys(pjTemp.getYxdxbys());
+					if(pjTemp.getDxxx()!=null && !"".equals(pjTemp.getDxxx())){
+						sg.setDxxx(pjTemp.getDxxx());
+					}
+					xueQiInfoMap.put(pjTemp.getXueqi(), xqInfo);
+				}else{
+					XueQiInfo xueqiInfo =new XueQiInfo();
+					xueqiInfo.setJiangxuejin(pjTemp.getJiangxuejin());
+					xueqiInfo.setDanxiangjiangxuejin(pjTemp.getDanxiangjiangxuejin());
+					xueqiInfo.setXueyou(pjTemp.getXueyou());
+					xueqiInfo.setTuanyou(pjTemp.getTuanyou());
+					xueqiInfo.setYxdxbys(pjTemp.getYxdxbys());
+					if(pjTemp.getDxxx()!=null && !"".equals(pjTemp.getDxxx())){
+						sg.setDxxx(pjTemp.getDxxx());
+					}
+					xueQiInfoMap.put(pjTemp.getXueqi(), xueqiInfo);
+				}
+			}
+			sg.setXueQiInfo(xueQiInfoMap);
+
+			
+		}
 		
 		
 		
+		/**
+		 * 学生资助信息
+		 */
+		List<StudentZizhu> ziZhuList = getStudentZizhu(student_id);
+		if(!ziZhuList.isEmpty()){
+			Iterator<StudentZizhu> zz =ziZhuList.iterator();
+			while(zz.hasNext()){
+				StudentZizhu zzTemp =zz.next();
+				if(xueQiInfoMap.containsKey(zzTemp.getXueqi())){
+					XueQiInfo xqInfo =xueQiInfoMap.get(zzTemp.getXueqi());
+					xqInfo.setGjjxj(zzTemp.getGjjxj());
+					xqInfo.setGjlzjxj(zzTemp.getGjlzjxj());
+					xqInfo.setGjzxj(zzTemp.getGjzxj());
+					xqInfo.setOther(zzTemp.getOther());
+					xueQiInfoMap.put(zzTemp.getXueqi(), xqInfo);
+				}else{
+					XueQiInfo xueqiInfo =new XueQiInfo();
+					xueqiInfo.setGjjxj(zzTemp.getGjjxj());
+					xueqiInfo.setGjlzjxj(zzTemp.getGjlzjxj());
+					xueqiInfo.setGjzxj(zzTemp.getGjzxj());
+					xueqiInfo.setOther(zzTemp.getOther());
+					xueQiInfoMap.put(zzTemp.getXueqi(), xueqiInfo);
+				}
+			}
+			sg.setXueQiInfo(xueQiInfoMap);
+		}
 		
 		
-		
-		
-		
-		
-		
+		/**
+		 * 其他获奖信息
+		 */
+		List<StudentQitahuojiang> qthjList=getStudentQitahuojiang(student_id);
+		if(!qthjList.isEmpty()){
+			Iterator<StudentQitahuojiang> qt =qthjList.iterator();
+			while(qt.hasNext()){
+				StudentQitahuojiang qthj =qt.next();
+				if(xueQiInfoMap.containsKey(qthj.getXueqi())){
+					XueQiInfo xqInfo =xueQiInfoMap.get(qthj.getXueqi());
+					xqInfo.getOtherhuojianginfo().add(qthj.getOtherhuojianginfo());
+					xueQiInfoMap.put(qthj.getXueqi(), xqInfo);
+				}else{
+					XueQiInfo xueqiInfo =new XueQiInfo();
+					xueqiInfo.getOtherhuojianginfo().add(qthj.getOtherhuojianginfo());
+					xueQiInfoMap.put(qthj.getXueqi(), xueqiInfo);
+				}
+			}
+			sg.setXueQiInfo(xueQiInfoMap);
+			
+		}
 		
 		// TODO Auto-generated method stub
-		return null;
+		return sg;
 	}
 
+	
+	
+	
 	@Override
 	public BaseDao<StudentBasicInfo, Integer> getDao() {
 		// TODO Auto-generated method stub

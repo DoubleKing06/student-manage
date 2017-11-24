@@ -25,7 +25,7 @@ public class StudentGrowupInfoVO extends BaseDomain {
 	private String putonghua;
 	private String sanbizi;
 	private String dxxx;
-	private Map<Integer,XueQiInfo> xueQiInfoList;
+	private Map<String,XueQiInfo> xueQiInfo;
 	
 	public String getBanji() {
 		return banji;
@@ -35,12 +35,12 @@ public class StudentGrowupInfoVO extends BaseDomain {
 		this.banji = banji;
 	}
 
-	public Map<Integer, XueQiInfo> getXueQiInfoList() {
-		return xueQiInfoList;
+	public Map<String, XueQiInfo> getXueQiInfo() {
+		return xueQiInfo;
 	}
 
-	public void setXueQiInfoList(Map<Integer, XueQiInfo> xueQiInfoList) {
-		this.xueQiInfoList = xueQiInfoList;
+	public void setXueQiInfo(Map<String, XueQiInfo> xueQiInfo) {
+		this.xueQiInfo = xueQiInfo;
 	}
 
 	public StudentGrowupInfoVO(){
