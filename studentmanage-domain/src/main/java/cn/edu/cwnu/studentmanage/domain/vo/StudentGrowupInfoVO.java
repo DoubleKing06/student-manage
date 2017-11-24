@@ -5,6 +5,7 @@
 package cn.edu.cwnu.studentmanage.domain.vo;
 
 import java.util.List;
+import java.util.Map;
 
 import cn.edu.cwnu.studentmanage.domain.base.BaseDomain;
 
@@ -18,18 +19,29 @@ public class StudentGrowupInfoVO extends BaseDomain {
 	private String name;
 	private String xuehao;
 	private String zhuanye;
+	private String banji;
 	private String jclass;
 	private Float cet4;
 	private String putonghua;
 	private String sanbizi;
 	private String dxxx;
-	private List<XueQiInfo> xueQiInfoList;
+	private Map<Integer,XueQiInfo> xueQiInfoList;
 	
-	
-	
-	
-	
-	
+	public String getBanji() {
+		return banji;
+	}
+
+	public void setBanji(String banji) {
+		this.banji = banji;
+	}
+
+	public Map<Integer, XueQiInfo> getXueQiInfoList() {
+		return xueQiInfoList;
+	}
+
+	public void setXueQiInfoList(Map<Integer, XueQiInfo> xueQiInfoList) {
+		this.xueQiInfoList = xueQiInfoList;
+	}
 
 	public StudentGrowupInfoVO(){
 		//默认无参构造方法
@@ -99,25 +111,12 @@ public class StudentGrowupInfoVO extends BaseDomain {
 		this.dxxx = dxxx;
 	}
 
-	public List<XueQiInfo> getXueQiInfoList() {
-		return xueQiInfoList;
-	}
 
-	public void setXueQiInfoList(List<XueQiInfo> xueQiInfoList) {
-		this.xueQiInfoList = xueQiInfoList;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	@Override
-	public String toString() {
-		return "StudentGrowupInfoVO [name=" + name + ", xuehao=" + xuehao + ", zhuanye=" + zhuanye + ", jclass="
-				+ jclass + ", cet4=" + cet4 + ", putonghua=" + putonghua + ", sanbizi=" + sanbizi + ", dxxx=" + dxxx
-				+ ", xueQiInfoList=" + xueQiInfoList + "]";
-	}
-	
 	
 	
 	
