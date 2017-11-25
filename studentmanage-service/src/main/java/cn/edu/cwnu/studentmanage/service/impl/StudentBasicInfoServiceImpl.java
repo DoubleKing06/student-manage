@@ -4,6 +4,8 @@
  */
 package cn.edu.cwnu.studentmanage.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,5 +32,11 @@ public class StudentBasicInfoServiceImpl extends BaseServiceImpl<StudentBasicInf
 	@Transactional(rollbackFor=Exception.class)
 	public int insertEntryCreateId(StudentBasicInfo studentBasicInfo) {
 		return super.insertEntryCreateId(studentBasicInfo);
+	}
+
+	@Override
+	public Integer selectEntryListCount(StudentBasicInfo condtion) {
+		// TODO Auto-generated method stub
+		return studentBasicInfoDao.selectEntryListCount(condtion);
 	}
 }

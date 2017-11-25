@@ -83,6 +83,8 @@ public interface BaseService<T,KEY extends Serializable> {
 	 */
 	List<T> selectEntryList(T condtion);
 	
+
+	
 	/**
 	 * 分页查询
 	 * @param condtion 查询条件

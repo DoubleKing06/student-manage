@@ -4,23 +4,28 @@
  */
 package cn.edu.cwnu.studentmanage.web.controller;
 import java.util.Date;
+
 import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
-import cn.edu.cwnu.studentmanage.web.CustomDateEditor;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.stereotype.Controller;
+
 import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
 import cn.edu.cwnu.studentmanage.domain.common.Message;
 import cn.edu.cwnu.studentmanage.domain.common.Page;
+import cn.edu.cwnu.studentmanage.domain.vo.StudentGrowupInfoVO;
+import cn.edu.cwnu.studentmanage.service.GetStudentAllInfoService;
 import cn.edu.cwnu.studentmanage.service.StudentBasicInfoService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.edu.cwnu.studentmanage.web.CustomDateEditor;
 
 /**
  *studentBasicInfo controller层
@@ -32,6 +37,7 @@ import org.slf4j.LoggerFactory;
 public class StudentBasicInfoController{
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentBasicInfoController.class);
 	@Resource private StudentBasicInfoService studentBasicInfoService;
+	@Resource private GetStudentAllInfoService getetStudentAllInfoService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder, WebRequest request) {
@@ -110,6 +116,11 @@ public class StudentBasicInfoController{
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public String view(@PathVariable Integer id,Model view) throws Exception{
 		try {
+			
+			System.out.println("11111111111");
+			StudentGrowupInfoVO studentGrowupInfoVO = getetStudentAllInfoService.getStudentAllInfo(Long.valueOf(id.toString()));
+			System.out.println(studentGrowupInfoVO.toString());
+			
 			StudentBasicInfo studentBasicInfo = studentBasicInfoService.selectEntry(id);
 			if(studentBasicInfo == null) {
 				return null;
@@ -121,6 +132,32 @@ public class StudentBasicInfoController{
 		}finally{
 		}
 
+		return "studentBasicInfo/view";
+	}
+	/**
+	 * 通过编号查看对象
+	 * @param id 对象编号
+	 * @return
+	 */
+	@RequestMapping(value="/getinfo/{id}",method=RequestMethod.GET)
+	public String getinfo(@PathVariable Integer id,Model view) throws Exception{
+		try {
+			System.out.println("1111111111");
+			StudentGrowupInfoVO studentGrowupInfoVO = getetStudentAllInfoService.getStudentAllInfo(Long.valueOf(id.toString()));
+			System.out.println(studentGrowupInfoVO.toString());
+			
+			
+			StudentBasicInfo studentBasicInfo = studentBasicInfoService.selectEntry(id);
+			if(studentBasicInfo == null) {
+				return null;
+			}
+			view.addAttribute("studentBasicInfo",studentBasicInfo);
+		} catch (Exception e) {
+			LOGGER.error("失败:"+e.getMessage(),e);
+			throw e;
+		}finally{
+		}
+		
 		return "studentBasicInfo/view";
 	}
 	

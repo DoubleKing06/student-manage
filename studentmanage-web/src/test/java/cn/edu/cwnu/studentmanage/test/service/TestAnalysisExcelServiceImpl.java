@@ -4,12 +4,14 @@
  */
 package cn.edu.cwnu.studentmanage.test.service;
 
-import cn.edu.cwnu.studentmanage.service.AnalysisExcelService;
-import org.junit.Test;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.junit.Test;
+
+import cn.edu.cwnu.studentmanage.service.AnalysisExcelService;
+import cn.edu.cwnu.studentmanage.service.GetStudentAllInfoService;
 
 /**
  * @author YuBo
@@ -24,9 +26,9 @@ public class TestAnalysisExcelServiceImpl extends BasicTest {
         InputStream stream = new FileInputStream("C:/Users/DoubleKing/Desktop/west/1/学生基本情况表.xls");
         service.analysisStudentBasicInfo(stream);*/
         
-        //读取一个excel表的内容
+/*        //读取一个excel表的内容
         InputStream stream1 = new FileInputStream("C:/Users/DoubleKing/Desktop/west/1/评优评奖情况.xls");
-        service.analysisStudentPingjiang(stream1);
+        service.analysisStudentPingjiang(stream1);*/
         
 /*        //读取一个excel表的内容
         InputStream stream2 = new FileInputStream("C:/Users/DoubleKing/Desktop/west/1/学期成绩表.xls");

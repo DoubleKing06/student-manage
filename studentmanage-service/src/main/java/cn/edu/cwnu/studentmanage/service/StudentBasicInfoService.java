@@ -4,6 +4,8 @@
  */
 package cn.edu.cwnu.studentmanage.service;
 
+import java.util.List;
+
 import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
 import cn.edu.cwnu.studentmanage.service.base.BaseService;
 
@@ -13,5 +15,12 @@ import cn.edu.cwnu.studentmanage.service.base.BaseService;
  * @since 2017-11-17
  */
 public interface StudentBasicInfoService extends BaseService<StudentBasicInfo,Integer> {
+	
+	/**
+	 * 查询对象总数
+	 * @param condtion
+	 * @return
+	 */
+	Integer selectEntryListCount(StudentBasicInfo T);
 	
 }

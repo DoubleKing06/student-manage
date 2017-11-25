@@ -110,8 +110,10 @@ public class XueQiInfo {
 		return "XueQiInfo [xueqi=" + xueqi + ", zhuanyePaiming=" + zhuanyePaiming + ", zonghePaiming=" + zonghePaiming
 				+ ", bukaokemu=" + bukaokemu + ", jiangxuejin=" + jiangxuejin + ", danxiangjiangxuejin="
 				+ danxiangjiangxuejin + ", xueyou=" + xueyou + ", tuanyou=" + tuanyou + ", yxdxbys=" + yxdxbys
+				+ ", gjjxj=" + gjjxj + ", gjlzjxj=" + gjlzjxj + ", gjzxj=" + gjzxj + ", other=" + other
 				+ ", otherhuojianginfo=" + otherhuojianginfo + "]";
 	}
+
 	
 	
 	

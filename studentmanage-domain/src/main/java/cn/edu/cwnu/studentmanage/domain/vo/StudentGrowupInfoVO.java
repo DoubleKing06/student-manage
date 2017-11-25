@@ -20,11 +20,34 @@ public class StudentGrowupInfoVO extends BaseDomain {
 	private String xuehao;
 	private String zhuanye;
 	private String banji;
-	private String jclass;
 	private Float cet4;
 	private String putonghua;
 	private String sanbizi;
 	private String dxxx;
+	private String nianjiCount;//年级总人数
+	private String banjiCount;//班级总人数
+	
+	
+	
+	
+	public String getNianjiCount() {
+		return nianjiCount;
+	}
+
+	public void setNianjiCount(String nianjiCount) {
+		this.nianjiCount = nianjiCount;
+	}
+
+	public String getBanjiCount() {
+		return banjiCount;
+	}
+
+	public void setBanjiCount(String banjiCount) {
+		this.banjiCount = banjiCount;
+	}
+
+
+
 	private Map<String,XueQiInfo> xueQiInfo;
 	
 	public String getBanji() {
@@ -69,14 +92,6 @@ public class StudentGrowupInfoVO extends BaseDomain {
 
 	public void setZhuanye(String zhuanye) {
 		this.zhuanye = zhuanye;
-	}
-
-	public String getJclass() {
-		return jclass;
-	}
-
-	public void setJclass(String jclass) {
-		this.jclass = jclass;
 	}
 
 	public Float getCet4() {

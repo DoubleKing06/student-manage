@@ -62,6 +62,7 @@
 					<a class="btn btn-mini" onclick="XUI.ajax.delete('/studentBasicInfo/${item.id}',null,{refresh:true})"><i class="icon-trash"></i> 删除</a>
 					<a class="btn btn-mini" onclick="XUI.window.open('/studentBasicInfo/${item.id}',null,'PUT',{title:$(this).text()})"><i class="icon-pencil"></i> 修改</a>
 					<a class="btn btn-mini" onclick="XUI.window.open('/studentBasicInfo/${item.id}',null,'GET',{title:$(this).text()})"><i class="icon-eye-open"></i> 查看</a>
+					<a class="btn btn-mini" onclick="XUI.window.open('/studentBasicInfo/getinfo/${item.id}',null,'GET',{title:$(this).text()})"><i class="icon-eye-open"></i> 查看成长记录</a>
 				</div>
 			</td>
 		</tr>
