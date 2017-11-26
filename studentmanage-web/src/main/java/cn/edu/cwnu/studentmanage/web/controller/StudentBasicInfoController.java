@@ -4,6 +4,10 @@
  */
 package cn.edu.cwnu.studentmanage.web.controller;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -23,6 +27,7 @@ import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
 import cn.edu.cwnu.studentmanage.domain.common.Message;
 import cn.edu.cwnu.studentmanage.domain.common.Page;
 import cn.edu.cwnu.studentmanage.domain.vo.StudentGrowupInfoVO;
+import cn.edu.cwnu.studentmanage.domain.vo.XueQiInfo;
 import cn.edu.cwnu.studentmanage.service.GetStudentAllInfoService;
 import cn.edu.cwnu.studentmanage.service.StudentBasicInfoService;
 import cn.edu.cwnu.studentmanage.web.CustomDateEditor;
@@ -116,11 +121,6 @@ public class StudentBasicInfoController{
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
 	public String view(@PathVariable Integer id,Model view) throws Exception{
 		try {
-			
-			System.out.println("11111111111");
-			StudentGrowupInfoVO studentGrowupInfoVO = getetStudentAllInfoService.getStudentAllInfo(Long.valueOf(id.toString()));
-			System.out.println(studentGrowupInfoVO.toString());
-			
 			StudentBasicInfo studentBasicInfo = studentBasicInfoService.selectEntry(id);
 			if(studentBasicInfo == null) {
 				return null;
@@ -142,16 +142,87 @@ public class StudentBasicInfoController{
 	@RequestMapping(value="/getinfo/{id}",method=RequestMethod.GET)
 	public String getinfo(@PathVariable Integer id,Model view) throws Exception{
 		try {
-			System.out.println("1111111111");
 			StudentGrowupInfoVO studentGrowupInfoVO = getetStudentAllInfoService.getStudentAllInfo(Long.valueOf(id.toString()));
-			System.out.println(studentGrowupInfoVO.toString());
-			
-			
-			StudentBasicInfo studentBasicInfo = studentBasicInfoService.selectEntry(id);
-			if(studentBasicInfo == null) {
+			/**
+			 * 开始拼接数据
+			 */
+			Map<String,XueQiInfo> xueQiInfoMap = (Map<String, XueQiInfo>) studentGrowupInfoVO.getXueQiInfo();
+			Set<String> itMap = xueQiInfoMap.keySet();
+			Map<String,String> mapTemp =new HashMap<String,String>();
+			for (String key : itMap) {
+				StringBuffer sBuffer = new StringBuffer("	");
+				XueQiInfo xq = xueQiInfoMap.get(key);
+				/**
+				 * 成绩相关
+				 */
+				//专业排名
+				if(xq.getZhuanyePaiming()!=null){
+					sBuffer.append("专业排名："+xq.getZhuanyePaiming()+"/"+studentGrowupInfoVO.getBanjiCount()+",");
+				}
+				//综合排名
+				if(xq.getZonghePaiming()!=null){
+					sBuffer.append("综合排名："+xq.getZonghePaiming()+"/"+studentGrowupInfoVO.getNianjiCount()+",");
+				}
+				//补考科目
+				if(xq.getBukaokemu()!=null){
+					sBuffer.append("补考科目:"+xq.getBukaokemu()+",");
+				}
+				/**
+				 * 资助相关
+				 */
+				//国家奖学金
+				if(xq.getGjjxj()!=null){
+					sBuffer.append(xq.getGjjxj()+",");
+				}
+				//国家励志奖学金
+				if(xq.getGjlzjxj()!=null){
+					sBuffer.append(xq.getGjlzjxj()+",");
+				}
+				//国家助学金
+				if(xq.getGjzxj()!=null){
+					sBuffer.append(xq.getGjzxj()+",");
+				}
+				
+				/**
+				 * 评奖相关
+				 */
+				//奖学金
+				if(xq.getJiangxuejin()!=null){
+					sBuffer.append(xq.getJiangxuejin()+",");
+				}
+				//单项奖学金
+				if(xq.getDanxiangjiangxuejin()!=null){
+					sBuffer.append(xq.getDanxiangjiangxuejin()+",");
+				}
+				//学优
+				if(xq.getXueyou()!=null){
+					sBuffer.append(xq.getXueyou()+",");
+				}
+				//团优
+				if(xq.getTuanyou()!=null){
+					sBuffer.append(xq.getTuanyou()+",");
+				}
+				//优秀大学毕业生
+				if(xq.getYxdxbys()!=null){
+					sBuffer.append(xq.getYxdxbys()+",");
+				}
+				
+				if(xq.getOtherhuojianginfo()!=null){
+					List<String> qthj =xq.getOtherhuojianginfo();
+					for(int i=0;i<qthj.size();i++){
+						String bd =(i==qthj.size()-1)?"。":",";
+						sBuffer.append(qthj.get(i)+bd);
+					}
+				}
+				sBuffer = sBuffer.deleteCharAt(sBuffer.length()-1).append("。");
+				String sBufferTemp = sBuffer.toString().replace("无,", "").replace("无", "").replace(",。", "。");
+				mapTemp.put(key, sBufferTemp);
+			}
+			studentGrowupInfoVO.setXueQiInfo(mapTemp);
+			if(studentGrowupInfoVO == null) {
 				return null;
 			}
-			view.addAttribute("studentBasicInfo",studentBasicInfo);
+			view.addAttribute("studentGrowupInfoVO",studentGrowupInfoVO);
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
 			throw e;

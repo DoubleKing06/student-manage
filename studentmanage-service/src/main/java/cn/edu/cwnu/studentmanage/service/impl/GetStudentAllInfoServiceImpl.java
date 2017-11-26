@@ -91,7 +91,7 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 				if(sg.getXueQiInfo()==null || sg.getXueQiInfo().get(it.getXueqi()) == null){
 					xueQiInfo =new XueQiInfo();
 				}else{
-					xueQiInfo = sg.getXueQiInfo().get(it.getXueqi());
+					xueQiInfo = (XueQiInfo) sg.getXueQiInfo().get(it.getXueqi());
 				}
 					xueQiInfo.setZhuanyePaiming(it.getZhuanyePaiming());
 					xueQiInfo.setZonghePaiming(it.getZonghePaiming());

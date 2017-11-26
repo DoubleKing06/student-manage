@@ -4,7 +4,6 @@
  */
 package cn.edu.cwnu.studentmanage.domain.vo;
 
-import java.util.List;
 import java.util.Map;
 
 import cn.edu.cwnu.studentmanage.domain.base.BaseDomain;
@@ -12,9 +11,10 @@ import cn.edu.cwnu.studentmanage.domain.base.BaseDomain;
 /**
  * studentBasicInfo
  * @author kkliu
+ * @param <T>
  * @since 2017-11-17
  */
-public class StudentGrowupInfoVO extends BaseDomain {
+public class StudentGrowupInfoVO<T> extends BaseDomain {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String xuehao;
@@ -26,6 +26,7 @@ public class StudentGrowupInfoVO extends BaseDomain {
 	private String dxxx;
 	private String nianjiCount;//年级总人数
 	private String banjiCount;//班级总人数
+	private Map<String,T> xueQiInfo;
 	
 	
 	
@@ -48,7 +49,6 @@ public class StudentGrowupInfoVO extends BaseDomain {
 
 
 
-	private Map<String,XueQiInfo> xueQiInfo;
 	
 	public String getBanji() {
 		return banji;
@@ -58,11 +58,11 @@ public class StudentGrowupInfoVO extends BaseDomain {
 		this.banji = banji;
 	}
 
-	public Map<String, XueQiInfo> getXueQiInfo() {
+	public Map<String, T> getXueQiInfo() {
 		return xueQiInfo;
 	}
 
-	public void setXueQiInfo(Map<String, XueQiInfo> xueQiInfo) {
+	public void setXueQiInfo(Map<String, T> xueQiInfo) {
 		this.xueQiInfo = xueQiInfo;
 	}
 
