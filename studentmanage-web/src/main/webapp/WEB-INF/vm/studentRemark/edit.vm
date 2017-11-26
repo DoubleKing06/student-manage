@@ -13,12 +13,14 @@
 		<tr>
 			<td>学期:</td>
 			<td><input type="text" name="xueqi" value="$!{studentRemark.xueqi}" placeholder="学期"/></td>
-			<td>备注:</td>
-			<td><input type="text" name="remark" value="$!{studentRemark.remark}" placeholder="备注"/></td>
-		</tr>
-		<tr>
 			<td>备注时间:</td>
 			<td><input type="text" maxlength="10" name="remarkTime" value="$!{studentRemark.remarkTime}" placeholder="YYYY-MM-DD HH:mm:ss"/></td>
+		</tr>
+		<tr>
+			<td>备注:</td>
+			<td colspan="3"><textarea rows="10" cols="300" placeholder="请输入备注"></textarea></td>
+			
+			<!--<input type="text" style="width:540px; height:200px;" name="remark" value="$!{studentRemark.remark}" placeholder="备注"/></td>-->
 			<!--<td>更新时间:</td>
 			<td><input type="text" name="updateTime" value="$!{studentRemark.updateTime}" placeholder="更新时间"/></td>-->
 		</tr>

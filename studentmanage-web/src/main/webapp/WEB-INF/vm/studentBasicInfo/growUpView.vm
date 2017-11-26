@@ -1,0 +1,56 @@
+<table class="table table-bordered table-striped formLayout m0">
+	<caption><h2>学生成长记录表</h2></caption>
+	<tr>
+		<td>姓名:</td>
+		<td>$!{gu.name}</td>
+		<td>学号:</td>
+		<td>$!{gu.xuehao}</td>
+		<td>专业:</td>
+		<td>$!{gu.zhuanye}</td>
+		<td>班级:</td>
+		<td>$!{gu.banji}</td>
+	</tr>
+	<tr>
+		<td>英语四级:</td>
+		<td>$!{gu.cet4}</td>
+		<td>普通话:</td>
+		<td>$!{gu.putonghua}</td>
+		<td>三笔字:</td>
+		<td>$!{gu.sanbizi}</td>
+		<td>党校学习:</td>
+		<td>$!{gu.dxxx}</td>
+	</tr>
+	<tr colspan="7">
+		<td>第一学期:</td>
+		<td  colspan="7">$!{gu.xueQiInfo.get("1")}</td>
+	</tr>
+	<tr colspan="7">
+		<td>第二学期:</td>
+		<td  colspan="7">$!{gu.xueQiInfo.get("2")}</td>
+	</tr>
+	<tr colspan="7">
+		<td>第三学期:</td>
+		<td  colspan="7">$!{gu.xueQiInfo.get("3")}</td>
+	</tr>
+	<tr colspan="7">
+		<td>第四学期:</td>
+		<td  colspan="7">$!{gu.xueQiInfo.get("4")}</td>
+	</tr>
+	<tr colspan="7">
+		<td>第五学期:</td>
+		<td  colspan="7">$!{gu.xueQiInfo.get("5")}</td>
+	</tr>
+	<tr colspan="7">
+		<td>第六学期:</td>
+		<td  colspan="7">$!{gu.xueQiInfo.get("6")}</td>
+	</tr>
+	<tr colspan="7">
+		<td>第七学期:</td>
+		<td  colspan="7">$!{gu.xueQiInfo.get("7")}</td>
+	</tr>
+	<tr colspan="7">
+		<td>第八学期:</td>
+		<td  colspan="7">$!{gu.xueQiInfo.get("8")}</td>
+	</tr>
+
+</table>

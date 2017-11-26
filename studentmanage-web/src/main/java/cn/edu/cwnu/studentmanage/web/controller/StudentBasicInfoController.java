@@ -222,14 +222,14 @@ public class StudentBasicInfoController{
 			if(studentGrowupInfoVO == null) {
 				return null;
 			}
-			view.addAttribute("studentGrowupInfoVO",studentGrowupInfoVO);
+			view.addAttribute("gu",studentGrowupInfoVO);
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
 			throw e;
 		}finally{
 		}
 		
-		return "studentBasicInfo/view";
+		return "studentBasicInfo/growUpView";
 	}
 	
 	/**
