@@ -3,6 +3,7 @@
  * 本软件源代码版权归----所有,未经许可不得任意复制与传播.
  */
 package cn.edu.cwnu.studentmanage.web.controller;
+import java.io.ByteArrayOutputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,86 +144,7 @@ public class StudentBasicInfoController{
 	@RequestMapping(value="/getinfo/{id}",method=RequestMethod.GET)
 	public String getinfo(@PathVariable Integer id,Model view) throws Exception{
 		try {
-			StudentGrowupInfoVO studentGrowupInfoVO = getetStudentAllInfoService.getStudentAllInfo(Long.valueOf(id.toString()));
-			/**
-			 * 开始拼接数据
-			 */
-			Map<String,XueQiInfo> xueQiInfoMap = (Map<String, XueQiInfo>) studentGrowupInfoVO.getXueQiInfo();
-			Set<String> itMap = xueQiInfoMap.keySet();
-			Map<String,String> mapTemp =new HashMap<String,String>();
-			for (String key : itMap) {
-				StringBuffer sBuffer = new StringBuffer("	");
-				XueQiInfo xq = xueQiInfoMap.get(key);
-				/**
-				 * 成绩相关
-				 */
-				//专业排名
-				if(xq.getZhuanyePaiming()!=null){
-					sBuffer.append("专业排名："+xq.getZhuanyePaiming()+"/"+studentGrowupInfoVO.getBanjiCount()+",");
-				}
-				//综合排名
-				if(xq.getZonghePaiming()!=null){
-					sBuffer.append("综合排名："+xq.getZonghePaiming()+"/"+studentGrowupInfoVO.getNianjiCount()+",");
-				}
-				//补考科目
-				if(xq.getBukaokemu()!=null){
-					sBuffer.append("补考科目:"+xq.getBukaokemu()+",");
-				}
-				/**
-				 * 资助相关
-				 */
-				//国家奖学金
-				if(xq.getGjjxj()!=null){
-					sBuffer.append(xq.getGjjxj()+",");
-				}
-				//国家励志奖学金
-				if(xq.getGjlzjxj()!=null){
-					sBuffer.append(xq.getGjlzjxj()+",");
-				}
-				//国家助学金
-				if(xq.getGjzxj()!=null){
-					sBuffer.append(xq.getGjzxj()+",");
-				}
-				
-				/**
-				 * 评奖相关
-				 */
-				//奖学金
-				if(xq.getJiangxuejin()!=null){
-					sBuffer.append(xq.getJiangxuejin()+",");
-				}
-				//单项奖学金
-				if(xq.getDanxiangjiangxuejin()!=null){
-					sBuffer.append(xq.getDanxiangjiangxuejin()+",");
-				}
-				//学优
-				if(xq.getXueyou()!=null){
-					sBuffer.append(xq.getXueyou()+",");
-				}
-				//团优
-				if(xq.getTuanyou()!=null){
-					sBuffer.append(xq.getTuanyou()+",");
-				}
-				//优秀大学毕业生
-				if(xq.getYxdxbys()!=null){
-					sBuffer.append(xq.getYxdxbys()+",");
-				}
-				
-				if(xq.getOtherhuojianginfo()!=null){
-					List<String> qthj =xq.getOtherhuojianginfo();
-					for(int i=0;i<qthj.size();i++){
-						String bd =(i==qthj.size()-1)?"。":",";
-						sBuffer.append(qthj.get(i)+bd);
-					}
-				}
-				sBuffer = sBuffer.deleteCharAt(sBuffer.length()-1).append("。");
-				String sBufferTemp = sBuffer.toString().replace("无,", "").replace("无", "").replace(",。", "。");
-				mapTemp.put(key, sBufferTemp);
-			}
-			studentGrowupInfoVO.setXueQiInfo(mapTemp);
-			if(studentGrowupInfoVO == null) {
-				return null;
-			}
+			StudentGrowupInfoVO studentGrowupInfoVO = getetStudentAllInfoService.getStudentAllInfoVO(Long.valueOf(id.toString()));
 			view.addAttribute("gu",studentGrowupInfoVO);
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
@@ -230,6 +153,25 @@ public class StudentBasicInfoController{
 		}
 		
 		return "studentBasicInfo/growUpView";
+	}
+	
+	
+	/**
+	 * 通过编号查看对象
+	 * @param id 对象编号
+	 * @return
+	 */
+	@RequestMapping(value="/getPdf/{id}",method=RequestMethod.GET)
+	public void getPdf(@PathVariable Integer id,HttpServletResponse response,Model view) throws Exception{
+		try {
+			ByteArrayOutputStream temp = getetStudentAllInfoService.getPdfOfStudentAllInfo(Long.valueOf(String.valueOf(id)));
+			
+			temp.writeTo(response.getOutputStream());
+		} catch (Exception e) {
+			LOGGER.error("失败:"+e.getMessage(),e);
+			throw e;
+		}
+		
 	}
 	
 	/**

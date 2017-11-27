@@ -1,14 +1,30 @@
 package cn.edu.cwnu.studentmanage.service.impl;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPRow;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import cn.edu.cwnu.studentmanage.dao.base.BaseDao;
 import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
@@ -183,6 +199,19 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 			
 		}
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		// TODO Auto-generated method stub
 		return sg;
 	}
@@ -262,6 +291,327 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 		StudentQitahuojiang studentQitahuojiang =new StudentQitahuojiang();
 		studentQitahuojiang.setStudentId(student_id);
 		return studentQitahuojiangService.selectEntryList(studentQitahuojiang);
+	}
+
+
+
+
+	@Override
+	public ByteArrayOutputStream getPdfOfStudentAllInfo(Long student_id) throws IOException, Exception {
+		// TODO Auto-generated method stub
+		StudentGrowupInfoVO studentGrowupInfoVO  = getStudentAllInfoVO(student_id);
+		//添加中文字体
+		BaseFont bfChinese=BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+		
+		//创建文件
+        Document document = new Document(PageSize.A4,20, 20, 20, 20);
+//        document.setPageSize(PageSize.A4);//设置A4
+        //建立一个书写器
+//        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("E:/test.pdf"));
+        
+        Font titleFont = new Font(bfChinese, 20, Font.BOLD);  
+        Font cellTitleFont = new Font(bfChinese, 11, Font.BOLD);  
+        Font cellContentFont = new Font(bfChinese, 11, Font.NORMAL);  
+          
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+        PdfWriter.getInstance(document, baos);  
+        //打开文件
+        document.open();
+        
+        Paragraph title =new Paragraph("学生成长记录表",titleFont);
+        title.setAlignment(Element.ALIGN_CENTER);
+        title.setSpacingBefore(20);          
+        //添加
+        document.add(title);
+        
+        
+        
+        int size = 35;  
+        int contentSize = 30; 
+     
+        // 8列的表.
+        PdfPTable table = new PdfPTable(8); 
+        table.setWidthPercentage(100); // 宽度100%填充
+        table.setSpacingBefore(10f); // 前间距
+        table.setSpacingAfter(10f); // 后间距
+
+        List<PdfPRow> listRow = table.getRows();
+        //设置列宽
+        float[] columnWidths = { 2f, 2f, 2f,2f, 2f, 2f,2f, 2f };
+        table.setWidthPercentage(100);  
+        table.setSpacingBefore(10);  
+        table.setWidths(columnWidths);
+        
+        //行1
+        PdfPCell cellsFirst[]= new PdfPCell[8];
+        PdfPRow rowFirst = new PdfPRow(cellsFirst);
+        //姓名
+        cellsFirst[0] = new PdfPCell(new Paragraph("姓名",cellTitleFont));//单元格内容
+//        cellsFirst[0].setBorderColor(BaseColor.BLUE);//边框验证
+//        cellsFirst[0].setPaddingCENTER(20);//左填充20
+        cellsFirst[0].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsFirst[0].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsFirst[0].setColspan(1);  
+        cellsFirst[0].setFixedHeight(size);
+        //姓名value
+        cellsFirst[1] = new PdfPCell(new Paragraph(studentGrowupInfoVO.getName(),cellContentFont));//单元格内容
+        cellsFirst[1].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsFirst[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsFirst[1].setColspan(1);  
+        cellsFirst[1].setFixedHeight(size);
+        //学号
+        cellsFirst[2] = new PdfPCell(new Paragraph("学号",cellTitleFont));//单元格内容
+        cellsFirst[2].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsFirst[2].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsFirst[2].setColspan(1);  
+        cellsFirst[2].setFixedHeight(size);
+        //学号value
+        cellsFirst[3] = new PdfPCell(new Paragraph(studentGrowupInfoVO.getXuehao(),cellContentFont));//单元格内容
+        cellsFirst[3].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsFirst[3].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsFirst[3].setColspan(1);  
+        cellsFirst[3].setFixedHeight(size);
+        //专业
+        cellsFirst[4] = new PdfPCell(new Paragraph("专业",cellTitleFont));//单元格内容
+        cellsFirst[4].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsFirst[4].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsFirst[4].setColspan(1);  
+        cellsFirst[4].setFixedHeight(size);
+        //专业value
+        cellsFirst[5] = new PdfPCell(new Paragraph(studentGrowupInfoVO.getZhuanye(),cellContentFont));//单元格内容
+        cellsFirst[5].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsFirst[5].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsFirst[5].setColspan(1);  
+        cellsFirst[5].setFixedHeight(size);
+        //班级
+        cellsFirst[6] = new PdfPCell(new Paragraph("班级",cellTitleFont));//单元格内容
+        cellsFirst[6].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsFirst[6].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsFirst[6].setColspan(1);  
+        cellsFirst[6].setFixedHeight(size);
+        //班级value
+        cellsFirst[7] = new PdfPCell(new Paragraph(studentGrowupInfoVO.getBanji(),cellContentFont));//单元格内容
+        cellsFirst[7].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsFirst[7].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsFirst[7].setColspan(1);  
+        cellsFirst[7].setFixedHeight(size);
+        //把第一行添加到集合
+        listRow.add(rowFirst);
+        
+        //行2
+        PdfPCell cellsSec[]= new PdfPCell[8];
+        PdfPRow rowSec = new PdfPRow(cellsSec);
+        //英语四级
+        cellsSec[0] = new PdfPCell(new Paragraph("英语四级",cellTitleFont));//单元格内容
+//        cellsSec[0].setBorderColor(BaseColor.BLUE);//边框验证
+//        cellsSec[0].setPaddingCENTER(20);//左填充20
+        cellsSec[0].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsSec[0].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsSec[0].setColspan(1);  
+        cellsSec[0].setFixedHeight(size);
+        //英语四级value
+        cellsSec[1] = new PdfPCell(new Paragraph(studentGrowupInfoVO.getCet4()));//单元格内容
+        cellsSec[1].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsSec[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsSec[1].setColspan(1);  
+        cellsSec[1].setFixedHeight(size);
+        //普通话
+        cellsSec[2] = new PdfPCell(new Paragraph("普通话",cellTitleFont));//单元格内容
+        cellsSec[2].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsSec[2].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsSec[2].setColspan(1);  
+        cellsSec[2].setFixedHeight(size);
+        //普通话value
+        cellsSec[3] = new PdfPCell(new Paragraph(studentGrowupInfoVO.getPutonghua(),cellContentFont));//单元格内容
+        cellsSec[3].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsSec[3].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsSec[3].setColspan(1);  
+        cellsSec[3].setFixedHeight(size);
+        //三笔字
+        cellsSec[4] = new PdfPCell(new Paragraph("三笔字",cellTitleFont));//单元格内容
+        cellsSec[4].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsSec[4].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsSec[4].setColspan(1);  
+        cellsSec[4].setFixedHeight(size);
+        //三笔字value
+        cellsSec[5] = new PdfPCell(new Paragraph(studentGrowupInfoVO.getSanbizi(),cellContentFont));//单元格内容
+        cellsSec[5].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsSec[5].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsSec[5].setColspan(1);  
+        cellsSec[5].setFixedHeight(size);
+        //党校学习
+        cellsSec[6] = new PdfPCell(new Paragraph("党校学习",cellTitleFont));//单元格内容
+        cellsSec[6].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsSec[6].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsSec[6].setColspan(1);  
+        cellsSec[6].setFixedHeight(size);
+        //党校学习value
+        cellsSec[7] = new PdfPCell(new Paragraph(studentGrowupInfoVO.getDxxx(),cellContentFont));//单元格内容
+        cellsSec[7].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        cellsSec[7].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        cellsSec[7].setColspan(1);  
+        cellsSec[7].setFixedHeight(size);
+        //把第二行添加到集合
+        listRow.add(rowSec);
+        
+        
+        for(int i=0;i<8;i++){
+            //行3
+            PdfPCell cellsi[]= new PdfPCell[2];
+            PdfPRow rowi = new PdfPRow(cellsi);
+            String temp="";
+            switch(i){
+	            case 0:
+	            	temp = "一";
+	            	break;
+	            case 1:
+	            	temp = "二";
+	            	break;
+	            case 2:
+	            	temp = "三";
+	            	break;
+	            case 3:
+	            	temp = "四";
+	            	break;
+	            case 4:
+	            	temp = "五";
+	            	break;
+	            case 5:
+	            	temp = "六";
+	            	break;
+	            case 6:
+	            	temp = "七";
+	            	break;
+	            case 7:
+	            	temp = "八";
+	            	break;
+            }
+            //学期
+            cellsi[0] = new PdfPCell(new Paragraph("第"+temp+"一学习",cellTitleFont));//单元格内容
+//            cells1[0].setBorderColor(BaseColor.BLUE);//边框验证
+//            cells1[0].setPaddingLeft(20);//左填充20
+            cellsi[0].setHorizontalAlignment(Element.ALIGN_LEFT);//水平居左
+            cellsi[0].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+            cellsi[0].setColspan(1);
+            cellsi[0].setFixedHeight(size);
+            
+            //学期value
+            cellsi[1] = new PdfPCell(new Paragraph((String) studentGrowupInfoVO.getXueQiInfo().get(String.valueOf(i)),cellContentFont));//单元格内容
+            cellsi[1].setHorizontalAlignment(Element.ALIGN_LEFT);//水平居左
+            cellsi[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+            cellsi[1].setColspan(7);
+            cellsi[1].setFixedHeight(size);
+            
+            listRow.add(rowi);
+        }
+        
+        
+        
+        
+        
+        //把表格添加到文件中
+        document.add(table);
+        
+        //关闭文档
+        document.close();
+        //关闭书写器
+//        writer.close();
+		
+		
+		return baos;
+	}
+
+
+
+
+	@Override
+	public StudentGrowupInfoVO getStudentAllInfoVO(Long student_id) throws IOException, Exception {
+		StudentGrowupInfoVO studentGrowupInfoVO = getStudentAllInfo(student_id);
+		
+		/**
+		 * 开始拼接数据
+		 */
+		Map<String,XueQiInfo> xueQiInfoMap = (Map<String, XueQiInfo>) studentGrowupInfoVO.getXueQiInfo();
+		Set<String> itMap = xueQiInfoMap.keySet();
+		Map<String,String> mapTemp =new HashMap<String,String>();
+		for (String key : itMap) {
+			StringBuffer sBuffer = new StringBuffer("	");
+			XueQiInfo xq = xueQiInfoMap.get(key);
+			/**
+			 * 成绩相关
+			 */
+			//专业排名
+			if(xq.getZhuanyePaiming()!=null){
+				sBuffer.append("专业排名："+xq.getZhuanyePaiming()+"/"+studentGrowupInfoVO.getBanjiCount()+",");
+			}
+			//综合排名
+			if(xq.getZonghePaiming()!=null){
+				sBuffer.append("综合排名："+xq.getZonghePaiming()+"/"+studentGrowupInfoVO.getNianjiCount()+",");
+			}
+			//补考科目
+			if(xq.getBukaokemu()!=null){
+				sBuffer.append("补考科目:"+xq.getBukaokemu()+",");
+			}
+			/**
+			 * 资助相关
+			 */
+			//国家奖学金
+			if(xq.getGjjxj()!=null){
+				sBuffer.append(xq.getGjjxj()+",");
+			}
+			//国家励志奖学金
+			if(xq.getGjlzjxj()!=null){
+				sBuffer.append(xq.getGjlzjxj()+",");
+			}
+			//国家助学金
+			if(xq.getGjzxj()!=null){
+				sBuffer.append(xq.getGjzxj()+",");
+			}
+			
+			/**
+			 * 评奖相关
+			 */
+			//奖学金
+			if(xq.getJiangxuejin()!=null){
+				sBuffer.append(xq.getJiangxuejin()+",");
+			}
+			//单项奖学金
+			if(xq.getDanxiangjiangxuejin()!=null){
+				sBuffer.append(xq.getDanxiangjiangxuejin()+",");
+			}
+			//学优
+			if(xq.getXueyou()!=null){
+				sBuffer.append(xq.getXueyou()+",");
+			}
+			//团优
+			if(xq.getTuanyou()!=null){
+				sBuffer.append(xq.getTuanyou()+",");
+			}
+			//优秀大学毕业生
+			if(xq.getYxdxbys()!=null){
+				sBuffer.append(xq.getYxdxbys()+",");
+			}
+			
+			if(xq.getOtherhuojianginfo()!=null){
+				List<String> qthj =xq.getOtherhuojianginfo();
+				for(int i=0;i<qthj.size();i++){
+					String bd =(i==qthj.size()-1)?"。":",";
+					sBuffer.append(qthj.get(i)+bd);
+				}
+			}
+			sBuffer = sBuffer.deleteCharAt(sBuffer.length()-1).append("。");
+			String sBufferTemp = sBuffer.toString().replace("无,", "").replace("无", "").replace(",。", "。");
+			mapTemp.put(key, sBufferTemp);
+		}
+		for(int i=1;i<=8;i++){
+			if(!mapTemp.containsKey(String.valueOf(i))){
+				mapTemp.put(String.valueOf(i), "无");
+			}
+		}
+		studentGrowupInfoVO.setXueQiInfo(mapTemp);
+		
+		// TODO Auto-generated method stub
+		return studentGrowupInfoVO;
 	}
 	
 	
