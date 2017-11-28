@@ -4,20 +4,19 @@
  */
 package cn.edu.cwnu.studentmanage.web.controller;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import cn.edu.cwnu.studentmanage.domain.StudentChengji;
+import cn.edu.cwnu.studentmanage.service.AnalysisExcelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import cn.edu.cwnu.studentmanage.domain.StudentChengji;
-import cn.edu.cwnu.studentmanage.service.AnalysisExcelService;
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author YuBo
@@ -25,7 +24,7 @@ import cn.edu.cwnu.studentmanage.service.AnalysisExcelService;
  */
 @Controller
 public class StudentInfoUploadController {
-	private static final Logger LOGGER = LoggerFactory.getLogger(StudentChengjiController.class);
+    private static final Logger  LOGGER = LoggerFactory.getLogger(StudentChengjiController.class);
 
     @Resource
     private AnalysisExcelService analysisExcelService;
@@ -41,42 +40,34 @@ public class StudentInfoUploadController {
 
     /**
      * 列表展示
-     * @return 
+     * @return
      * @return
      */
-    @RequestMapping(value = "/upload", method = { RequestMethod.GET, RequestMethod.POST })
-    public String upload(String type, @RequestParam(value = "filename") MultipartFile uploadFile) throws Exception {
-    	try {
-    		if(uploadFile.getInputStream()==null){
-    			
-    			throw new Exception("文件对象不能为空");
-    		}
-			if ("BASIC_INFO".equals(type)) {
-	            analysisExcelService.analysisStudentBasicInfo(uploadFile.getInputStream());
-	        } else if ("CHENGJI".equals(type)){
-	        	List<StudentChengji> studentChengjiList = analysisExcelService.analysisStudentChengji(uploadFile.getInputStream());
-	        	
-	        }else if("PINGJIANG".equals(type)){
-	        	analysisExcelService.analysisStudentPingjiang(uploadFile.getInputStream());
-	        }else if("XUEYE".equals(type)){
-	        	analysisExcelService.analysisStudentXueye(uploadFile.getInputStream());
-	        }else if("ZIZHU".equals(type)){
-	        	analysisExcelService.analysisStudentZizhu(uploadFile.getInputStream());
-	        }	
-		} catch (Exception e) {
-			LOGGER.error("失败:"+e.getMessage(),e);
-			throw e;
-		}finally{
-		}	
-		return "/studentBasicInfo";
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
+    @RequestMapping(value = "/upload", method = { RequestMethod.POST })
+    public @ResponseBody String upload(String type, @RequestParam(value = "filename") MultipartFile uploadFile) throws Exception {
+        try {
+            if (uploadFile.getInputStream() == null) {
+
+                throw new Exception("文件对象不能为空");
+            }
+            if ("BASIC_INFO".equals(type)) {
+                analysisExcelService.analysisStudentBasicInfo(uploadFile.getInputStream());
+            } else if ("CHENGJI".equals(type)) {
+                List<StudentChengji> studentChengjiList = analysisExcelService.analysisStudentChengji(uploadFile.getInputStream());
+
+            } else if ("PINGJIANG".equals(type)) {
+                analysisExcelService.analysisStudentPingjiang(uploadFile.getInputStream());
+            } else if ("XUEYE".equals(type)) {
+                analysisExcelService.analysisStudentXueye(uploadFile.getInputStream());
+            } else if ("ZIZHU".equals(type)) {
+                analysisExcelService.analysisStudentZizhu(uploadFile.getInputStream());
+            }
+        } catch (Exception e) {
+            LOGGER.error("失败:" + e.getMessage(), e);
+            throw e;
+        } finally {
+        }
+        return "ok";
+
     }
 }
