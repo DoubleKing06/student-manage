@@ -63,7 +63,21 @@
 					<a class="btn btn-mini" onclick="XUI.window.open('/studentBasicInfo/${item.id}',null,'PUT',{title:$(this).text()})"><i class="icon-pencil"></i> 修改</a>
 					<a class="btn btn-mini" onclick="XUI.window.open('/studentBasicInfo/${item.id}',null,'GET',{title:$(this).text()})"><i class="icon-eye-open"></i> 查看</a>
 					<a class="btn btn-mini" onclick="XUI.window.open('/studentBasicInfo/getinfo/${item.id}',null,'GET',{title:$(this).text()})"><i class="icon-eye-open"></i> 查看成长记录</a>
+					<a class="btn btn-mini" onclick="XUI.window.open('/studentBasicInfo/getPdf/${item.id}',null,'GET',{title:$(this).text()})"><i class="icon-eye-open"></i> 下载成长记录</a>
 				</div>
+				
+				<div class="btn-group pull-right">
+					<a class="btn" href="javascript:download();"><i class="icon-pencil"></i>下载成长记录</a>
+				</div>
+	
+	<script>
+		function download() {
+		
+		document.location.href='/studentZizhu/studentZizhuExport?xuehao='+ $("#xuehao").val() +'&name='+$("#name").val()+'&xueqi='+$("#xueqi").val()+'&banji='+$("#banji").val()+'&gjjxj='+$("#gjjxj").val()+'&gjlzjxj='+$("#gjlzjxj").val()+'&gjzxj='+$("#gjzxj").val()+'&other='+$("#other").val();
+		}
+	</script>
+				
+				
 			</td>
 		</tr>
 #end

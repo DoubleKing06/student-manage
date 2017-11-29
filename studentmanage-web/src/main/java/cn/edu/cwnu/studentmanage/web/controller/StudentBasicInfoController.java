@@ -166,6 +166,12 @@ public class StudentBasicInfoController{
 		try {
 			ByteArrayOutputStream temp = getetStudentAllInfoService.getPdfOfStudentAllInfo(Long.valueOf(String.valueOf(id)));
 			
+			response.setContentType("application/pdf");  
+			response.setHeader("Content-Disposition", "attachment; filename="+ new String("学生成长记录.pdf".getBytes("gbk"),"ISO-8859-1"));  
+			response.setContentLength(temp.size());
+			
+			
+			
 			temp.writeTo(response.getOutputStream());
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
