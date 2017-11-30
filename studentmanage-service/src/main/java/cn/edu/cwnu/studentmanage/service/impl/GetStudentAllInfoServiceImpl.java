@@ -632,6 +632,7 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 	@Override
 	public ByteArrayOutputStream getPdfOfStudentBasicInfo(Long student_id) throws IOException, Exception {
 		// TODO Auto-generated method stub
+		//http://maclab.iteye.com/blog/1772204
 		//获取学生相关信息
 		StudentBasicInfoVO studentBasicInfoVO = getStudentBasicInfoVO(student_id);
 		StudentBasicInfo sb =studentBasicInfoVO.getStudentBasicInfo();
@@ -996,6 +997,31 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 		        //把第五行添加到集合
 		        listRow.add(rowFifth);
 		
+		        PdfPCell cellsWeiji[]= new PdfPCell[4];
+		        PdfPRow rowWeiji = new PdfPRow(cellsWeiji);
+		        
+		        cellsFifth[0] = new PdfPCell(new Paragraph("违  纪",cellContentFont));//单元格内容
+		        cellsFifth[0].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        cellsFifth[0].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        cellsFifth[0].setColspan(1); 
+		        cellsFifth[0].setRowspan(4);
+		        cellsFifth[0].setFixedHeight(contentSize);
+		        cellsFifth[1] = new PdfPCell(new Paragraph("2017-11-30",cellContentFont));//单元格内容
+		        cellsFifth[1].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        cellsFifth[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        cellsFifth[1].setColspan(1); 
+		        cellsFifth[1].setFixedHeight(contentSize);
+		
+		        listRow.add(rowWeiji);
+		
+		
+		        //把表格添加到文件中
+		        document.add(table);
+		        //关闭文档
+		        document.close();
+		        //关闭书写器
+//		        writer.close();
+				return baos;
 		
 		
 		
@@ -1008,13 +1034,6 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		return null;
 	}
 	
 	

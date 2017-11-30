@@ -44,7 +44,7 @@ import cn.edu.cwnu.studentmanage.web.CustomDateEditor;
 public class StudentBasicInfoController{
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentBasicInfoController.class);
 	@Resource private StudentBasicInfoService studentBasicInfoService;
-	@Resource private GetStudentAllInfoService getetStudentAllInfoService;
+	@Resource private GetStudentAllInfoService getStudentAllInfoService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder, WebRequest request) {
@@ -144,7 +144,7 @@ public class StudentBasicInfoController{
 	@RequestMapping(value="/getinfo/{id}",method=RequestMethod.GET)
 	public String getinfo(@PathVariable Integer id,Model view) throws Exception{
 		try {
-			StudentGrowupInfoVO studentGrowupInfoVO = getetStudentAllInfoService.getStudentAllInfoVO(Long.valueOf(id.toString()));
+			StudentGrowupInfoVO studentGrowupInfoVO = getStudentAllInfoService.getStudentAllInfoVO(Long.valueOf(id.toString()));
 			view.addAttribute("gu",studentGrowupInfoVO);
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
@@ -164,10 +164,28 @@ public class StudentBasicInfoController{
 	@RequestMapping(value="/getPdf/{id}",method=RequestMethod.GET)
 	public void getPdf(@PathVariable Integer id,HttpServletResponse response,Model view) throws Exception{
 		try {
-			ByteArrayOutputStream temp = getetStudentAllInfoService.getPdfOfStudentGrowUp(Long.valueOf(String.valueOf(id)));
+			ByteArrayOutputStream temp = getStudentAllInfoService.getPdfOfStudentGrowUp(Long.valueOf(String.valueOf(id)));
 			
 			response.setContentType("application/pdf");  
 			response.setHeader("Content-Disposition", "attachment; filename="+ new String("学生成长记录.pdf".getBytes("gbk"),"ISO-8859-1"));  
+			response.setContentLength(temp.size());
+			
+			
+			
+			temp.writeTo(response.getOutputStream());
+		} catch (Exception e) {
+			LOGGER.error("失败:"+e.getMessage(),e);
+			throw e;
+		}
+		
+	}
+	@RequestMapping(value="/getBasicPdf/{id}",method=RequestMethod.GET)
+	public void getBasicPdf(@PathVariable Integer id,HttpServletResponse response,Model view) throws Exception{
+		try {
+			ByteArrayOutputStream temp = getStudentAllInfoService.getPdfOfStudentBasicInfo(Long.valueOf(String.valueOf(id)));
+			
+			response.setContentType("application/pdf");  
+			response.setHeader("Content-Disposition", "attachment; filename="+ new String("学生基本信息.pdf".getBytes("gbk"),"ISO-8859-1"));  
 			response.setContentLength(temp.size());
 			
 			
