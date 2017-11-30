@@ -164,7 +164,7 @@ public class StudentBasicInfoController{
 	@RequestMapping(value="/getPdf/{id}",method=RequestMethod.GET)
 	public void getPdf(@PathVariable Integer id,HttpServletResponse response,Model view) throws Exception{
 		try {
-			ByteArrayOutputStream temp = getetStudentAllInfoService.getPdfOfStudentAllInfo(Long.valueOf(String.valueOf(id)));
+			ByteArrayOutputStream temp = getetStudentAllInfoService.getPdfOfStudentGrowUp(Long.valueOf(String.valueOf(id)));
 			
 			response.setContentType("application/pdf");  
 			response.setHeader("Content-Disposition", "attachment; filename="+ new String("学生成长记录.pdf".getBytes("gbk"),"ISO-8859-1"));  

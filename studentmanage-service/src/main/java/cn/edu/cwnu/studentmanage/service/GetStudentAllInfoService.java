@@ -40,13 +40,24 @@ public interface GetStudentAllInfoService  {
 	
 	
 	/**
-	 * 通过拿到的学生信息生成pdf
+	 * 通过拿到的学生信息生成学生成长记录pdf
 	 * @param student_id
 	 * @return
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	ByteArrayOutputStream getPdfOfStudentAllInfo(Long student_id) throws IOException, Exception;
+	ByteArrayOutputStream getPdfOfStudentGrowUp(Long student_id) throws IOException, Exception;
+	
+	/**
+	 * 通过拿到的学生信息生成学生基本信息pdf
+	 * @param student_id
+	 * @return
+	 * @throws IOException
+	 * @throws Exception
+	 */
+	ByteArrayOutputStream getPdfOfStudentBasicInfo(Long student_id) throws IOException, Exception;
+	
+	
 	
 
 	
