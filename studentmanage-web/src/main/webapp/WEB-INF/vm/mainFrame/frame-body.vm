@@ -1,10 +1,10 @@
 <div class="content">
-	<div class="header">
+	<!--<div class="header">
 		<div class="header-info">
 			<span id="serverDate" class="label" data-serverTime="1510922476796">2017-11-17 20:41:16</span>
 		</div>
 		<h1 class="page-title">&nbsp;</h1>
-	</div>
+	</div>-->
 	<ul class="breadcrumb">&nbsp;</ul>
 	<div class="container-fluid">
 		<div id="vmContainer" class="row-fluid">

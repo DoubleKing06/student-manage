@@ -12,21 +12,29 @@
  	<tbody>
  		<tr>
  			<td>1</td>
- 			<td>学生基本信息查询</td>
+ 			<!--<td>学生基本信息查询</td>-->
+ 			<td>
+ 				<a onclick="XUI.gotoPage('/studentBasicInfo')">学生基本信息查询</a>
+ 			</td>
+ 			
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentBasicInfo')">查看详情</a>
  			</td>
  		</tr>
 		<tr>
  			<td>2</td>
- 			<td>学生成绩信息查询</td>
+ 			<td>
+ 				<a onclick="XUI.gotoPage('/studentChengji')">学生成绩信息查询 </a>
+ 			</td>
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentChengji')">查看详情</a>
  			</td>
  		</tr>
 		<tr>
  			<td>3</td>
- 			<td>学生学业状况查询</td>
+ 			<td>
+ 				<a onclick="XUI.gotoPage('/studentXueye')">学生学业状况查询</a>
+ 			</td>
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentXueye')">查看详情</a>
  			</td>
@@ -34,35 +42,46 @@
 
 		<tr>
  			<td>4</td>
- 			<td>学生评奖信息查询</td>
+ 			<td>
+ 				<a onclick="XUI.gotoPage('/studentPingjiang')">学生评奖信息查询</a>
+ 			</td> 			
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentPingjiang')">查看详情</a>
  			</td>
  		</tr>
 		<tr>
  			<td>5</td>
- 			<td>学生资助信息查询</td>
+ 			<td>
+ 				<a onclick="XUI.gotoPage('/studentZizhu')">学生资助信息查询</a>
+ 			</td>  			
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentZizhu')">查看详情</a>
  			</td>
  		</tr>
 		<tr>
  			<td>6</td>
- 			<td>学生其他获奖查询</td>
+ 			<td>
+ 				<a onclick="XUI.gotoPage('/studentQitahuojiang')">学生其他获奖查询</a>
+ 			</td> 
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentQitahuojiang')">查看详情</a>
  			</td>
  		</tr>
 		<tr>
  			<td>7</td>
- 			<td>学生其他备注查询</td>
+ 			
+ 			<td>
+ 				<a onclick="XUI.gotoPage('/studentRemark')">学生其他备注查询</a>
+ 			</td> 
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentRemark')">查看详情</a>
  			</td>
  		</tr>
 		<tr>
  			<td>8</td>
- 			<td>学生违纪信息查询</td>
+ 			<td>
+ 				<a onclick="XUI.gotoPage('/studentWeiji')">学生违纪信息查询</a>
+ 			</td> 
  			<td class="textC">
  				<a class="btn btn-small btn-info" onclick="XUI.gotoPage('/studentWeiji')">查看详情</a>
  			</td>
