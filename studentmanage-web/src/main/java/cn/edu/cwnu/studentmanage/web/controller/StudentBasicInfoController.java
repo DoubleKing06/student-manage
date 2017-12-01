@@ -5,10 +5,6 @@
 package cn.edu.cwnu.studentmanage.web.controller;
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -26,12 +22,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
 import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
+import cn.edu.cwnu.studentmanage.domain.StudentChengji;
+import cn.edu.cwnu.studentmanage.domain.StudentPingjiang;
+import cn.edu.cwnu.studentmanage.domain.StudentQitahuojiang;
+import cn.edu.cwnu.studentmanage.domain.StudentRemark;
+import cn.edu.cwnu.studentmanage.domain.StudentWeiji;
+import cn.edu.cwnu.studentmanage.domain.StudentXueye;
+import cn.edu.cwnu.studentmanage.domain.StudentZizhu;
 import cn.edu.cwnu.studentmanage.domain.common.Message;
 import cn.edu.cwnu.studentmanage.domain.common.Page;
 import cn.edu.cwnu.studentmanage.domain.vo.StudentGrowupInfoVO;
-import cn.edu.cwnu.studentmanage.domain.vo.XueQiInfo;
 import cn.edu.cwnu.studentmanage.service.GetStudentAllInfoService;
 import cn.edu.cwnu.studentmanage.service.StudentBasicInfoService;
+import cn.edu.cwnu.studentmanage.service.StudentChengjiService;
+import cn.edu.cwnu.studentmanage.service.StudentPingjiangService;
+import cn.edu.cwnu.studentmanage.service.StudentQitahuojiangService;
+import cn.edu.cwnu.studentmanage.service.StudentRemarkService;
+import cn.edu.cwnu.studentmanage.service.StudentWeijiService;
+import cn.edu.cwnu.studentmanage.service.StudentXueyeService;
+import cn.edu.cwnu.studentmanage.service.StudentZizhuService;
 import cn.edu.cwnu.studentmanage.web.CustomDateEditor;
 
 /**
@@ -45,6 +54,13 @@ public class StudentBasicInfoController{
 	private static final Logger LOGGER = LoggerFactory.getLogger(StudentBasicInfoController.class);
 	@Resource private StudentBasicInfoService studentBasicInfoService;
 	@Resource private GetStudentAllInfoService getStudentAllInfoService;
+	@Resource private StudentChengjiService studentChengjiService;
+	@Resource private StudentXueyeService studentXueyeService;
+	@Resource private StudentZizhuService studentZizhuService;
+	@Resource private StudentPingjiangService studentPingjiangService;
+	@Resource private StudentQitahuojiangService studentQitahuojiangService;
+	@Resource private StudentRemarkService studentRemarkService;
+	@Resource private StudentWeijiService studentWeijiService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder, WebRequest request) {
@@ -105,6 +121,35 @@ public class StudentBasicInfoController{
     	Message msg = null;
     	try {
 			int res = studentBasicInfoService.deleteByKey(id);
+			
+			StudentChengji cj =new StudentChengji();
+			cj.setStudentId(Long.valueOf(String.valueOf(id)));
+			studentChengjiService.deleteByCondtion(cj);
+			
+			StudentXueye xy =new StudentXueye();
+			xy.setStudentId(Long.valueOf(String.valueOf(id)));
+			studentXueyeService.deleteByCondtion(xy);
+			
+			StudentPingjiang pj =new StudentPingjiang();
+			pj.setStudentId(Long.valueOf(String.valueOf(id)));
+			studentPingjiangService.deleteByCondtion(pj);
+			
+			StudentZizhu zz =new StudentZizhu();
+			zz.setStudentId(Long.valueOf(String.valueOf(id)));
+			studentZizhuService.deleteByCondtion(zz);
+			
+			StudentQitahuojiang qthj =new StudentQitahuojiang();
+			qthj.setStudentId(Long.valueOf(String.valueOf(id)));
+			studentQitahuojiangService.deleteByCondtion(qthj);
+			
+			StudentRemark re =new StudentRemark();
+			re.setStudentId(Long.valueOf(String.valueOf(id)));
+			studentRemarkService.deleteByCondtion(re);
+			
+			StudentWeiji wj =new StudentWeiji();
+			wj.setStudentId(Long.valueOf(String.valueOf(id)));
+			studentWeijiService.deleteByCondtion(wj);
+			
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
@@ -157,7 +202,7 @@ public class StudentBasicInfoController{
 	
 	
 	/**
-	 * 通过编号查看对象
+	 * 获取学生成长记录表PDF
 	 * @param id 对象编号
 	 * @return
 	 */
@@ -165,9 +210,11 @@ public class StudentBasicInfoController{
 	public void getPdf(@PathVariable Integer id,HttpServletResponse response,Model view) throws Exception{
 		try {
 			ByteArrayOutputStream temp = getStudentAllInfoService.getPdfOfStudentGrowUp(Long.valueOf(String.valueOf(id)));
+			StudentBasicInfo st =studentBasicInfoService.selectEntry(id);
+			String fileName ="学生成长记录信息_"+st.getName()+".pdf";
 			
 			response.setContentType("application/pdf");  
-			response.setHeader("Content-Disposition", "attachment; filename="+ new String("学生成长记录.pdf".getBytes("gbk"),"ISO-8859-1"));  
+			response.setHeader("Content-Disposition", "attachment; filename="+ new String(fileName.getBytes("gbk"),"ISO-8859-1"));  
 			response.setContentLength(temp.size());
 			
 			
@@ -179,13 +226,23 @@ public class StudentBasicInfoController{
 		}
 		
 	}
+	
+	/**
+	 * 获取学生基本信息PDF
+	 * @param id
+	 * @param response
+	 * @param view
+	 * @throws Exception
+	 */
 	@RequestMapping(value="/getBasicPdf/{id}",method=RequestMethod.GET)
 	public void getBasicPdf(@PathVariable Integer id,HttpServletResponse response,Model view) throws Exception{
 		try {
 			ByteArrayOutputStream temp = getStudentAllInfoService.getPdfOfStudentBasicInfo(Long.valueOf(String.valueOf(id)));
+			StudentBasicInfo st =studentBasicInfoService.selectEntry(id);
+			String fileName ="学生基本信息_"+st.getName()+".pdf";
 			
 			response.setContentType("application/pdf");  
-			response.setHeader("Content-Disposition", "attachment; filename="+ new String("学生基本信息.pdf".getBytes("gbk"),"ISO-8859-1"));  
+			response.setHeader("Content-Disposition", "attachment; filename="+ new String(fileName.getBytes("gbk"),"ISO-8859-1"));  
 			response.setContentLength(temp.size());
 			
 			

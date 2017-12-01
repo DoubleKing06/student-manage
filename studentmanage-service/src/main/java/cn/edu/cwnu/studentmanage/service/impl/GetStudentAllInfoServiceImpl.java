@@ -3,6 +3,7 @@ package cn.edu.cwnu.studentmanage.service.impl;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -24,6 +25,7 @@ import com.itextpdf.text.pdf.PdfPRow;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import cn.edu.cwnu.studentmanage.common.tools.DateUtils;
 import cn.edu.cwnu.studentmanage.dao.base.BaseDao;
 import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
 import cn.edu.cwnu.studentmanage.domain.StudentChengji;
@@ -295,6 +297,9 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 		 * 开始拼接数据
 		 */
 		Map<String,XueQiInfo> xueQiInfoMap = (Map<String, XueQiInfo>) studentGrowupInfoVO.getXueQiInfo();
+		if(xueQiInfoMap == null){
+			return studentGrowupInfoVO;
+		}
 		Set<String> itMap = xueQiInfoMap.keySet();
 		Map<String,String> mapTemp =new HashMap<String,String>();
 		for (String key : itMap) {
@@ -568,55 +573,58 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
         //把第二行添加到集合
         listRow.add(rowSec);
         
-        for(int i=0;i<8;i++){
-            //行3
-            PdfPCell cells[]= new PdfPCell[8];
-
-            String temp="";
-            switch(i){
-	            case 0:
-	            	temp = "一";
-	            	break;
-	            case 1:
-	            	temp = "二";
-	            	break;
-	            case 2:
-	            	temp = "三";
-	            	break;
-	            case 3:
-	            	temp = "四";
-	            	break;
-	            case 4:
-	            	temp = "五";
-	            	break;
-	            case 5:
-	            	temp = "六";
-	            	break;
-	            case 6:
-	            	temp = "七";
-	            	break;
-	            case 7:
-	            	temp = "八";
-	            	break;
-            }
-            //学期
-            cells[0] = new PdfPCell(new Paragraph("第"+temp+"学期",cellTitleFont));//单元格内容
+        if(studentGrowupInfoVO.getXueQiInfo() != null){
+        	for(int i=0;i<8;i++){
+        		//行3
+        		PdfPCell cells[]= new PdfPCell[8];
+        		
+        		String temp="";
+        		switch(i){
+        		case 0:
+        			temp = "一";
+        			break;
+        		case 1:
+        			temp = "二";
+        			break;
+        		case 2:
+        			temp = "三";
+        			break;
+        		case 3:
+        			temp = "四";
+        			break;
+        		case 4:
+        			temp = "五";
+        			break;
+        		case 5:
+        			temp = "六";
+        			break;
+        		case 6:
+        			temp = "七";
+        			break;
+        		case 7:
+        			temp = "八";
+        			break;
+        		}
+        		//学期
+        		cells[0] = new PdfPCell(new Paragraph("第"+temp+"学期",cellTitleFont));//单元格内容
 //            cells1[0].setBorderColor(BaseColor.BLUE);//边框验证
 //            cells1[0].setPaddingLeft(20);//左填充20
-            cells[0].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
-            cells[0].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
-            cells[0].setColspan(1);
-            cells[0].setFixedHeight(40);
-            
-            //学期value
-            cells[1] = new PdfPCell(new Paragraph("	 "+(String) studentGrowupInfoVO.getXueQiInfo().get(String.valueOf(i+1)),cellContentFont));//单元格内容
-            cells[1].setHorizontalAlignment(Element.ALIGN_LEFT);//水平居左
-            cells[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
-            cells[1].setColspan(7);
-            cells[1].setFixedHeight(40);
-            PdfPRow row = new PdfPRow(cells);
-            listRow.add(row);
+        		cells[0].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+        		cells[0].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        		cells[0].setColspan(1);
+        		cells[0].setFixedHeight(40);
+        		
+        		//学期value
+        		cells[1] = new PdfPCell(new Paragraph("	 "+(String) studentGrowupInfoVO.getXueQiInfo().get(String.valueOf(i+1)),cellContentFont));//单元格内容
+        		cells[1].setHorizontalAlignment(Element.ALIGN_LEFT);//水平居左
+        		cells[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+        		cells[1].setColspan(7);
+        		cells[1].setFixedHeight(40);
+        		PdfPRow row = new PdfPRow(cells);
+        		listRow.add(row);
+        	}
         }
+        
         //把表格添加到文件中
         document.add(table);
         //关闭文档
@@ -643,7 +651,7 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 				BaseFont bfChinese=BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
 				
 				//创建文件
-		        Document document = new Document(PageSize.A4,20, 20, 20, 20);
+		        Document document = new Document(PageSize.A4,20, 20, 40, 20);
 //		        document.setPageSize(PageSize.A4);//设置A4
 		        //建立一个书写器
 //		        PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("E:/test.pdf"));
@@ -666,7 +674,7 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 		        int size = 30;  
 		        int contentSize = 30; 
 		     
-		        // 8列的表.
+		        // 10列的表.
 		        PdfPTable table = new PdfPTable(10); 
 		        table.setWidthPercentage(100); // 宽度100%填充
 		        table.setSpacingBefore(10f); // 前间距
@@ -896,7 +904,7 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 		         * 第四行
 		         */
 		        PdfPCell cellsFourth[]= new PdfPCell[10];
-		        PdfPRow rowFourth = new PdfPRow(cellsFourth);
+
 		        //姓名
 		        cellsFourth[0] = new PdfPCell(new Paragraph("家长1",cellTitleFont));//单元格内容
 //		        cellsFourth[0].setBorderColor(BaFourtholor.BLUE);//边框验证
@@ -923,31 +931,35 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 		        cellsFourth[3].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
 		        cellsFourth[3].setColspan(1);  
 		        cellsFourth[3].setFixedHeight(contentSize);
-		        //专业
-		        cellsFourth[4] = new PdfPCell(new Paragraph("身份证号",cellTitleFont));//单元格内容
+		        
+		        //年级
+		        cellsFourth[4] = new PdfPCell(new Paragraph("QQ",cellTitleFont));//单元格内容
 		        cellsFourth[4].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
 		        cellsFourth[4].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
 		        cellsFourth[4].setColspan(1);  
 		        cellsFourth[4].setFixedHeight(size);
-		        //专业value
-		        cellsFourth[5] = new PdfPCell(new Paragraph(sb.getIdNumber(),cellContentFont));//单元格内容
+		        //年级value
+		        cellsFourth[5] = new PdfPCell(new Paragraph(sb.getQq(),cellContentFont));//单元格内容
 		        cellsFourth[5].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
 		        cellsFourth[5].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
-		        cellsFourth[5].setColspan(3);  
+		        cellsFourth[5].setColspan(1);  
 		        cellsFourth[5].setFixedHeight(contentSize);
-		        //年级
-		        cellsFourth[6] = new PdfPCell(new Paragraph("QQ",cellTitleFont));//单元格内容
+		        
+		        //专业
+		        cellsFourth[6] = new PdfPCell(new Paragraph("身份证号",cellTitleFont));//单元格内容
 		        cellsFourth[6].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
 		        cellsFourth[6].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
 		        cellsFourth[6].setColspan(1);  
 		        cellsFourth[6].setFixedHeight(size);
-		        //年级value
-		        cellsFourth[7] = new PdfPCell(new Paragraph(sb.getQq(),cellContentFont));//单元格内容
+		        //专业value
+		        cellsFourth[7] = new PdfPCell(new Paragraph(sb.getIdNumber(),cellContentFont));//单元格内容
 		        cellsFourth[7].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
 		        cellsFourth[7].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
-		        cellsFourth[7].setColspan(1);  
+		        cellsFourth[7].setColspan(3);  
 		        cellsFourth[7].setFixedHeight(contentSize);
+
 		        
+		        PdfPRow rowFourth = new PdfPRow(cellsFourth);
 		        //把第四行添加到集合
 		        listRow.add(rowFourth);
 		        
@@ -997,22 +1009,180 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 		        //把第五行添加到集合
 		        listRow.add(rowFifth);
 		
-		        PdfPCell cellsWeiji[]= new PdfPCell[4];
-		        PdfPRow rowWeiji = new PdfPRow(cellsWeiji);
 		        
-		        cellsFifth[0] = new PdfPCell(new Paragraph("违  纪",cellContentFont));//单元格内容
-		        cellsFifth[0].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
-		        cellsFifth[0].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
-		        cellsFifth[0].setColspan(1); 
-		        cellsFifth[0].setRowspan(4);
-		        cellsFifth[0].setFixedHeight(contentSize);
-		        cellsFifth[1] = new PdfPCell(new Paragraph("2017-11-30",cellContentFont));//单元格内容
-		        cellsFifth[1].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
-		        cellsFifth[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
-		        cellsFifth[1].setColspan(1); 
-		        cellsFifth[1].setFixedHeight(contentSize);
-		
-		        listRow.add(rowWeiji);
+		        /**
+		         * 设置违纪信息
+		         */
+		        if(wj.size()==0){
+		        	
+		        	PdfPCell cellsWeiji[]= new PdfPCell[10];
+		        	PdfPRow rowWeiji = new PdfPRow(cellsWeiji);
+		        	
+		        	cellsWeiji[0] = new PdfPCell(new Paragraph("违  纪",cellTitleFont));//单元格内容
+		        	cellsWeiji[0].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsWeiji[0].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsWeiji[0].setColspan(1); 
+		        	cellsWeiji[0].setRowspan(1);
+		        	cellsWeiji[0].setFixedHeight(contentSize);
+		        	
+		        	cellsWeiji[1] = new PdfPCell(new Paragraph("无",cellContentFont));//单元格内容
+		        	cellsWeiji[1].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsWeiji[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsWeiji[1].setColspan(9); 
+		        	cellsWeiji[1].setFixedHeight(contentSize);
+		        	
+		        	listRow.add(rowWeiji);
+		        } else{
+		        	PdfPCell cellsWeiji[]= new PdfPCell[10];
+		        	PdfPRow rowWeiji = new PdfPRow(cellsWeiji);
+		        	cellsWeiji[0] = new PdfPCell(new Paragraph("违  纪",cellTitleFont));//单元格内容
+		        	cellsWeiji[0].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsWeiji[0].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsWeiji[0].setColspan(1); 
+		        	cellsWeiji[0].setRowspan(wj.size()+1);
+		        	cellsWeiji[0].setFixedHeight(contentSize);
+		        	
+		        	cellsWeiji[1] = new PdfPCell(new Paragraph("时间",cellTitleFont));//单元格内容
+		        	cellsWeiji[1].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsWeiji[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsWeiji[1].setColspan(1); 
+		        	cellsWeiji[1].setFixedHeight(contentSize);
+		        	
+		        	cellsWeiji[2] = new PdfPCell(new Paragraph("学期",cellTitleFont));//单元格内容
+		        	cellsWeiji[2].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsWeiji[2].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsWeiji[2].setColspan(1); 
+		        	cellsWeiji[2].setFixedHeight(contentSize);
+		        	
+		        	cellsWeiji[3] = new PdfPCell(new Paragraph("违纪情况",cellTitleFont));//单元格内容
+		        	cellsWeiji[3].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsWeiji[3].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsWeiji[3].setColspan(4); 
+		        	cellsWeiji[3].setFixedHeight(contentSize);
+		        	
+		        	cellsWeiji[7] = new PdfPCell(new Paragraph("处理结果",cellTitleFont));//单元格内容
+		        	cellsWeiji[7].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsWeiji[7].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsWeiji[7].setColspan(3); 
+		        	cellsWeiji[7].setFixedHeight(contentSize);
+		        	
+		        	listRow.add(rowWeiji);
+		        	
+		        	for(int i=0;i<wj.size();i++){
+		        		
+			        	PdfPCell cellsWeijiTemp[]= new PdfPCell[10];
+			        	PdfPRow rowWeijiTemp = new PdfPRow(cellsWeijiTemp);
+			        	Date date =wj.get(i).getWeijiTime();
+			        	String time = DateUtils.format(date);
+			        	cellsWeijiTemp[1] = new PdfPCell(new Paragraph(time,cellContentFont));//单元格内容
+			        	cellsWeijiTemp[1].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+			        	cellsWeijiTemp[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+			        	cellsWeijiTemp[1].setColspan(1); 
+			        	cellsWeijiTemp[1].setFixedHeight(20);//设置行高
+			        	cellsWeijiTemp[1].setMinimumHeight(25);
+			        	
+			        	cellsWeijiTemp[2] = new PdfPCell(new Paragraph(wj.get(i).getXueqi(),cellContentFont));//单元格内容
+			        	cellsWeijiTemp[2].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+			        	cellsWeijiTemp[2].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+			        	cellsWeijiTemp[2].setColspan(1); 
+			        	cellsWeijiTemp[2].setFixedHeight(20);
+			        	cellsWeijiTemp[2].setMinimumHeight(25);
+			        	
+			        	cellsWeijiTemp[3] = new PdfPCell(new Paragraph(wj.get(i).getWeijiInfo(),cellContentFont));//单元格内容
+			        	cellsWeijiTemp[3].setHorizontalAlignment(Element.ALIGN_LEFT);//水平居左
+			        	cellsWeijiTemp[3].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+			        	cellsWeijiTemp[3].setColspan(4); 
+			        	cellsWeijiTemp[3].setFixedHeight(20);
+			        	cellsWeijiTemp[3].setMinimumHeight(25);
+			        	
+			        	cellsWeijiTemp[7] = new PdfPCell(new Paragraph(wj.get(i).getResult(),cellContentFont));//单元格内容
+			        	cellsWeijiTemp[7].setHorizontalAlignment(Element.ALIGN_LEFT);//水平居左
+			        	cellsWeijiTemp[7].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+			        	cellsWeijiTemp[7].setColspan(3); 
+			        	cellsWeijiTemp[7].setFixedHeight(20);
+			        	cellsWeijiTemp[7].setMinimumHeight(25);
+			        	listRow.add(rowWeijiTemp);
+		        	}
+		        }
+		        
+		        /**
+		         * 设置备注信息
+		         */
+		        if(re.size()==0){
+		        	PdfPCell cellsRemark[]= new PdfPCell[10];
+		        	PdfPRow rowRemark = new PdfPRow(cellsRemark);
+		        	cellsRemark[0] = new PdfPCell(new Paragraph("备  注",cellTitleFont));//单元格内容
+		        	cellsRemark[0].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsRemark[0].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsRemark[0].setColspan(1); 
+		        	cellsRemark[0].setRowspan(1);
+		        	cellsRemark[0].setFixedHeight(contentSize);
+		        	cellsRemark[1] = new PdfPCell(new Paragraph("无",cellContentFont));//单元格内容
+		        	cellsRemark[1].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsRemark[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsRemark[1].setColspan(9); 
+		        	cellsRemark[1].setFixedHeight(contentSize);
+		        	listRow.add(rowRemark);
+		        }else{
+		        	PdfPCell cellsRemark[]= new PdfPCell[10];
+		        	PdfPRow rowRemark = new PdfPRow(cellsRemark);
+		        	cellsRemark[0] = new PdfPCell(new Paragraph("备  注",cellTitleFont));//单元格内容
+		        	cellsRemark[0].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsRemark[0].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsRemark[0].setColspan(1); 
+		        	cellsRemark[0].setRowspan(re.size()+1);
+		        	cellsRemark[0].setFixedHeight(contentSize);
+		        	
+		        	cellsRemark[1] = new PdfPCell(new Paragraph("时  间",cellTitleFont));//单元格内容
+		        	cellsRemark[1].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsRemark[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsRemark[1].setColspan(1); 
+		        	cellsRemark[1].setFixedHeight(contentSize);
+		        	
+		        	cellsRemark[2] = new PdfPCell(new Paragraph("学  期",cellTitleFont));//单元格内容
+		        	cellsRemark[2].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsRemark[2].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsRemark[2].setColspan(1); 
+		        	cellsRemark[2].setFixedHeight(contentSize);
+		        
+		        	cellsRemark[3] = new PdfPCell(new Paragraph("备注信息",cellTitleFont));//单元格内容
+		        	cellsRemark[3].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+		        	cellsRemark[3].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+		        	cellsRemark[3].setColspan(7); 
+		        	cellsRemark[3].setFixedHeight(contentSize);
+		        	listRow.add(rowRemark);
+		        	
+		        	for(int i=0;i<re.size();i++){
+				        	PdfPCell cellsRemarkTemp[]= new PdfPCell[10];
+				        	PdfPRow rowRemarkTemp = new PdfPRow(cellsRemarkTemp);
+				        	Date date =re.get(i).getRemarkTime();
+				        	String time = DateUtils.format(date);
+				        	cellsRemarkTemp[1] = new PdfPCell(new Paragraph(time,cellContentFont));//单元格内容
+				        	cellsRemarkTemp[1].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+				        	cellsRemarkTemp[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+				        	cellsRemarkTemp[1].setColspan(1); 
+				        	cellsRemarkTemp[1].setFixedHeight(20);//设置行高
+				        	cellsRemarkTemp[1].setMinimumHeight(25);
+				        	
+				        	cellsRemarkTemp[2] = new PdfPCell(new Paragraph(re.get(i).getXueqi(),cellContentFont));//单元格内容
+				        	cellsRemarkTemp[2].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
+				        	cellsRemarkTemp[2].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+				        	cellsRemarkTemp[2].setColspan(1); 
+				        	cellsRemarkTemp[2].setFixedHeight(20);//设置行高
+				        	cellsRemarkTemp[2].setMinimumHeight(25);
+				        	
+				        	cellsRemarkTemp[3] = new PdfPCell(new Paragraph(re.get(i).getRemark(),cellContentFont));//单元格内容
+				        	cellsRemarkTemp[3].setHorizontalAlignment(Element.ALIGN_LEFT);//水平居左
+				        	cellsRemarkTemp[3].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
+				        	cellsRemarkTemp[3].setColspan(7); 
+				        	cellsRemarkTemp[3].setFixedHeight(20);
+				        	cellsRemarkTemp[3].setMinimumHeight(25);
+				        	listRow.add(rowRemarkTemp);
+		        	}
+		        	
+		        	
+		        }
+		        
 		
 		
 		        //把表格添加到文件中

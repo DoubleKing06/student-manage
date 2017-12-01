@@ -1,5 +1,5 @@
 <table class="table table-bordered table-striped formLayout m0">
-	<caption><h2>学生成长记录表</h2></caption>
+	<!--<caption><h3>学生成长记录表</h3></caption>-->
 	<tr>
 		<td>姓名:</td>
 		<td>$!{gu.name}</td>

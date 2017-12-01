@@ -13,17 +13,18 @@
 		<tr>
 			<td>学期:</td>
 			<td><input type="text" name="xueqi" value="$!{studentWeiji.xueqi}" placeholder="学期"/></td>
-			<td>违纪情况:</td>
-			<td><input type="text" style="width:200px; height:20px;" name="weijiInfo" value="$!{studentWeiji.weijiInfo}" placeholder="违纪情况"/></td>
-		</tr>
-		<tr>
 			<td>违纪时间:</td>
 			<td><input type="text" name="weijiTime" value="$!{studentWeiji.weijiTime}" placeholder="YYYY-MM-DD HH:mm:ss"/></td>
 		</tr>
 		<tr>
-			<td>违纪备注:</td>
-			<td colspan="3"><textarea rows="10" cols="300" placeholder="请输入违纪记录"></textarea></td>
-		
+			<td>违纪情况:</td>
+			<td colspan="3" align="left" valign="top"><input type="text" maxlength="200" style="width:550px; height:100px;" name="weijiInfo" value="$!{studentWeiji.weijiInfo}" placeholder="违纪情况"/></td>
+			<!--<td colspan="3"><textarea name="weijiInfo" rows="10" cols="300" value="$!{studentWeiji.weijiInfo}" placeholder="请输入违纪情况"></textarea></td>-->
+		</tr>
+		<tr>
+			<td>处理结果:</td>
+			<td colspan="3" align="left" valign="top" ><input type="text" maxlength="200" style="width:550px; height:100px;" name="result" value="$!{studentWeiji.result}" placeholder="请输入处理结果"/></td>
+			<!--<td colspan="3"><textarea name="result" rows="10" cols="300" value="$!{studentWeiji.result}" placeholder="请输入处理结果"></textarea></td>-->
 		</tr>
 	</table>
 </form>
