@@ -69,6 +69,6 @@ public class StudentInfoUploadController {
         } finally {
         }
 
-        return Message.create("ok", "导入成功");
+        return Message.success();
     }
 }
