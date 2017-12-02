@@ -5,13 +5,11 @@
 package cn.edu.cwnu.studentmanage.web.controller;
 
 import cn.edu.cwnu.studentmanage.domain.StudentChengji;
+import cn.edu.cwnu.studentmanage.domain.common.Message;
 import cn.edu.cwnu.studentmanage.service.AnalysisExcelService;
-
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,10 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.List;
 
 /**
@@ -51,7 +45,7 @@ public class StudentInfoUploadController {
      * @return
      */
     @RequestMapping(value = "/upload", method = { RequestMethod.POST })
-    public @ResponseBody String upload(String type, @RequestParam(value = "filename") MultipartFile uploadFile) throws Exception {
+    public @ResponseBody Message upload(String type, @RequestParam(value = "filename") MultipartFile uploadFile) throws Exception {
         try {
             if (uploadFile.getInputStream() == null) {
 
@@ -71,10 +65,10 @@ public class StudentInfoUploadController {
             }
         } catch (Exception e) {
             LOGGER.error("失败:" + e.getMessage(), e);
-            throw e;
+            return Message.create("fail", e.getMessage());
         } finally {
         }
-        return "ok";
 
+        return Message.success();
     }
 }
