@@ -18,7 +18,7 @@
 		</tr>
 		<tr>
 			<td>备注:</td>
-			<td colspan="3" align="left" valign="top"><input type="text" maxlength="200" style="width:550px; height:100px;" name="remark" value="$!{studentRemark.remark}" placeholder="备注"/></td>
+			<td colspan="3" align="left" valign="top"><input type="text" maxlength="200" style="width:550px; height:100px;" name="remark" value="$!{studentRemark.remark}" placeholder="备注（200字）"/></td>
 			
 			<!--<input type="text" style="width:540px; height:200px;" name="remark" value="$!{studentRemark.remark}" placeholder="备注"/></td>-->
 			<!--<td>更新时间:</td>

@@ -1,0 +1,92 @@
+<form class="form-upload" id="backupForm" name="backupForm" action="/jdbc/backup" method="GET">
+<hr style="height:1px;border:none;border-top:1px dashed #0066CC;" />
+    <table>
+        <tr>
+            <td>
+                <div>
+                	<h4 style="color:blue;">备份数据库</h4>
+					<button type="button" class="btn btn-default" onclick="backup();" >备份数据库</button>
+					<font size="3" color="red">&nbsp;&nbsp;&nbsp;&nbsp;备份的文件在电脑桌面，backup_yyyy-mm-dd.sql</font>
+                </div>
+
+            </td>
+
+        </tr>
+    </table>
+<hr style="height:1px;border:none;border-top:1px dashed #0066CC;" />
+</form>
+
+
+<script>
+    function backup() {
+        var formData = new FormData($("#backupForm"));
+        $.ajax({
+            url: '/jdbc/backup',
+            type: 'GET',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if ("ok" == data) {
+                    alert("备份成功!")
+                    XUI.gotoPage('/jdbc')
+                }
+            },
+            error: function (returndata) {
+            }
+        });
+    }
+</script>
+
+<form class="form-upload" id="recoverForm" name="recoverForm" action="/jdbc/recover" method="POST"
+      enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td>
+                <div>
+                    <h4 style="color:blue;">恢复数据库</h4>
+                    <input type="file" id="file" name="filename" multiple="multiple">
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <button type="button" class="btn btn-default" onclick="recover();">提交</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+</form>
+<hr style="height:1px;border:none;border-top:1px dashed #0066CC;" />
+<script>
+    function recover() {
+        var formData = new FormData($("#recoverForm")[0]);
+        $.ajax({
+            url: '/jdbc/recover',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if ("ok" == data) {
+                    alert("还原成功!")
+                    XUI.gotoPage('/jdbc')
+                }
+            },
+            error: function (returndata) {
+            }
+        });
+    }
+</script>
+
+
+
+

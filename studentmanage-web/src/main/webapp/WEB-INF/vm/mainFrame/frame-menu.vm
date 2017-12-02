@@ -11,6 +11,7 @@
 		<li><a onclick="XUI.gotoPage('/studentQitahuojiang')">其他获奖信息</a></li>
 		<li><a onclick="XUI.gotoPage('/studentRemark')">学生备注信息</a></li>
 		<li><a onclick="XUI.gotoPage('/studentWeiji')">学生违纪信息</a></li>
+		<li><a onclick="XUI.gotoPage('/jdbc')">备份与恢复</a></li>	
 		<li><a href="/login/logout">注销登录</a></li>
 		
 	</ul>

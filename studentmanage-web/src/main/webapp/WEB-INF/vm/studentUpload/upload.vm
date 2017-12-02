@@ -1,5 +1,25 @@
+<form class="form-upload" id="backupForm" name="backupForm" action="/jdbc/backup" method="GET">
+<hr style="height:1px;border:none;border-top:1px dashed #0066CC;" />
+    <table>
+        <tr>
+            <td>
+                <div>
+                	<h4 style="color:blue;">下载导入模板</h4>
+					<button type="button" class="btn btn-default" onclick="backup();" >下载模板</button>
+                </div>
+
+            </td>
+
+        </tr>
+    </table>
+</form>
+
+
+<hr style="height:1px;border:none;border-top:1px dashed #0066CC;" />
 <form class="form-upload" id="studentUploadForm" name="studentUploadForm" action="/upload" method="POST"
       enctype="multipart/form-data">
+      <h4 style="color:blue;">导入数据</h4>
+      <font size="3" color="red">&nbsp;&nbsp;&nbsp;&nbsp;目前仅支持xls格式文件导入</font>
     <table>
         <tr>
             <td>
@@ -33,7 +53,7 @@
 
 
 </form>
-
+<hr style="height:1px;border:none;border-top:1px dashed #0066CC;" />
 <script>
     function doUpload() {
         var formData = new FormData($("#studentUploadForm")[0]);
