@@ -1,6 +1,5 @@
 package cn.edu.cwnu.studentmanage.service.impl;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
 
 import cn.edu.cwnu.studentmanage.dao.base.BaseDao;
 import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
@@ -130,7 +130,10 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
                 continue;  
             }  
             sbi=new StudentBasicInfo();
-            //再遍历改行的所有列  
+            //再遍历改行的所有列 
+            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
+            	continue; 
+            }  
             for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
                 HSSFCell cell = row.getCell(cellNum);  
                 if (cell == null) {  
@@ -269,15 +272,18 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
         if (iter.hasNext()) iter.next();
         while (iter.hasNext()) {  
         	
-            Row row = iter.next();  
+            Row row = iter.next();
             if (row == null) {  
                 continue;  
-            }  
+            }
+            
             chengji=new StudentChengji();
             
             String xueHaoTemp=""; //excel中的学号
             String nameTemp="";//excel中的姓名
-            
+            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
+            	continue; 
+            }           
             //再遍历改行的所有列  
             for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) { 
 //            	System.out.println(rowNum +":"+cellNum);
@@ -286,11 +292,12 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
                     continue;  
                 }
                 String temp =readCellSecondMethod(cell);
-                if (0 == cellNum && StringUtils.isEmpty(temp)) {
+                if (0 == cellNum && (StringUtils.isEmpty(temp)||"".equals(temp)||temp == null)) {
                 	break;
                 }
                 switch (cellNum){
                 	case 0:
+//                		if("".equals(temp)||StringUtils.isEmpty(temp)){break;}
                 		xueHaoTemp =temp;
                 		break;                
                 	case 1:
@@ -311,7 +318,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
                 }  
                 chengji.setUpdateTime(new Date());
             }  
-            //System.out.println(chengji.toString());
+//            System.out.println(chengji.toString());
 
            //下面判断数据库中是否存在此学生相同学期的成绩信息
             StudentBasicInfo studentTemp =new StudentBasicInfo(); 
@@ -400,7 +407,9 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
             
             String xueHaoTemp=""; //excel中的学号
             String nameTemp="";//excel中的姓名
-            
+            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
+            	continue; 
+            }  
             //再遍历改行的所有列  
             for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
                 HSSFCell cell = row.getCell(cellNum);  
@@ -523,7 +532,9 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 				continue;  
 			}  
 			zizhu=new StudentZizhu();
-			
+            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
+            	continue; 
+            }  
 			String xueHaoTemp=""; //excel中的学号
 			String nameTemp="";//excel中的姓名
 			
@@ -648,7 +659,9 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 				continue;  
 			}  
 			pingjiang=new StudentPingjiang();
-			
+            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
+            	continue; 
+            }  
 			String xueHaoTemp=""; //excel中的学号
 			String nameTemp="";//excel中的姓名
 			

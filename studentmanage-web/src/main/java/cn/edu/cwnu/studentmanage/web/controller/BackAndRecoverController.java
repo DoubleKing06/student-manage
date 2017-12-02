@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.cwnu.studentmanage.common.tools.DateUtils;
 import cn.edu.cwnu.studentmanage.domain.Login;
+import cn.edu.cwnu.studentmanage.domain.common.Message;
 import cn.edu.cwnu.studentmanage.web.CustomDateEditor;
 
 
@@ -63,7 +64,7 @@ public class BackAndRecoverController {
 	private String dataBasename="student-manage";
 	
 	@RequestMapping(value="/jdbc/backup",method = {RequestMethod.GET})
-	public @ResponseBody String backup(HttpServletResponse response,Model view){
+	public @ResponseBody Message backup(HttpServletResponse response,Model view){
 		String sqlName = "backup_"+DateUtils.format(new Date(),"yyyy-MM-dd")+".sql";//sql文件名称
 		String desktopPath = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
 		desktopPath =desktopPath.replace("\\\\", "\\\\\\\\");
@@ -74,9 +75,10 @@ public class BackAndRecoverController {
 	                System.out.println("数据库备份失败！！！");  
 	            }  
 	        } catch (InterruptedException e) {  
-	            e.printStackTrace();  
+	            LOGGER.error("失败:" + e.getMessage(), e);
+	            return Message.create("fail", e.getMessage()); 
 	        }  
-		return "ok";
+		return Message.create("ok", "备份成功");
 	}
 	
 	
@@ -135,15 +137,9 @@ public class BackAndRecoverController {
 	
 	
     @RequestMapping(value = "/jdbc/recover", method = { RequestMethod.POST })
-    public @ResponseBody String recover(String type, @RequestParam(value = "filename") MultipartFile uploadFile) throws Exception {
-		Runtime runtime = Runtime.getRuntime();
-		//-u后面是用户名，-p是密码-p后面最好不要有空格，-family是数据库的名字，--default-character-set=utf8，这句话一定的加
-		//我就是因为这句话没加导致程序运行成功，但是数据库里面的内容还是以前的内容，最好写上完成的sql放到cmd中一运行才知道报错了
-		//错误信息：
-		//mysql: Character set 'utf-8' is not a compiled character set and is not specified in the '
-		//C:\Program Files\MySQL\MySQL Server 5.5\share\charsets\Index.xml' file ERROR 2019 (HY000): Can't
-		// initialize character set utf-8 (path: C:\Program Files\MySQL\MySQL Server 5.5\share\charsets\)，
-		//又是讨人厌的编码问题，在恢复的时候设置一下默认的编码就可以了。
+    public @ResponseBody Message recover(String type, @RequestParam(value = "filename") MultipartFile uploadFile) throws Exception {
+		try{
+    	Runtime runtime = Runtime.getRuntime();
 		Process process = runtime.exec("mysql -h" + hostIP + " -u" + userName + " -p" + password +" --set-charset=UTF8 " + dataBasename);
 		OutputStream outputStream = process.getOutputStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(uploadFile.getInputStream()));
@@ -160,7 +156,12 @@ public class BackAndRecoverController {
 		outputStream.close();
 		br.close();
 		writer.close();
-		return "ok";
+		return Message.create("ok", "还原成功");
+		}catch(Exception e){
+            LOGGER.error("失败:" + e.getMessage(), e);
+            return Message.create("fail", e.getMessage());
+			
+		}
 	}	
 	
 	
