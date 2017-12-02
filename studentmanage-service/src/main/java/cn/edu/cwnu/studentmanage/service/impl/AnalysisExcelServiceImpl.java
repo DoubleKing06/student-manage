@@ -98,10 +98,11 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	
 	/**
 	 * 解析学生基本信息表
+	 * @throws Exception 
 	 * 
 	 */
 	@Override
-	public StudentBasicInfo analysisStudentBasicInfo(InputStream stream) throws IOException {
+	public StudentBasicInfo analysisStudentBasicInfo(InputStream stream) throws Exception {
 		StudentBasicInfo sbi;
 		// TODO Auto-generated method stub
 		POIFSFileSystem fs = new POIFSFileSystem(stream);  
@@ -111,7 +112,17 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
         if (sheet == null) {  
             return null;  
         }  
-  
+        
+        	// 校验第一行标题是否正确
+ 
+            HSSFRow firstRow = sheet.getRow(0);  
+            if (firstRow == null) {  
+                throw new Exception("文件格式不正确");  
+            }       	
+            HSSFCell cellTemp = firstRow.getCell(3); 
+        	if(!"录取批次".equals(readCellSecondMethod(cellTemp))){
+        		throw new Exception("文件格式不正确");  
+        	}
         //遍历该sheet的行  
         for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
             HSSFRow row = sheet.getRow(rowNum);  
@@ -224,10 +235,10 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * 解析学生成绩表
 	 * @param stream 文件对象
 	 * @return list<List> 不存在的学号,与姓名不匹配的学号
-	 * @throws IOException
+	 * @throws Exception 
 	 */
 	@Override
-	public List analysisStudentChengji(InputStream stream) throws IOException {
+	public List analysisStudentChengji(InputStream stream) throws Exception {
 		StudentChengji chengji;
 		//记录姓名与学号和基本信息表不匹配的学号
 		List<String> notMatch =new ArrayList<String>();
@@ -241,6 +252,18 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
         if (sheet == null) {  
             return null;  
         }  
+        
+    	// 校验第一行标题是否正确
+        
+        HSSFRow firstRow = sheet.getRow(0);  
+        if (firstRow == null) {  
+            throw new Exception("文件格式不正确");  
+        }       	
+        HSSFCell cellTemp = firstRow.getCell(3); 
+    	if(!"专业成绩".equals(readCellSecondMethod(cellTemp))){
+    		throw new Exception("文件格式不正确");  
+    	}
+        
         //遍历该sheet的行  
         Iterator<Row> iter = sheet.iterator();
         if (iter.hasNext()) iter.next();
@@ -338,10 +361,10 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * 解析学生学业状况表
 	 * @param stream 文件对象
 	 * @return list<List> 不存在的学号,与姓名不匹配的学号
-	 * @throws IOException
+	 * @throws Exception 
 	 */
 	@Override
-	public List analysisStudentXueye(InputStream stream) throws IOException {
+	public List analysisStudentXueye(InputStream stream) throws Exception {
 		StudentXueye xueye;
 		//记录姓名与学号和基本信息表不匹配的学号
 		List<String> notMatch =new ArrayList<String>();
@@ -355,7 +378,18 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
         if (sheet == null) {  
             return null;  
         }  
-  
+
+    	// 校验第一行标题是否正确
+        
+        HSSFRow firstRow = sheet.getRow(0);  
+        if (firstRow == null) {  
+            throw new Exception("文件格式不正确");  
+        }       	
+        HSSFCell cellTemp = firstRow.getCell(3); 
+    	if(!"三笔字".equals(readCellSecondMethod(cellTemp))){
+    		throw new Exception("文件格式不正确");  
+    	}
+        
         //遍历该sheet的行  
         for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
             HSSFRow row = sheet.getRow(rowNum);  
@@ -396,7 +430,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
                 }  
                 xueye.setUpdateTime(new Date());
             }  
-            System.out.println(xueye.toString());
+//            System.out.println(xueye.toString());
 
            //下面判断数据库中是否存在此学生相同学期的成绩信息
             StudentBasicInfo studentTemp =new StudentBasicInfo(); 
@@ -454,10 +488,10 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * 解析学生资助情况表
 	 * @param stream 文件对象
 	 * @return list<List> 不存在的学号,与姓名不匹配的学号
-	 * @throws IOException
+	 * @throws Exception 
 	 */
 	@Override
-	public List analysisStudentZizhu(InputStream stream) throws IOException {
+	public List analysisStudentZizhu(InputStream stream) throws Exception {
 		StudentZizhu zizhu;
 		//记录姓名与学号和基本信息表不匹配的学号
 		List<String> notMatch =new ArrayList<String>();
@@ -471,7 +505,17 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 		if (sheet == null) {  
 			return null;  
 		}  
-		
+    	// 校验第一行标题是否正确
+        
+        HSSFRow firstRow = sheet.getRow(0);  
+        if (firstRow == null) {  
+            throw new Exception("文件格式不正确");  
+        }       	
+        HSSFCell cellTemp = firstRow.getCell(3); 
+    	if(!"国家奖学金".equals(readCellSecondMethod(cellTemp))){
+    		throw new Exception("文件格式不正确");  
+    	}
+    	
 		//遍历该sheet的行  
 		for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
 			HSSFRow row = sheet.getRow(rowNum);  
@@ -518,7 +562,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 				}  
 				zizhu.setUpdateTime(new Date());
 			}  
-			System.out.println(zizhu.toString());
+//			System.out.println(zizhu.toString());
 			
 			//下面判断数据库中是否存在此学生相同学期的成绩信息
 			StudentBasicInfo studentTemp =new StudentBasicInfo(); 
@@ -568,10 +612,10 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * 解析评优评奖表
 	 * @param stream 文件对象
 	 * @return list<List> 不存在的学号,与姓名不匹配的学号
-	 * @throws IOException	 
+	 * @throws Exception 
 	 */
 	@Override
-	public List analysisStudentPingjiang(InputStream stream) throws IOException {
+	public List analysisStudentPingjiang(InputStream stream) throws Exception {
 		StudentPingjiang pingjiang;
 		//记录姓名与学号和基本信息表不匹配的学号
 		List<String> notMatch =new ArrayList<String>();
@@ -585,6 +629,17 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 		if (sheet == null) {  
 			return null;  
 		}  
+		
+    	// 校验第一行标题是否正确
+        
+        HSSFRow firstRow = sheet.getRow(0);  
+        if (firstRow == null) {  
+            throw new Exception("文件格式不正确");  
+        }       	
+        HSSFCell cellTemp = firstRow.getCell(3); 
+    	if(!"奖学金".equals(readCellSecondMethod(cellTemp))){
+    		throw new Exception("文件格式不正确");  
+    	}
 		
 		//遍历该sheet的行  
 		for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
@@ -638,7 +693,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 				}  
 				pingjiang.setUpdateTime(new Date());
 			}  
-			System.out.println(pingjiang.toString());
+//			System.out.println(pingjiang.toString());
 			
 			//下面判断数据库中是否存在此学生相同学期的成绩信息
 			StudentBasicInfo studentTemp =new StudentBasicInfo(); 
