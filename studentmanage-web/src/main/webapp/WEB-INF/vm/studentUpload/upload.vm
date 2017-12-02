@@ -72,8 +72,8 @@
             processData: false,
             success: function (data) {
                 if (null != data) {
-                    if (data.code == 'ok') {
-                        alert("导入成功!");
+                    if (data.code == 'success') {
+                        alert(data.result);
                         XUI.gotoPage('/studentBasicInfo');
                     }
                     if (data.code == "fail") {

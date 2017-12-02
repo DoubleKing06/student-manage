@@ -65,7 +65,7 @@ public class StudentInfoUploadController {
             }
         } catch (Exception e) {
             LOGGER.error("失败:" + e.getMessage(), e);
-            return Message.create("fail", e.getMessage());
+            return Message.failure(e.getMessage());
         } finally {
         }
 
