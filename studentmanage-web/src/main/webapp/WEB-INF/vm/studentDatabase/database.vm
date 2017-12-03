@@ -29,12 +29,18 @@
             contentType: false,
             processData: false,
             success: function (data) {
-                if ("ok" == data) {
-                    alert("备份成功!")
-                    XUI.gotoPage('/jdbc')
+                if (null != data) {
+                    if (data.code == 'success') {
+                        alert(data.result);
+                        XUI.gotoPage('/jdbc');
+                    }
+                    if (data.code == "fail") {
+                        alert(data.result);
+                    }
                 }
             },
-            error: function (returndata) {
+            error: function (err) {
+                alert("系统错误");
             }
         });
     }

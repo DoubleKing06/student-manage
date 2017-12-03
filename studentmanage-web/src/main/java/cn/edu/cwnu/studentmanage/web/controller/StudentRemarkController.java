@@ -165,7 +165,7 @@ public class StudentRemarkController{
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
-			msg = Message.failure();
+			msg = Message.failure(e.getMessage());
 		}finally{
 		}
 
@@ -182,12 +182,12 @@ public class StudentRemarkController{
 		try {
 			StudentRemark studentRemark = studentRemarkService.selectEntry(id);
 			if(studentRemark == null) {
-				return null;
+				throw new Exception("无此学生备注信息");
 			}
 			
 			StudentBasicInfo sbi = studentBasicInfoService.selectEntry(Integer.valueOf(studentRemark.getStudentId().toString()));
 			if(sbi == null){
-				return null;
+				throw new Exception("基本信息表无此学生");
 			}
 			StudentRemarkVO studentRemarkVO =converToVO(studentRemark);
 			
@@ -243,7 +243,7 @@ public class StudentRemarkController{
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
-			msg = Message.failure();
+			msg = Message.failure(e.getMessage());
 		}finally{
 		}
 		return msg;

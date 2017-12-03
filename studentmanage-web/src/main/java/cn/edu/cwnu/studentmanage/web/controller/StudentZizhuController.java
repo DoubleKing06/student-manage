@@ -105,10 +105,6 @@ public class StudentZizhuController{
 	}
 	
 	
-	
-	
-	
-	
 	/**
 	 * 列表展示
 	 * @param studentZizhu 实体对象
@@ -140,12 +136,12 @@ public class StudentZizhuController{
 				StudentZizhu studentZizhu = studentZizhuService.selectEntry(id);
 				if(studentZizhu == null) {
 //					return toJSON(Message.failure("您要修改的数据不存在或者已被删除!"));
-					return null;
+					throw new Exception("无此学生资助信息");
 				}
 				
 				StudentBasicInfo sbi = studentBasicInfoService.selectEntry(Integer.valueOf(studentZizhu.getStudentId().toString()));
 				if(sbi == null){
-					return null;
+					throw new Exception("基本信息表无此学生");
 				}
 				StudentZizhuVO studentZizhuVO =converToVO(studentZizhu);
 				
@@ -178,7 +174,7 @@ public class StudentZizhuController{
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
-			msg = Message.failure();
+			msg = Message.failure(e.getMessage());
 		}finally{
 		}
 
@@ -259,7 +255,7 @@ public class StudentZizhuController{
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
-			msg = Message.failure();
+			msg = Message.failure(e.getMessage());
 		}finally{
 		}
 		return msg;

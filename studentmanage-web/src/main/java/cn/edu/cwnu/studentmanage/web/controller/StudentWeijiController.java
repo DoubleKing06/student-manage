@@ -126,12 +126,12 @@ public class StudentWeijiController{
 				StudentWeiji studentWeiji = studentWeijiService.selectEntry(id);
 				if(studentWeiji == null) {
 //					return toJSON(Message.failure("您要修改的数据不存在或者已被删除!"));
-					return null;
+					throw new Exception("无此学生违纪信息");
 				}
 				
 				StudentBasicInfo sbi = studentBasicInfoService.selectEntry(Integer.valueOf(studentWeiji.getStudentId().toString()));
 				if(sbi == null){
-					return null;
+					throw new Exception("基本信息表无此学生");
 				}
 				StudentWeijiVO studentWeijiVO =converToVO(studentWeiji);
 				
@@ -180,11 +180,11 @@ public class StudentWeijiController{
 		try {
 			StudentWeiji studentWeiji = studentWeijiService.selectEntry(id);
 			if(studentWeiji == null) {
-				return null;
+				throw new Exception("无此学生违纪信息");
 			}
 			StudentBasicInfo sbi = studentBasicInfoService.selectEntry(Integer.valueOf(studentWeiji.getStudentId().toString()));
 			if(sbi == null){
-				return null;
+				throw new Exception("基本信息表无此学生");
 			}
 			StudentWeijiVO studentWeijiVO =converToVO(studentWeiji);
 			
@@ -240,7 +240,7 @@ public class StudentWeijiController{
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
-			msg = Message.failure();
+			msg = Message.failure(e.getMessage());
 		}finally{
 		}
 		return msg;

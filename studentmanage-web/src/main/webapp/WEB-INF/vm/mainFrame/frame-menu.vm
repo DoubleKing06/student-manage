@@ -2,7 +2,6 @@
 	<a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-home"></i>Home</a>
 	<ul id="dashboard-menu" class="nav nav-list collapse in">
 		<li class="active"><a href="#springUrl('')/">首页</a></li>
-		<li><a onclick="XUI.gotoPage('/initUpload')">导入学生数据</a></li>	
 		<li><a onclick="XUI.gotoPage('/studentBasicInfo')">学生基本信息</a></li>
 		<li><a onclick="XUI.gotoPage('/studentChengji')">学生成绩信息</a></li>
 		<li><a onclick="XUI.gotoPage('/studentXueye')">学生学业信息</a></li>
@@ -11,7 +10,8 @@
 		<li><a onclick="XUI.gotoPage('/studentQitahuojiang')">其他获奖信息</a></li>
 		<li><a onclick="XUI.gotoPage('/studentRemark')">学生备注信息</a></li>
 		<li><a onclick="XUI.gotoPage('/studentWeiji')">学生违纪信息</a></li>
-		<li><a onclick="XUI.gotoPage('/jdbc')">备份与恢复</a></li>	
+		<li><a onclick="XUI.gotoPage('/initUpload')">导入学生数据</a></li>	
+		<li><a onclick="XUI.gotoPage('/jdbc')">备份与还原</a></li>	
 		<li><a href="/login/logout">注销登录</a></li>
 		
 	</ul>

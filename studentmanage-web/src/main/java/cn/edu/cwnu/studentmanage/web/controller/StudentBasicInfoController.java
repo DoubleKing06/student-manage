@@ -98,7 +98,7 @@ public class StudentBasicInfoController{
 				StudentBasicInfo studentBasicInfo = studentBasicInfoService.selectEntry(id);
 				if(studentBasicInfo == null) {
 //					return toJSON(Message.failure("您要修改的数据不存在或者已被删除!"));
-					return null;
+					throw new Exception("基本信息表无此学生");
 				}
 				view.addAttribute("studentBasicInfo",studentBasicInfo);
 			}			
@@ -170,7 +170,7 @@ public class StudentBasicInfoController{
 		try {
 			StudentBasicInfo studentBasicInfo = studentBasicInfoService.selectEntry(id);
 			if(studentBasicInfo == null) {
-				return null;
+				throw new Exception("基本信息表无此学生");
 			}
 			view.addAttribute("studentBasicInfo",studentBasicInfo);
 		} catch (Exception e) {

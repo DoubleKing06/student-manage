@@ -87,19 +87,6 @@ public class StudentXueyeController{
 		return "studentXueye/list";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * 列表展示
 	 * @param studentXueye 实体对象
@@ -184,12 +171,12 @@ public class StudentXueyeController{
 		try {
 			StudentXueye studentXueye = studentXueyeService.selectEntry(id);
 			if(studentXueye == null) {
-				return null;
+				throw new Exception("无此学生学业信息");
 			}
 			
 			StudentBasicInfo sbi = studentBasicInfoService.selectEntry(Integer.valueOf(studentXueye.getStudentId().toString()));
 			if(sbi == null){
-				return null;
+				throw new Exception("基本信息表无此学生");
 			}
 			StudentXueyeVO studentXueyeVO =converToVO(studentXueye);
 			
@@ -256,7 +243,7 @@ public class StudentXueyeController{
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
-			msg = Message.failure();
+			msg = Message.failure(e.getMessage());
 		}finally{
 		}
 		return msg;

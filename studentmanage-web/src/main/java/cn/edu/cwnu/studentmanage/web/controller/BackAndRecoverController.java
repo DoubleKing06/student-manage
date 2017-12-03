@@ -78,7 +78,7 @@ public class BackAndRecoverController {
 	            LOGGER.error("失败:" + e.getMessage(), e);
 	            return Message.create("fail", e.getMessage()); 
 	        }  
-		return Message.create("ok", "备份成功");
+		return Message.success();
 	}
 	
 	
@@ -108,7 +108,7 @@ public class BackAndRecoverController {
         try {  
             printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(savePath + fileName), "utf8"));  
             Process process = Runtime.getRuntime().exec(" mysqldump -h" + hostIP + " -u" + userName + " -p" + password + " --set-charset=UTF8 " + databaseName);  
-            InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), "utf8");  
+            InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), "UTF8");  
             bufferedReader = new BufferedReader(inputStreamReader);  
             String line;  
             while((line = bufferedReader.readLine())!= null){  
@@ -140,17 +140,18 @@ public class BackAndRecoverController {
     public @ResponseBody Message recover(String type, @RequestParam(value = "filename") MultipartFile uploadFile) throws Exception {
 		try{
     	Runtime runtime = Runtime.getRuntime();
-		Process process = runtime.exec("mysql -h" + hostIP + " -u" + userName + " -p" + password +" --set-charset=UTF8 " + dataBasename);
+		Process process = runtime.exec("mysql -h" + hostIP + " -u" + userName + " -p" + password +"--default-character-set=utf8" + dataBasename);
 		OutputStream outputStream = process.getOutputStream();
-		BufferedReader br = new BufferedReader(new InputStreamReader(uploadFile.getInputStream()));
+		BufferedReader br = new BufferedReader(new InputStreamReader(uploadFile.getInputStream(),"utf8"));
 		String str = null;
 		StringBuffer sb = new StringBuffer();
+		OutputStreamWriter writer = new OutputStreamWriter(outputStream,"utf8");
 		while((str = br.readLine()) != null){
 			sb.append(str+"\r\n");
+//			writer.write(str + "\r\n");
 		}
 		str = sb.toString();
 		System.out.println(str);
-		OutputStreamWriter writer = new OutputStreamWriter(outputStream,"utf-8");
 		writer.write(str);
 		writer.flush();
 		outputStream.close();

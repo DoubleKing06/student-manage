@@ -131,12 +131,12 @@ public class StudentChengjiController{
 				StudentChengji studentChengji = studentChengjiService.selectEntry(id);
 				if(studentChengji == null) {
 //					return toJSON(Message.failure("您要修改的数据不存在或者已被删除!"));
-					return null;
+					throw new Exception("无此学生成绩信息");
 				}
 				
 				StudentBasicInfo sbi = studentBasicInfoService.selectEntry(Integer.valueOf(studentChengji.getStudentId().toString()));
 				if(sbi == null){
-					return null;
+					throw new Exception("基本信息表无此学生");
 				}
 				StudentChengjiVO studentChengjiVO =converToVO(studentChengji);
 				
@@ -167,7 +167,7 @@ public class StudentChengjiController{
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
-			msg = Message.failure();
+			msg = Message.failure(e.getMessage());
 		}finally{
 		}
 
@@ -184,13 +184,13 @@ public class StudentChengjiController{
 		try {
 			StudentChengji studentChengji = studentChengjiService.selectEntry(id);
 			if(studentChengji == null) {
-				return null;
+				throw new Exception("无此学生成绩信息");
 			}
 //			StudentBasicInfo sbi=new StudentBasicInfo();
 			
 			StudentBasicInfo sbi = studentBasicInfoService.selectEntry(Integer.valueOf(studentChengji.getStudentId().toString()));
 			if(sbi == null){
-				return null;
+				throw new Exception("基本信息表无此学生");
 			}
 			StudentChengjiVO studentChengjiVO =converToVO(studentChengji);
 			
@@ -257,7 +257,7 @@ public class StudentChengjiController{
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
-			msg = Message.failure();
+			msg = Message.failure(e.getMessage());
 		}finally{
 		}
 		return msg;

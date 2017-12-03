@@ -119,12 +119,12 @@ public class StudentQitahuojiangController{
 				StudentQitahuojiang studentQitahuojiang = studentQitahuojiangService.selectEntry(id);
 				if(studentQitahuojiang == null) {
 //					return toJSON(Message.failure("您要修改的数据不存在或者已被删除!"));
-					return null;
+					throw new Exception("无此学生其他获奖信息");
 				}
 				
 				StudentBasicInfo sbi = studentBasicInfoService.selectEntry(Integer.valueOf(studentQitahuojiang.getStudentId().toString()));
 				if(sbi == null){
-					return null;
+					throw new Exception("基本信息表无此学生");
 				}
 				StudentQitahuojiangVO studentQitahuojiangVO =converToVO(studentQitahuojiang);
 				
@@ -155,7 +155,7 @@ public class StudentQitahuojiangController{
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
-			msg = Message.failure();
+			msg = Message.failure(e.getMessage());
 		}finally{
 		}
 
@@ -247,7 +247,7 @@ public class StudentQitahuojiangController{
 			msg  = res > 0 ? Message.success() : Message.failure();
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
-			msg = Message.failure();
+			msg = Message.failure(e.getMessage());
 		}finally{
 		}
 		return msg;
