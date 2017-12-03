@@ -3,6 +3,7 @@ package cn.edu.cwnu.studentmanage.web.controller;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,10 +14,12 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.filechooser.FileSystemView;
 
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import cn.edu.cwnu.studentmanage.common.tools.DateUtils;
 import cn.edu.cwnu.studentmanage.domain.Login;
@@ -107,7 +111,7 @@ public class BackAndRecoverController {
         BufferedReader bufferedReader = null;  
         try {  
             printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(savePath + fileName), "utf8"));  
-            Process process = Runtime.getRuntime().exec(" mysqldump -h" + hostIP + " -u" + userName + " -p" + password + " --set-charset=UTF8 " + databaseName);  
+            Process process = Runtime.getRuntime().exec(" mysqldump -h" + hostIP + " -u" + userName + " -p" + password + " --set-charset=UTF8 --databases " + databaseName);  
             InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), "UTF8");  
             bufferedReader = new BufferedReader(inputStreamReader);  
             String line;  
@@ -137,34 +141,45 @@ public class BackAndRecoverController {
 	
 	
     @RequestMapping(value = "/jdbc/recover", method = { RequestMethod.POST })
-    public @ResponseBody Message recover(String type, @RequestParam(value = "filename") MultipartFile uploadFile) throws Exception {
-		try{
-    	Runtime runtime = Runtime.getRuntime();
-		Process process = runtime.exec("mysql -h" + hostIP + " -u" + userName + " -p" + password +"--default-character-set=utf8" + dataBasename);
-		OutputStream outputStream = process.getOutputStream();
-		BufferedReader br = new BufferedReader(new InputStreamReader(uploadFile.getInputStream(),"utf8"));
-		String str = null;
-		StringBuffer sb = new StringBuffer();
-		OutputStreamWriter writer = new OutputStreamWriter(outputStream,"utf8");
-		while((str = br.readLine()) != null){
-			sb.append(str+"\r\n");
-//			writer.write(str + "\r\n");
-		}
-		str = sb.toString();
-		System.out.println(str);
-		writer.write(str);
-		writer.flush();
-		outputStream.close();
-		br.close();
-		writer.close();
-		return Message.create("ok", "还原成功");
+    public @ResponseBody Message recover(String type, @RequestParam(value = "filename") MultipartFile uploadFile,HttpServletRequest req) throws Exception {
+    	try{
+    		if(uploadFile == null){
+    			throw new Exception("文件对象为空");
+    		}
+			CommonsMultipartFile cf = (CommonsMultipartFile)uploadFile; 
+			try {
+	            //获取输出流
+				String folder=System.getProperty("java.io.tmpdir");
+				folder = folder+cf.getOriginalFilename();
+				folder =folder.replace("\\\\", "\\\\\\\\");				
+//				System.out.println(folder);
+	            OutputStream os=new FileOutputStream(folder);
+	            //获取输入流 CommonsMultipartFile 中可以直接得到文件的流
+	            InputStream is=cf.getInputStream();
+	            int temp;
+	            //一个一个字节的读取并写入
+	            while((temp=is.read())!=(-1))
+	            {
+	                os.write(temp);
+	            }
+	           os.flush();
+	           os.close();
+	           is.close();
+	         
+		        String sql = "mysql -h" + hostIP + " -u" + userName + " -p" + password +" --default-character-set=utf8 " + dataBasename + " --execute=\"source "+ folder+"\"";
+		        Process process = Runtime.getRuntime().exec(sql);
+	           
+	        } catch (Exception e) {
+	            // TODO Auto-generated catch block
+	            throw new Exception(e.getMessage());
+	        }
+			
 		}catch(Exception e){
             LOGGER.error("失败:" + e.getMessage(), e);
             return Message.create("fail", e.getMessage());
-			
 		}
+    	return Message.success();
 	}	
-	
 	
 	
 	

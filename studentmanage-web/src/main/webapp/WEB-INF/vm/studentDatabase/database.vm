@@ -54,6 +54,7 @@
                 <div>
                     <h4 style="color:blue;">恢复数据库</h4>
                     <input type="file" id="file" name="filename" multiple="multiple">
+                    
                 </div>
             </td>
 
@@ -62,6 +63,7 @@
             <td>
                 <div>
                     <button type="button" class="btn btn-default" onclick="recover();">提交</button>
+                    <font size="3" color="red">点击提交按钮后需等待数秒</font>
                 </div>
             </td>
         </tr>
@@ -82,12 +84,18 @@
             contentType: false,
             processData: false,
             success: function (data) {
-                if ("ok" == data) {
-                    alert("还原成功!")
-                    XUI.gotoPage('/jdbc')
+                if (null != data) {
+                    if (data.code == 'success') {
+                        alert(data.result);
+                        XUI.gotoPage('/jdbc');
+                    }
+                    if (data.code == "fail") {
+                        alert(data.result);
+                    }
                 }
             },
-            error: function (returndata) {
+            error: function (err) {
+                alert("系统错误");
             }
         });
     }
