@@ -27,6 +27,7 @@ import cn.edu.cwnu.studentmanage.domain.StudentChengji;
 import cn.edu.cwnu.studentmanage.domain.StudentPingjiang;
 import cn.edu.cwnu.studentmanage.domain.StudentXueye;
 import cn.edu.cwnu.studentmanage.domain.StudentZizhu;
+import cn.edu.cwnu.studentmanage.domain.common.Message;
 import cn.edu.cwnu.studentmanage.service.AnalysisExcelService;
 import cn.edu.cwnu.studentmanage.service.StudentBasicInfoService;
 import cn.edu.cwnu.studentmanage.service.StudentChengjiService;
@@ -102,136 +103,142 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * 
 	 */
 	@Override
-	public StudentBasicInfo analysisStudentBasicInfo(InputStream stream) throws Exception {
-		StudentBasicInfo sbi;
-		// TODO Auto-generated method stub
-		POIFSFileSystem fs = new POIFSFileSystem(stream);  
-        HSSFWorkbook wb = new HSSFWorkbook(fs);  
-      //获取excel表的第一个sheet  
-        HSSFSheet sheet = wb.getSheetAt(0);  
-        if (sheet == null) {  
-            return null;  
-        }  
-        
-        	// 校验第一行标题是否正确
- 
-            HSSFRow firstRow = sheet.getRow(0);  
-            if (firstRow == null) {  
-                throw new Exception("文件格式不正确");  
-            }       	
-            HSSFCell cellTemp = firstRow.getCell(3); 
-        	if(!"录取批次".equals(readCellSecondMethod(cellTemp))){
-        		throw new Exception("文件格式不正确");  
-        	}
-        //遍历该sheet的行  
-        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
-            HSSFRow row = sheet.getRow(rowNum);  
-            if (row == null) {  
-                continue;  
-            }  
-            sbi=new StudentBasicInfo();
-            //再遍历改行的所有列 
-            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
-            	continue; 
-            }  
-            for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
-                HSSFCell cell = row.getCell(cellNum);  
-                if (cell == null) {  
-                    continue;  
-                }
-                String temp =readCellSecondMethod(cell);
-                if (0 == cellNum && StringUtils.isEmpty(temp)) {
-                	break;
-                }
-                switch (cellNum){
-	                case 0:
-	                	sbi.setXiaoqu(temp);
+	public Message analysisStudentBasicInfo(InputStream stream) throws Exception {
+		try{
+			StudentBasicInfo sbi;
+			// TODO Auto-generated method stub
+			POIFSFileSystem fs = new POIFSFileSystem(stream);  
+	        HSSFWorkbook wb = new HSSFWorkbook(fs);  
+	      //获取excel表的第一个sheet  
+	        HSSFSheet sheet = wb.getSheetAt(0);  
+	        if (sheet == null) {  
+	            throw  new Exception("sheet1无数据"); 
+	        }  
+	        
+	        	// 校验第一行标题是否正确
+	 
+	            HSSFRow firstRow = sheet.getRow(0);  
+	            if (firstRow == null) {  
+	                throw new Exception("文件格式不正确");  
+	            }       	
+	            HSSFCell cellTemp = firstRow.getCell(3); 
+	        	if(!"录取批次".equals(readCellSecondMethod(cellTemp))){
+	        		throw new Exception("文件格式不正确");  
+	        	}
+	        //遍历该sheet的行  
+	        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
+	            HSSFRow row = sheet.getRow(rowNum);  
+	            if (row == null) {  
+	                continue;  
+	            }  
+	            sbi=new StudentBasicInfo();
+	            //再遍历改行的所有列 
+	            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
+	            	continue; 
+	            }  
+	            for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
+	                HSSFCell cell = row.getCell(cellNum);  
+	                if (cell == null) {  
+	                    continue;  
+	                }
+	                String temp =readCellSecondMethod(cell);
+	                if (0 == cellNum && StringUtils.isEmpty(temp)) {
 	                	break;
-	                case 1:
-	                	sbi.setXueyuan(temp);
-	                	break;
-	                case 2:
-	                	sbi.setZhuanye(temp);
-	                	break;
-	                case 3:
-	                	sbi.setLuqupici(temp);
-	                	break;
-	                case 4:
-	                	sbi.setNianji(temp);
-	                	break;
-	                case 5:
-	                	sbi.setBanji(temp);
-	                	break;
-	                case 6:
-	                	sbi.setXuehao(temp);
-	                	break;
-	                case 7:
-	                	sbi.setName(temp);
-	                	break;
-	                case 8:
-	                	sbi.setSex(temp);
-	                	break;
-	                case 9:
-	                	sbi.setMinzu(temp);
-	                	break;
-	                case 10:
-	                	sbi.setZhengzhi(temp);
-	                	break;
-	                case 11:
-	                	sbi.setIdNumber(temp);
-	                	break;
-	                case 12:
-	                	sbi.setGongyu(temp);
-	                	break;
-	                case 13:
-	                	sbi.setQinshihao(temp);
-	                	break;
-	                case 14:
-	                	sbi.setJiguan(temp);
-	                	break;
-	                case 15:
-	                	sbi.setAddress(temp);
-	                	break;
-	                case 16:
-	                	sbi.setPhone(temp);
-	                	break;
-	                case 17:
-	                	sbi.setQq(temp);
-	                	break;
-	                case 18:
-	                	sbi.setJiazhang1(temp);
-	                	break;
-	                case 19:
-	                	sbi.setJiazhang1Phone(temp);
-	                	break;
-	                case 20:
-	                	sbi.setJiazhang2(temp);
-	                	break;
-	                case 21:
-	                	sbi.setJiazhang2Phone(temp);
-	                	break;
-                }  
-                
-					sbi.setUpdateTime(new Date());
-            }  
-            //System.out.println(sbi.toString());
+	                }
+	                switch (cellNum){
+		                case 0:
+		                	sbi.setXiaoqu(temp);
+		                	break;
+		                case 1:
+		                	sbi.setXueyuan(temp);
+		                	break;
+		                case 2:
+		                	sbi.setZhuanye(temp);
+		                	break;
+		                case 3:
+		                	sbi.setLuqupici(temp);
+		                	break;
+		                case 4:
+		                	sbi.setNianji(temp);
+		                	break;
+		                case 5:
+		                	sbi.setBanji(temp);
+		                	break;
+		                case 6:
+		                	sbi.setXuehao(temp);
+		                	break;
+		                case 7:
+		                	sbi.setName(temp);
+		                	break;
+		                case 8:
+		                	sbi.setSex(temp);
+		                	break;
+		                case 9:
+		                	sbi.setMinzu(temp);
+		                	break;
+		                case 10:
+		                	sbi.setZhengzhi(temp);
+		                	break;
+		                case 11:
+		                	sbi.setIdNumber(temp);
+		                	break;
+		                case 12:
+		                	sbi.setGongyu(temp);
+		                	break;
+		                case 13:
+		                	sbi.setQinshihao(temp);
+		                	break;
+		                case 14:
+		                	sbi.setJiguan(temp);
+		                	break;
+		                case 15:
+		                	sbi.setAddress(temp);
+		                	break;
+		                case 16:
+		                	sbi.setPhone(temp);
+		                	break;
+		                case 17:
+		                	sbi.setQq(temp);
+		                	break;
+		                case 18:
+		                	sbi.setJiazhang1(temp);
+		                	break;
+		                case 19:
+		                	sbi.setJiazhang1Phone(temp);
+		                	break;
+		                case 20:
+		                	sbi.setJiazhang2(temp);
+		                	break;
+		                case 21:
+		                	sbi.setJiazhang2Phone(temp);
+		                	break;
+	                }  
+	                
+						sbi.setUpdateTime(new Date());
+	            }  
+	            //System.out.println(sbi.toString());
 
-           //下面判断数据库中是否存在此学生
-            StudentBasicInfo studentTemp =new StudentBasicInfo(); 
-            studentTemp.setXuehao(sbi.getXuehao());
-            studentTemp.setName(sbi.getName());
-            List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
-            if(list.isEmpty()){
-            	studentBasicInfoService.insertEntry(sbi);
-            }else{
-            	sbi.setId(list.get(0).getId());
-            	studentBasicInfoService.updateByKey(sbi);
-//            	studentBasicInfoService.insertEntry(sbi);
-            }
-            
-        }  
-        stream.close();
-		return null;
+	           //下面判断数据库中是否存在此学生
+	            StudentBasicInfo studentTemp =new StudentBasicInfo(); 
+	            studentTemp.setXuehao(sbi.getXuehao());
+	            //studentTemp.setName(sbi.getName());
+	            List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
+	            if(list.isEmpty()){
+	            	studentBasicInfoService.insertEntry(sbi);
+	            }else{
+	            	sbi.setId(list.get(0).getId());
+	            	studentBasicInfoService.updateByKey(sbi);
+//	            	studentBasicInfoService.insertEntry(sbi);
+	            }
+	            
+	        }  
+	        stream.close();
+		}catch (Exception e){
+            LOGGER.error("失败:" + e.getMessage(), e);
+            return Message.failure(e.getMessage()); 
+		}
+		
+		return Message.success();
 	}
 	
 	/**
@@ -241,126 +248,128 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * @throws Exception 
 	 */
 	@Override
-	public List analysisStudentChengji(InputStream stream) throws Exception {
-		StudentChengji chengji;
-		//记录姓名与学号和基本信息表不匹配的学号
-		List<String> notMatch =new ArrayList<String>();
-		//记录导入时，excel中学号在主表中不存在的学号
-		List<String> dontExist =new ArrayList<String>();
-		// TODO Auto-generated method stub
-		POIFSFileSystem fs = new POIFSFileSystem(stream);  
-        HSSFWorkbook wb = new HSSFWorkbook(fs);  
-      //获取excel表的第一个sheet  
-        HSSFSheet sheet = wb.getSheetAt(0);  
-        if (sheet == null) {  
-            return null;  
-        }  
-        
-    	// 校验第一行标题是否正确
-        
-        HSSFRow firstRow = sheet.getRow(0);  
-        if (firstRow == null) {  
-            throw new Exception("文件格式不正确");  
-        }       	
-        HSSFCell cellTemp = firstRow.getCell(3); 
-    	if(!"专业成绩".equals(readCellSecondMethod(cellTemp))){
-    		throw new Exception("文件格式不正确");  
-    	}
-        
-        //遍历该sheet的行  
-        Iterator<Row> iter = sheet.iterator();
-        if (iter.hasNext()) iter.next();
-        while (iter.hasNext()) {  
-        	
-            Row row = iter.next();
-            if (row == null) {  
-                continue;  
-            }
-            
-            chengji=new StudentChengji();
-            
-            String xueHaoTemp=""; //excel中的学号
-            String nameTemp="";//excel中的姓名
-            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
-            	continue; 
-            }           
-            //再遍历改行的所有列  
-            for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) { 
-//            	System.out.println(rowNum +":"+cellNum);
-                Cell cell = row.getCell(cellNum);  
-                if (cell == null) {  
-                    continue;  
-                }
-                String temp =readCellSecondMethod(cell);
-                if (0 == cellNum && (StringUtils.isEmpty(temp)||"".equals(temp)||temp == null)) {
-                	break;
-                }
-                switch (cellNum){
-                	case 0:
-//                		if("".equals(temp)||StringUtils.isEmpty(temp)){break;}
-                		xueHaoTemp =temp;
-                		break;                
-                	case 1:
-                		nameTemp=temp;
-                		break;                
-	                case 2:
-	                	chengji.setXueqi(temp);
+	public Message analysisStudentChengji(InputStream stream) throws Exception {
+		try{
+			StudentChengji chengji;
+			//记录姓名与学号和基本信息表不匹配的学号
+			List<String> notMatch =new ArrayList<String>();
+			//记录导入时，excel中学号在主表中不存在的学号
+			List<String> dontExist =new ArrayList<String>();
+			// TODO Auto-generated method stub
+			POIFSFileSystem fs = new POIFSFileSystem(stream);  
+	        HSSFWorkbook wb = new HSSFWorkbook(fs);  
+	      //获取excel表的第一个sheet  
+	        HSSFSheet sheet = wb.getSheetAt(0);  
+	        if (sheet == null) {  
+	        	throw  new Exception("sheet1无数据"); 
+	        }  
+	        
+	    	// 校验第一行标题是否正确
+	        
+	        HSSFRow firstRow = sheet.getRow(0);  
+	        if (firstRow == null) {  
+	            throw new Exception("文件格式不正确");  
+	        }       	
+	        HSSFCell cellTemp = firstRow.getCell(3); 
+	    	if(!"专业成绩".equals(readCellSecondMethod(cellTemp))){
+	    		throw new Exception("文件格式不正确");  
+	    	}
+	        
+	        //遍历该sheet的行  
+	        Iterator<Row> iter = sheet.iterator();
+	        if (iter.hasNext()) iter.next();
+	        while (iter.hasNext()) {  
+	        	
+	            Row row = iter.next();
+	            if (row == null) {  
+	                continue;  
+	            }
+	            
+	            chengji=new StudentChengji();
+	            
+	            String xueHaoTemp=""; //excel中的学号
+	            String nameTemp="";//excel中的姓名
+	            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
+	            	continue; 
+	            }           
+	            //再遍历改行的所有列  
+	            for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) { 
+//	            	System.out.println(rowNum +":"+cellNum);
+	                Cell cell = row.getCell(cellNum);  
+	                if (cell == null) {  
+	                    continue;  
+	                }
+	                String temp =readCellSecondMethod(cell);
+	                if (0 == cellNum && (StringUtils.isEmpty(temp)||"".equals(temp)||temp == null)) {
 	                	break;
-	                case 3:
-	                	chengji.setZhuanyePaiming(Integer.valueOf(temp));
-	                	break;
-	                case 4:
-	                	chengji.setZonghePaiming(Integer.valueOf(temp));
-	                	break;
-	                case 5:
-	                	chengji.setBukaokemu(Integer.valueOf(temp));
-	                	break;
-                }  
-                chengji.setUpdateTime(new Date());
-            }  
-//            System.out.println(chengji.toString());
+	                }
+	                switch (cellNum){
+	                	case 0:
+//	                		if("".equals(temp)||StringUtils.isEmpty(temp)){break;}
+	                		xueHaoTemp =temp;
+	                		break;                
+	                	case 1:
+	                		nameTemp=temp;
+	                		break;                
+		                case 2:
+		                	chengji.setXueqi(temp);
+		                	break;
+		                case 3:
+		                	chengji.setZhuanyePaiming(Integer.valueOf(temp));
+		                	break;
+		                case 4:
+		                	chengji.setZonghePaiming(Integer.valueOf(temp));
+		                	break;
+		                case 5:
+		                	chengji.setBukaokemu(Integer.valueOf(temp));
+		                	break;
+	                }  
+	                chengji.setUpdateTime(new Date());
+	            }  
+//	            System.out.println(chengji.toString());
 
-           //下面判断数据库中是否存在此学生相同学期的成绩信息
-            StudentBasicInfo studentTemp =new StudentBasicInfo(); 
-            if(xueHaoTemp.equals("") && nameTemp.equals("")){
-            	continue; 
-            }
-        	studentTemp.setXuehao(xueHaoTemp);
-        	studentTemp.setName(nameTemp);
-            
-            List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
-            //如果list为空则说明学号不存在
-            if(list.isEmpty()){
-            	dontExist.add(xueHaoTemp);
-            	continue;
-            }
-            //如果excel中的姓名与基本信息表中不一致，则记录，继续循环
-            if(!nameTemp.equals(list.get(0).getName())){
-            	notMatch.add(xueHaoTemp);
-            	continue;
-            }
-            //下面通过学生的
-            chengji.setStudentId(list.get(0).getId());
-            StudentChengji studentChengjiTemp =new StudentChengji();
-            studentChengjiTemp.setStudentId(chengji.getStudentId());
-            studentChengjiTemp.setXueqi(chengji.getXueqi());
-            
-            List<StudentChengji> chengjiTemp =studentChengjiService.selectEntryList(studentChengjiTemp);
-            if(chengjiTemp.isEmpty()){
-            	//学期成绩表中不存在excel中的学期成绩，则直接插入数据
-            	studentChengjiService.insertEntry(chengji);
-            }else{
-            	//如果数据库中存在此学生excel中学期
-            	chengji.setId(chengjiTemp.get(0).getId());
-            	studentChengjiService.updateByKey(chengji);
-            	//studentChengjiService.insertEntry(chengji);
-            }
-        }  
-        stream.close(); 
-        List list =new ArrayList<>();
-        list.add(notMatch);
-        list.add(dontExist);
-		return list;
+	           //下面判断数据库中是否存在此学生相同学期的成绩信息
+	            StudentBasicInfo studentTemp =new StudentBasicInfo(); 
+	            if(xueHaoTemp.equals("") && nameTemp.equals("")){
+	            	continue; 
+	            }
+	        	studentTemp.setXuehao(xueHaoTemp);
+	        	studentTemp.setName(nameTemp);
+	            
+	            List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
+	            //如果list为空则说明学号不存在
+	            if(list.isEmpty()){
+	            	dontExist.add(xueHaoTemp);
+	            	continue;
+	            }
+	            //如果excel中的姓名与基本信息表中不一致，则记录，继续循环
+	            if(!nameTemp.equals(list.get(0).getName())){
+	            	notMatch.add(xueHaoTemp);
+	            	continue;
+	            }
+	            //下面通过学生的
+	            chengji.setStudentId(list.get(0).getId());
+	            StudentChengji studentChengjiTemp =new StudentChengji();
+	            studentChengjiTemp.setStudentId(chengji.getStudentId());
+	            studentChengjiTemp.setXueqi(chengji.getXueqi());
+	            
+	            List<StudentChengji> chengjiTemp =studentChengjiService.selectEntryList(studentChengjiTemp);
+	            if(chengjiTemp.isEmpty()){
+	            	//学期成绩表中不存在excel中的学期成绩，则直接插入数据
+	            	studentChengjiService.insertEntry(chengji);
+	            }else{
+	            	//如果数据库中存在此学生excel中学期
+	            	chengji.setId(chengjiTemp.get(0).getId());
+	            	studentChengjiService.updateByKey(chengji);
+	            	//studentChengjiService.insertEntry(chengji);
+	            }
+	        }  
+	        stream.close();
+		}catch (Exception e){
+            LOGGER.error("失败:" + e.getMessage(), e);
+            return Message.failure(e.getMessage()); 
+		}
+		return Message.success();
 	}	
 
 	
@@ -371,125 +380,118 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * @throws Exception 
 	 */
 	@Override
-	public List analysisStudentXueye(InputStream stream) throws Exception {
-		StudentXueye xueye;
-		//记录姓名与学号和基本信息表不匹配的学号
-		List<String> notMatch =new ArrayList<String>();
-		//记录导入时，excel中学号在主表中不存在的学号
-		List<String> dontExist =new ArrayList<String>();
-		// TODO Auto-generated method stub
-		POIFSFileSystem fs = new POIFSFileSystem(stream);  
-        HSSFWorkbook wb = new HSSFWorkbook(fs);  
-      //获取excel表的第一个sheet  
-        HSSFSheet sheet = wb.getSheetAt(0);  
-        if (sheet == null) {  
-            return null;  
-        }  
+	public Message analysisStudentXueye(InputStream stream) throws Exception {
+		try{
+			StudentXueye xueye;
+			//记录姓名与学号和基本信息表不匹配的学号
+			List<String> notMatch =new ArrayList<String>();
+			//记录导入时，excel中学号在主表中不存在的学号
+			List<String> dontExist =new ArrayList<String>();
+			// TODO Auto-generated method stub
+			POIFSFileSystem fs = new POIFSFileSystem(stream);  
+	        HSSFWorkbook wb = new HSSFWorkbook(fs);  
+	      //获取excel表的第一个sheet  
+	        HSSFSheet sheet = wb.getSheetAt(0);  
+	        if (sheet == null) {  
+	        	throw  new Exception("sheet1无数据");   
+	        }  
 
-    	// 校验第一行标题是否正确
-        
-        HSSFRow firstRow = sheet.getRow(0);  
-        if (firstRow == null) {  
-            throw new Exception("文件格式不正确");  
-        }       	
-        HSSFCell cellTemp = firstRow.getCell(3); 
-    	if(!"三笔字".equals(readCellSecondMethod(cellTemp))){
-    		throw new Exception("文件格式不正确");  
-    	}
-        
-        //遍历该sheet的行  
-        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
-            HSSFRow row = sheet.getRow(rowNum);  
-            if (row == null) {  
-                continue;  
-            }  
-            xueye=new StudentXueye();
-            
-            String xueHaoTemp=""; //excel中的学号
-            String nameTemp="";//excel中的姓名
-            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
-            	continue; 
-            }  
-            //再遍历改行的所有列  
-            for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
-                HSSFCell cell = row.getCell(cellNum);  
-                if (cell == null) {  
-                    continue;  
-                }
-                String temp =readCellSecondMethod(cell);
-                if (0 == cellNum && StringUtils.isEmpty(temp)) {
-                	break;
-                }
-                switch (cellNum){
-                	case 0:
-                		xueHaoTemp =temp;
-                		break;                
-                	case 1:
-                		nameTemp=temp;
-                		break;                
-	                case 2:
-	                	xueye.setCet4(Float.valueOf(temp));
+	    	// 校验第一行标题是否正确
+	        
+	        HSSFRow firstRow = sheet.getRow(0);  
+	        if (firstRow == null) {  
+	            throw new Exception("文件格式不正确");  
+	        }       	
+	        HSSFCell cellTemp = firstRow.getCell(3); 
+	    	if(!"三笔字".equals(readCellSecondMethod(cellTemp))){
+	    		throw new Exception("文件格式不正确");  
+	    	}
+	        
+	        //遍历该sheet的行  
+	        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
+	            HSSFRow row = sheet.getRow(rowNum);  
+	            if (row == null) {  
+	                continue;  
+	            }  
+	            xueye=new StudentXueye();
+	            
+	            String xueHaoTemp=""; //excel中的学号
+	            String nameTemp="";//excel中的姓名
+	            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
+	            	continue; 
+	            }  
+	            //再遍历改行的所有列  
+	            for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
+	                HSSFCell cell = row.getCell(cellNum);  
+	                if (cell == null) {  
+	                    continue;  
+	                }
+	                String temp =readCellSecondMethod(cell);
+	                if (0 == cellNum && StringUtils.isEmpty(temp)) {
 	                	break;
-	                case 3:
-	                	xueye.setSanbizi(temp);
-	                	break;
-	                case 4:
-	                	xueye.setPutonghua(temp);
-	                	break;
-                }  
-                xueye.setUpdateTime(new Date());
-            }  
-//            System.out.println(xueye.toString());
+	                }
+	                switch (cellNum){
+	                	case 0:
+	                		xueHaoTemp =temp;
+	                		break;                
+	                	case 1:
+	                		nameTemp=temp;
+	                		break;                
+		                case 2:
+		                	xueye.setCet4(Float.valueOf(temp));
+		                	break;
+		                case 3:
+		                	xueye.setSanbizi(temp);
+		                	break;
+		                case 4:
+		                	xueye.setPutonghua(temp);
+		                	break;
+	                }  
+	                xueye.setUpdateTime(new Date());
+	            }  
+//	            System.out.println(xueye.toString());
 
-           //下面判断数据库中是否存在此学生相同学期的成绩信息
-            StudentBasicInfo studentTemp =new StudentBasicInfo(); 
-            if(xueHaoTemp.equals("") && nameTemp.equals("")){
-            	continue; 
-            }
-        	studentTemp.setXuehao(xueHaoTemp);
-        	studentTemp.setName(nameTemp);
-            
-            List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
-            //如果list为空则说明学号不存在
-            if(list.isEmpty()){
-            	dontExist.add(xueHaoTemp);
-            	continue;
-            }
-            //如果excel中的姓名与基本信息表中不一致，则记录，继续循环
-            if(!nameTemp.equals(list.get(0).getName())){
-            	notMatch.add(xueHaoTemp);
-            	continue;
-            }
-            //下面通过学生的
-            xueye.setStudentId(list.get(0).getId());
-            StudentXueye studentXueyeTemp =new StudentXueye();
-            studentXueyeTemp.setStudentId(xueye.getStudentId());
-            
-            List<StudentXueye> xueyeTemp =studentXueyeService.selectEntryList(studentXueyeTemp);
-            if(xueyeTemp.isEmpty()){
-            	//学期成绩表中不存在excel中的学期成绩，则直接插入数据
-            	studentXueyeService.insertEntry(xueye);
-            }else{
-            	//如果数据库中存在此学生excel中学期
-            	xueye.setId(xueyeTemp.get(0).getId());
-            	studentXueyeService.updateByKey(xueye);
-//            	studentXueyeService.insertEntry(xueye);
-            }
-        }  
-        stream.close();
-        List list =new ArrayList<>();
-        list.add(notMatch);
-        list.add(dontExist);
-		return list;
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	           //下面判断数据库中是否存在此学生相同学期的成绩信息
+	            StudentBasicInfo studentTemp =new StudentBasicInfo(); 
+	            if(xueHaoTemp.equals("") && nameTemp.equals("")){
+	            	continue; 
+	            }
+	        	studentTemp.setXuehao(xueHaoTemp);
+	        	studentTemp.setName(nameTemp);
+	            
+	            List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
+	            //如果list为空则说明学号不存在
+	            if(list.isEmpty()){
+	            	dontExist.add(xueHaoTemp);
+	            	continue;
+	            }
+	            //如果excel中的姓名与基本信息表中不一致，则记录，继续循环
+	            if(!nameTemp.equals(list.get(0).getName())){
+	            	notMatch.add(xueHaoTemp);
+	            	continue;
+	            }
+	            //下面通过学生的
+	            xueye.setStudentId(list.get(0).getId());
+	            StudentXueye studentXueyeTemp =new StudentXueye();
+	            studentXueyeTemp.setStudentId(xueye.getStudentId());
+	            
+	            List<StudentXueye> xueyeTemp =studentXueyeService.selectEntryList(studentXueyeTemp);
+	            if(xueyeTemp.isEmpty()){
+	            	//学期成绩表中不存在excel中的学期成绩，则直接插入数据
+	            	studentXueyeService.insertEntry(xueye);
+	            }else{
+	            	//如果数据库中存在此学生excel中学期
+	            	xueye.setId(xueyeTemp.get(0).getId());
+	            	studentXueyeService.updateByKey(xueye);
+//	            	studentXueyeService.insertEntry(xueye);
+	            }
+	        }  
+	        stream.close();
+		}catch (Exception e){
+            LOGGER.error("失败:" + e.getMessage(), e);
+            return Message.failure(e.getMessage()); 
+		}
+		return Message.success();
 	}
 
 
@@ -500,123 +502,127 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * @throws Exception 
 	 */
 	@Override
-	public List analysisStudentZizhu(InputStream stream) throws Exception {
-		StudentZizhu zizhu;
-		//记录姓名与学号和基本信息表不匹配的学号
-		List<String> notMatch =new ArrayList<String>();
-		//记录导入时，excel中学号在主表中不存在的学号
-		List<String> dontExist =new ArrayList<String>();
-		// TODO Auto-generated method stub
-		POIFSFileSystem fs = new POIFSFileSystem(stream);  
-		HSSFWorkbook wb = new HSSFWorkbook(fs);  
-		//获取excel表的第一个sheet  
-		HSSFSheet sheet = wb.getSheetAt(0);  
-		if (sheet == null) {  
-			return null;  
-		}  
-    	// 校验第一行标题是否正确
-        
-        HSSFRow firstRow = sheet.getRow(0);  
-        if (firstRow == null) {  
-            throw new Exception("文件格式不正确");  
-        }       	
-        HSSFCell cellTemp = firstRow.getCell(3); 
-    	if(!"国家奖学金".equals(readCellSecondMethod(cellTemp))){
-    		throw new Exception("文件格式不正确");  
-    	}
-    	
-		//遍历该sheet的行  
-		for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
-			HSSFRow row = sheet.getRow(rowNum);  
-			if (row == null) {  
-				continue;  
+	public Message analysisStudentZizhu(InputStream stream) throws Exception {
+		try{
+
+			StudentZizhu zizhu;
+			//记录姓名与学号和基本信息表不匹配的学号
+			List<String> notMatch =new ArrayList<String>();
+			//记录导入时，excel中学号在主表中不存在的学号
+			List<String> dontExist =new ArrayList<String>();
+			// TODO Auto-generated method stub
+			POIFSFileSystem fs = new POIFSFileSystem(stream);  
+			HSSFWorkbook wb = new HSSFWorkbook(fs);  
+			//获取excel表的第一个sheet  
+			HSSFSheet sheet = wb.getSheetAt(0);  
+			if (sheet == null) {  
+				throw  new Exception("sheet1无数据");   
 			}  
-			zizhu=new StudentZizhu();
-            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
-            	continue; 
-            }  
-			String xueHaoTemp=""; //excel中的学号
-			String nameTemp="";//excel中的姓名
-			
-			//再遍历改行的所有列  
-			for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
-				HSSFCell cell = row.getCell(cellNum);  
-				if (cell == null) {  
+	    	// 校验第一行标题是否正确
+	        
+	        HSSFRow firstRow = sheet.getRow(0);  
+	        if (firstRow == null) {  
+	            throw new Exception("文件格式不正确");  
+	        }       	
+	        HSSFCell cellTemp = firstRow.getCell(3); 
+	    	if(!"国家奖学金".equals(readCellSecondMethod(cellTemp))){
+	    		throw new Exception("文件格式不正确");  
+	    	}
+	    	
+			//遍历该sheet的行  
+			for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
+				HSSFRow row = sheet.getRow(rowNum);  
+				if (row == null) {  
 					continue;  
-				}
-				String temp =readCellSecondMethod(cell);
-                if (0 == cellNum && StringUtils.isEmpty(temp)) {
-                	break;
-                }
-				switch (cellNum){
-				case 0:
-					xueHaoTemp =temp;
-					break;                
-				case 1:
-					nameTemp=temp;
-					break;                
-				case 2:
-					zizhu.setXueqi(temp);
-					break;
-				case 3:
-					zizhu.setGjjxj(temp);;
-					break;
-				case 4:
-					zizhu.setGjlzjxj(temp);
-					break;
-				case 5:
-					zizhu.setGjzxj(temp);
-					break;
-				case 6:
-					zizhu.setOther(temp);
-					break;					
 				}  
-				zizhu.setUpdateTime(new Date());
+				zizhu=new StudentZizhu();
+	            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
+	            	continue; 
+	            }  
+				String xueHaoTemp=""; //excel中的学号
+				String nameTemp="";//excel中的姓名
+				
+				//再遍历改行的所有列  
+				for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
+					HSSFCell cell = row.getCell(cellNum);  
+					if (cell == null) {  
+						continue;  
+					}
+					String temp =readCellSecondMethod(cell);
+	                if (0 == cellNum && StringUtils.isEmpty(temp)) {
+	                	break;
+	                }
+					switch (cellNum){
+					case 0:
+						xueHaoTemp =temp;
+						break;                
+					case 1:
+						nameTemp=temp;
+						break;                
+					case 2:
+						zizhu.setXueqi(temp);
+						break;
+					case 3:
+						zizhu.setGjjxj(temp);;
+						break;
+					case 4:
+						zizhu.setGjlzjxj(temp);
+						break;
+					case 5:
+						zizhu.setGjzxj(temp);
+						break;
+					case 6:
+						zizhu.setOther(temp);
+						break;					
+					}  
+					zizhu.setUpdateTime(new Date());
+				}  
+//				System.out.println(zizhu.toString());
+				
+				//下面判断数据库中是否存在此学生相同学期的成绩信息
+				StudentBasicInfo studentTemp =new StudentBasicInfo(); 
+				if(xueHaoTemp.equals("") && nameTemp.equals("")){
+					continue; 
+				}
+				studentTemp.setXuehao(xueHaoTemp);
+				studentTemp.setName(nameTemp);
+				
+				List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
+				//如果list为空则说明学号不存在
+				if(list.isEmpty()){
+					dontExist.add(xueHaoTemp);
+					continue;
+				}
+				//如果excel中的姓名与基本信息表中不一致，则记录，继续循环
+				if(!nameTemp.equals(list.get(0).getName())){
+					notMatch.add(xueHaoTemp);
+					continue;
+				}
+				//下面通过学生的
+				zizhu.setStudentId(list.get(0).getId());
+				StudentZizhu studentZizhuTemp =new StudentZizhu();
+				studentZizhuTemp.setStudentId(zizhu.getStudentId());
+				studentZizhuTemp.setXueqi(zizhu.getXueqi());
+				
+				List<StudentZizhu> zizhuTemp =studentZizhuService.selectEntryList(studentZizhuTemp);
+				if(zizhuTemp.isEmpty()){
+					//学期成绩表中不存在excel中的学期成绩，则直接插入数据
+					studentZizhuService.insertEntry(zizhu);
+				}else{
+					//如果数据库中存在此学生excel中学期
+					zizhu.setId(zizhuTemp.get(0).getId());
+					studentZizhuService.updateByKey(zizhu);
+//					studentZizhuService.insertEntry(zizhu);
+				}
 			}  
-//			System.out.println(zizhu.toString());
+			stream.close(); 
 			
-			//下面判断数据库中是否存在此学生相同学期的成绩信息
-			StudentBasicInfo studentTemp =new StudentBasicInfo(); 
-			if(xueHaoTemp.equals("") && nameTemp.equals("")){
-				continue; 
-			}
-			studentTemp.setXuehao(xueHaoTemp);
-			studentTemp.setName(nameTemp);
-			
-			List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
-			//如果list为空则说明学号不存在
-			if(list.isEmpty()){
-				dontExist.add(xueHaoTemp);
-				continue;
-			}
-			//如果excel中的姓名与基本信息表中不一致，则记录，继续循环
-			if(!nameTemp.equals(list.get(0).getName())){
-				notMatch.add(xueHaoTemp);
-				continue;
-			}
-			//下面通过学生的
-			zizhu.setStudentId(list.get(0).getId());
-			StudentZizhu studentZizhuTemp =new StudentZizhu();
-			studentZizhuTemp.setStudentId(zizhu.getStudentId());
-			studentZizhuTemp.setXueqi(zizhu.getXueqi());
-			
-			List<StudentZizhu> zizhuTemp =studentZizhuService.selectEntryList(studentZizhuTemp);
-			if(zizhuTemp.isEmpty()){
-				//学期成绩表中不存在excel中的学期成绩，则直接插入数据
-				studentZizhuService.insertEntry(zizhu);
-			}else{
-				//如果数据库中存在此学生excel中学期
-				zizhu.setId(zizhuTemp.get(0).getId());
-				studentZizhuService.updateByKey(zizhu);
-//				studentZizhuService.insertEntry(zizhu);
-			}
-		}  
-		stream.close(); 
-        List list =new ArrayList<>();
-        list.add(notMatch);
-        list.add(dontExist);
+		}catch (Exception e){
+            LOGGER.error("失败:" + e.getMessage(), e);
+            return Message.failure(e.getMessage()); 
+		}
 		
-		return list;
+		return Message.success();
 	}
 	
 	/**
@@ -626,131 +632,133 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * @throws Exception 
 	 */
 	@Override
-	public List analysisStudentPingjiang(InputStream stream) throws Exception {
-		StudentPingjiang pingjiang;
-		//记录姓名与学号和基本信息表不匹配的学号
-		List<String> notMatch =new ArrayList<String>();
-		//记录导入时，excel中学号在主表中不存在的学号
-		List<String> dontExist =new ArrayList<String>();
-		// TODO Auto-generated method stub
-		POIFSFileSystem fs = new POIFSFileSystem(stream);  
-		HSSFWorkbook wb = new HSSFWorkbook(fs);  
-		//获取excel表的第一个sheet  
-		HSSFSheet sheet = wb.getSheetAt(0);  
-		if (sheet == null) {  
-			return null;  
-		}  
-		
-    	// 校验第一行标题是否正确
-        
-        HSSFRow firstRow = sheet.getRow(0);  
-        if (firstRow == null) {  
-            throw new Exception("文件格式不正确");  
-        }       	
-        HSSFCell cellTemp = firstRow.getCell(3); 
-    	if(!"奖学金".equals(readCellSecondMethod(cellTemp))){
-    		throw new Exception("文件格式不正确");  
-    	}
-		
-		//遍历该sheet的行  
-		for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
-			HSSFRow row = sheet.getRow(rowNum);  
-			if (row == null) {  
-				continue;  
+	public Message analysisStudentPingjiang(InputStream stream) throws Exception {
+		try{
+
+			StudentPingjiang pingjiang;
+			//记录姓名与学号和基本信息表不匹配的学号
+			List<String> notMatch =new ArrayList<String>();
+			//记录导入时，excel中学号在主表中不存在的学号
+			List<String> dontExist =new ArrayList<String>();
+			// TODO Auto-generated method stub
+			POIFSFileSystem fs = new POIFSFileSystem(stream);  
+			HSSFWorkbook wb = new HSSFWorkbook(fs);  
+			//获取excel表的第一个sheet  
+			HSSFSheet sheet = wb.getSheetAt(0);  
+			if (sheet == null) {  
+				throw  new Exception("sheet1无数据");   
 			}  
-			pingjiang=new StudentPingjiang();
-            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
-            	continue; 
-            }  
-			String xueHaoTemp=""; //excel中的学号
-			String nameTemp="";//excel中的姓名
 			
-			//再遍历改行的所有列  
-			for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
-				HSSFCell cell = row.getCell(cellNum);  
-				if (cell == null) {  
+	    	// 校验第一行标题是否正确
+	        
+	        HSSFRow firstRow = sheet.getRow(0);  
+	        if (firstRow == null) {  
+	            throw new Exception("文件格式不正确");  
+	        }       	
+	        HSSFCell cellTemp = firstRow.getCell(3); 
+	    	if(!"奖学金".equals(readCellSecondMethod(cellTemp))){
+	    		throw new Exception("文件格式不正确");  
+	    	}
+			
+			//遍历该sheet的行  
+			for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {  
+				HSSFRow row = sheet.getRow(rowNum);  
+				if (row == null) {  
 					continue;  
-				}
-				String temp =readCellSecondMethod(cell);
-                if (0 == cellNum && StringUtils.isEmpty(temp)) {
-                	break;
-                }
-				switch (cellNum){
-				case 0:
-					xueHaoTemp =temp;
-					break;                
-				case 1:
-					nameTemp=temp;
-					break;                
-				case 2:
-					pingjiang.setXueqi(temp);
-					break;
-				case 3:
-					pingjiang.setJiangxuejin(temp);
-					break;
-				case 4:
-					pingjiang.setDanxiangjiangxuejin(temp);
-					break;
-				case 5:
-					pingjiang.setXueyou(temp);
-					break;
-				case 6:
-					pingjiang.setTuanyou(temp);
-					break;	
-				case 7:
-					pingjiang.setYxdxbys(temp);
-					break;						
-				case 8:
-					pingjiang.setDxxx(temp);
-					break;						
 				}  
-				pingjiang.setUpdateTime(new Date());
+				pingjiang=new StudentPingjiang();
+	            if (StringUtils.isEmpty(readCellSecondMethod(row.getCell(0)))||"".equals(readCellSecondMethod(row.getCell(0)))||readCellSecondMethod(row.getCell(0)) == null) {
+	            	continue; 
+	            }  
+				String xueHaoTemp=""; //excel中的学号
+				String nameTemp="";//excel中的姓名
+				
+				//再遍历改行的所有列  
+				for(int cellNum = 0; cellNum <= row.getLastCellNum()-1; cellNum++) {  
+					HSSFCell cell = row.getCell(cellNum);  
+					if (cell == null) {  
+						continue;  
+					}
+					String temp =readCellSecondMethod(cell);
+	                if (0 == cellNum && StringUtils.isEmpty(temp)) {
+	                	break;
+	                }
+					switch (cellNum){
+					case 0:
+						xueHaoTemp =temp;
+						break;                
+					case 1:
+						nameTemp=temp;
+						break;                
+					case 2:
+						pingjiang.setXueqi(temp);
+						break;
+					case 3:
+						pingjiang.setJiangxuejin(temp);
+						break;
+					case 4:
+						pingjiang.setDanxiangjiangxuejin(temp);
+						break;
+					case 5:
+						pingjiang.setXueyou(temp);
+						break;
+					case 6:
+						pingjiang.setTuanyou(temp);
+						break;	
+					case 7:
+						pingjiang.setYxdxbys(temp);
+						break;						
+					case 8:
+						pingjiang.setDxxx(temp);
+						break;						
+					}  
+					pingjiang.setUpdateTime(new Date());
+				}  
+//				System.out.println(pingjiang.toString());
+				
+				//下面判断数据库中是否存在此学生相同学期的成绩信息
+				StudentBasicInfo studentTemp =new StudentBasicInfo(); 
+				if(xueHaoTemp.equals("") && nameTemp.equals("")){
+					continue; 
+				}
+				studentTemp.setXuehao(xueHaoTemp);
+				studentTemp.setName(nameTemp);
+				
+				List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
+				//如果list为空则说明学号不存在
+				if(list.isEmpty()){
+					dontExist.add(xueHaoTemp);
+					continue;
+				}
+				//如果excel中的姓名与基本信息表中不一致，则记录，继续循环
+				if(!nameTemp.equals(list.get(0).getName())){
+					notMatch.add(xueHaoTemp);
+					continue;
+				}
+				//下面通过学生的
+				pingjiang.setStudentId(list.get(0).getId());;
+				StudentPingjiang studentPingjiangTemp =new StudentPingjiang();
+				studentPingjiangTemp.setStudentId(list.get(0).getId());
+				studentPingjiangTemp.setXueqi(pingjiang.getXueqi());
+				
+				List<StudentPingjiang> pingjiangTemp =studentPingjiangService.selectEntryList(studentPingjiangTemp);
+				if(pingjiangTemp.isEmpty()){
+					//学期成绩表中不存在excel中的学期成绩，则直接插入数据
+					studentPingjiangService.insertEntry(pingjiang);
+				}else{
+					//如果数据库中存在此学生excel中学期
+					pingjiang.setId(pingjiangTemp.get(0).getId());
+					studentPingjiangService.updateByKey(pingjiang);
+//					studentPingjiangService.insertEntry(pingjiang);
+				}
 			}  
-//			System.out.println(pingjiang.toString());
-			
-			//下面判断数据库中是否存在此学生相同学期的成绩信息
-			StudentBasicInfo studentTemp =new StudentBasicInfo(); 
-			if(xueHaoTemp.equals("") && nameTemp.equals("")){
-				continue; 
-			}
-			studentTemp.setXuehao(xueHaoTemp);
-			studentTemp.setName(nameTemp);
-			
-			List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
-			//如果list为空则说明学号不存在
-			if(list.isEmpty()){
-				dontExist.add(xueHaoTemp);
-				continue;
-			}
-			//如果excel中的姓名与基本信息表中不一致，则记录，继续循环
-			if(!nameTemp.equals(list.get(0).getName())){
-				notMatch.add(xueHaoTemp);
-				continue;
-			}
-			//下面通过学生的
-			pingjiang.setStudentId(list.get(0).getId());;
-			StudentPingjiang studentPingjiangTemp =new StudentPingjiang();
-			studentPingjiangTemp.setStudentId(list.get(0).getId());
-			studentPingjiangTemp.setXueqi(pingjiang.getXueqi());
-			
-			List<StudentPingjiang> pingjiangTemp =studentPingjiangService.selectEntryList(studentPingjiangTemp);
-			if(pingjiangTemp.isEmpty()){
-				//学期成绩表中不存在excel中的学期成绩，则直接插入数据
-				studentPingjiangService.insertEntry(pingjiang);
-			}else{
-				//如果数据库中存在此学生excel中学期
-				pingjiang.setId(pingjiangTemp.get(0).getId());
-				studentPingjiangService.updateByKey(pingjiang);
-//				studentPingjiangService.insertEntry(pingjiang);
-			}
-		}  
-		stream.close();
-        List list =new ArrayList<>();
-        list.add(notMatch);
-        list.add(dontExist);
-		return list;
-		
-		
+			stream.close();
+
+		}catch (Exception e){
+            LOGGER.error("失败:" + e.getMessage(), e);
+            return Message.failure(e.getMessage()); 
+		}
+		return Message.success();
 	}
     
 

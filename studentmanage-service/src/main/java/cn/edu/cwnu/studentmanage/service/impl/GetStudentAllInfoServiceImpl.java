@@ -529,7 +529,7 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
         cellsSec[0].setColspan(1);  
         cellsSec[0].setFixedHeight(size);
         //英语四级value
-        cellsSec[1] = new PdfPCell(new Paragraph(String.valueOf(studentGrowupInfoVO.getCet4()),cellContentFont));//单元格内容
+        cellsSec[1] = new PdfPCell(new Paragraph(String.valueOf((studentGrowupInfoVO.getCet4()==null)?"":studentGrowupInfoVO.getCet4()),cellContentFont));//单元格内容
         cellsSec[1].setHorizontalAlignment(Element.ALIGN_CENTER);//水平居左
         cellsSec[1].setVerticalAlignment(Element.ALIGN_MIDDLE);//垂直居中
         cellsSec[1].setColspan(1);  

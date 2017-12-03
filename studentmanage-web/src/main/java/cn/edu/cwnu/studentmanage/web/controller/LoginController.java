@@ -53,7 +53,7 @@ public class LoginController {
 			}
 		}catch (Exception e){
 			view.addAttribute("error", e.getMessage());
-			return "redirect:/main.html";
+			return "redirect:/";
 		}
 		return "redirect:/main.html";
 	}

@@ -54,7 +54,7 @@ public class StudentInfoUploadController {
             if ("BASIC_INFO".equals(type)) {
                 analysisExcelService.analysisStudentBasicInfo(uploadFile.getInputStream());
             } else if ("CHENGJI".equals(type)) {
-                List<StudentChengji> studentChengjiList = analysisExcelService.analysisStudentChengji(uploadFile.getInputStream());
+                analysisExcelService.analysisStudentChengji(uploadFile.getInputStream());
 
             } else if ("PINGJIANG".equals(type)) {
                 analysisExcelService.analysisStudentPingjiang(uploadFile.getInputStream());
