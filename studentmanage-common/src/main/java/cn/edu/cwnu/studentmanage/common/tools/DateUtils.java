@@ -4,6 +4,7 @@
  */
 package cn.edu.cwnu.studentmanage.common.tools;
 
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.slf4j.Logger;
@@ -63,6 +64,19 @@ public class DateUtils {
 	 */
 	public static String dateFormat(long time) {
 		return format(new Date(time), "yyyy-MM-dd HH:mm:ss");
+	}
+	
+	/**
+	   * 将长时间格式字符串转换为时间 yyyy-MM-dd HH:mm:ss
+	   * 
+	   * @param strDate
+	   * @return
+	   */
+	public static Date strToDateLong(String strDate) {
+	   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	   ParsePosition pos = new ParsePosition(0);
+	   Date strtodate = formatter.parse(strDate, pos);
+	   return strtodate;
 	}
 
 }

@@ -216,7 +216,9 @@ public class StudentQitahuojiangController{
     		if(list.isEmpty()){
     			throw new Exception("学号与姓名不匹配");
     		}
-    		
+    		if(list.size()!=1 || !studentQitahuojiangVO.getName().equals(list.get(0).getName()) || !studentQitahuojiangVO.getXuehao().equals(list.get(0).getXuehao())){
+    			throw new Exception("学号与姓名不匹配");
+    		}    		
     		/**
     		 * 需要校验studentID的正确性
     		 */

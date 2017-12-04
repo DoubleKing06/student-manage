@@ -6,7 +6,7 @@
 	
 	<!-- 其它SQL语句 -->
 	<sql id="QUERY_COLUMN_LIST_VO">
-		student_basic_info.xuehao,student_basic_info.`name`,student_weiji.id,student_weiji.student_id AS studentId,student_weiji.xueqi,student_weiji.weiji_info AS weijiInfo,student_weiji.weiji_time AS weijiTime,student_weiji.result FROM student_basic_info JOIN student_weiji ON student_basic_info.id=student_weiji.student_id 
+		student_basic_info.xuehao,student_basic_info.`name`,student_weiji.id,student_weiji.student_id AS studentId,student_weiji.xueqi,student_weiji.weiji_info AS weijiInfo,DATE_FORMAT(student_weiji.weiji_time,'%Y-%m-%d %H:%i:%s') AS weijiTime,student_weiji.result FROM student_basic_info JOIN student_weiji ON student_basic_info.id=student_weiji.student_id 
 	</sql>
 	
 	

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
+import cn.edu.cwnu.studentmanage.common.tools.DateUtils;
 import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
 import cn.edu.cwnu.studentmanage.domain.StudentRemark;
 import cn.edu.cwnu.studentmanage.domain.StudentRemarkVO;
@@ -105,6 +107,7 @@ public class StudentWeijiController{
 	public String list(StudentWeijiVO studentWeijiVO,Page<StudentWeijiVO> page,Model view) throws Exception{
 		try {
 			view.addAttribute("studentWeiji",studentWeijiVO);
+//			studentWeijiVO.setWeijiTime(DateUtils.strToDateLong(DateUtils.format(studentWeijiVO.getWeijiTime(), "yyyy-MM-dd HH:mm:ss")));
 			view.addAttribute("page",studentWeijiVOService.selectPage(studentWeijiVO,page));			
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
@@ -220,7 +223,9 @@ public class StudentWeijiController{
     		if(list.isEmpty()){
     			throw new Exception("学号与姓名不匹配");
     		}
-    		
+    		if(list.size()!=1 || !studentWeijiVO.getName().equals(list.get(0).getName()) || !studentWeijiVO.getXuehao().equals(list.get(0).getXuehao())){
+    			throw new Exception("学号与姓名不匹配");
+    		}    		
     		/**
     		 * 需要校验studentID的正确性
     		 */

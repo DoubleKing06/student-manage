@@ -6,6 +6,7 @@ package cn.edu.cwnu.studentmanage.service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public interface GetStudentAllInfoService  {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	StudentGrowupInfoVO getStudentAllInfo(Long student_id) throws IOException, Exception;
+	StudentGrowupInfoVO getStudentAllInfo(Long student_id,List type) throws IOException, Exception;
 	
 	
 	/**
@@ -36,7 +37,7 @@ public interface GetStudentAllInfoService  {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	StudentGrowupInfoVO getStudentAllInfoVO(Long student_id) throws IOException, Exception;
+	StudentGrowupInfoVO getStudentAllInfoVO(Long student_id,List type) throws IOException, Exception;
 	
 	
 	/**
@@ -46,7 +47,7 @@ public interface GetStudentAllInfoService  {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	ByteArrayOutputStream getPdfOfStudentGrowUp(Long student_id) throws IOException, Exception;
+	ByteArrayOutputStream getPdfOfStudentGrowUp(Long student_id,List type) throws IOException, Exception;
 	
 	/**
 	 * 通过拿到的学生信息生成学生基本信息pdf
@@ -55,7 +56,7 @@ public interface GetStudentAllInfoService  {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	ByteArrayOutputStream getPdfOfStudentBasicInfo(Long student_id) throws IOException, Exception;
+	ByteArrayOutputStream getPdfOfStudentBasicInfo(Long student_id,List type) throws IOException, Exception;
 	
 	
 	

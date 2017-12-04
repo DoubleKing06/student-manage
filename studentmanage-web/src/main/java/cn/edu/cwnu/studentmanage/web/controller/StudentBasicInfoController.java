@@ -4,15 +4,19 @@
  */
 package cn.edu.cwnu.studentmanage.web.controller;
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -182,14 +186,34 @@ public class StudentBasicInfoController{
 		return "studentBasicInfo/view";
 	}
 	/**
+	 * 保存方法
+	 * @param studentBasicInfo 实体对象
+	 * @return
+	 */
+	@RequestMapping(value="/save",method = {RequestMethod.POST,RequestMethod.GET},produces="application/json")
+	public @ResponseBody Message save(StudentBasicInfo studentBasicInfo,Model view) throws Exception{
+		Message msg= null;
+		try {
+			int res = studentBasicInfoService.saveOrUpdate(studentBasicInfo);
+			msg  = res > 0 ? Message.success() : Message.failure();
+		} catch (Exception e) {
+			LOGGER.error("失败:"+e.getMessage(),e);
+			msg = Message.failure();
+		}finally{
+		}
+		return msg;
+	}
+
+	/**
 	 * 通过编号查看对象
 	 * @param id 对象编号
 	 * @return
 	 */
-	@RequestMapping(value="/getinfo/{id}",method=RequestMethod.GET)
-	public String getinfo(@PathVariable Integer id,Model view) throws Exception{
+	@RequestMapping(value={"/getinfo"},method=RequestMethod.GET)
+	public String getinfo( Integer id,String text,Model view) throws Exception{
+		List type=StringUtils.isEmpty(text)?null: Arrays.asList(text.split(","));
 		try {
-			StudentGrowupInfoVO studentGrowupInfoVO = getStudentAllInfoService.getStudentAllInfoVO(Long.valueOf(id.toString()));
+			StudentGrowupInfoVO studentGrowupInfoVO = getStudentAllInfoService.getStudentAllInfoVO(Long.valueOf(id.toString()),type);
 			view.addAttribute("gu",studentGrowupInfoVO);
 		} catch (Exception e) {
 			LOGGER.error("失败:"+e.getMessage(),e);
@@ -206,10 +230,11 @@ public class StudentBasicInfoController{
 	 * @param id 对象编号
 	 * @return
 	 */
-	@RequestMapping(value="/getPdf/{id}",method=RequestMethod.GET)
-	public void getPdf(@PathVariable Integer id,HttpServletResponse response,Model view) throws Exception{
+	@RequestMapping(value="/getPdf",method=RequestMethod.GET)
+	public void getPdf(Integer id,HttpServletResponse response,String text,Model view) throws Exception{
+		List type=StringUtils.isEmpty(text)?null: Arrays.asList(text.split(","));
 		try {
-			ByteArrayOutputStream temp = getStudentAllInfoService.getPdfOfStudentGrowUp(Long.valueOf(String.valueOf(id)));
+			ByteArrayOutputStream temp = getStudentAllInfoService.getPdfOfStudentGrowUp(Long.valueOf(String.valueOf(id)),type);
 			StudentBasicInfo st =studentBasicInfoService.selectEntry(id);
 			String fileName ="学生成长记录信息_"+st.getName()+".pdf";
 			
@@ -234,10 +259,11 @@ public class StudentBasicInfoController{
 	 * @param view
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/getBasicPdf/{id}",method=RequestMethod.GET)
-	public void getBasicPdf(@PathVariable Integer id,HttpServletResponse response,Model view) throws Exception{
+	@RequestMapping(value="/getBasicPdf",method=RequestMethod.GET)
+	public void getBasicPdf(Integer id,HttpServletResponse response,String text,Model view) throws Exception{
+		List type=StringUtils.isEmpty(text)?null: Arrays.asList(text.split(","));
 		try {
-			ByteArrayOutputStream temp = getStudentAllInfoService.getPdfOfStudentBasicInfo(Long.valueOf(String.valueOf(id)));
+			ByteArrayOutputStream temp = getStudentAllInfoService.getPdfOfStudentBasicInfo(Long.valueOf(String.valueOf(id)),type);
 			StudentBasicInfo st =studentBasicInfoService.selectEntry(id);
 			String fileName ="学生基本信息_"+st.getName()+".pdf";
 			
@@ -253,25 +279,6 @@ public class StudentBasicInfoController{
 			throw e;
 		}
 		
-	}
-	
-	/**
-	 * 保存方法
-	 * @param studentBasicInfo 实体对象
-	 * @return
-	 */
-	@RequestMapping(value="/save",method = {RequestMethod.POST,RequestMethod.GET},produces="application/json")
-	public @ResponseBody Message save(StudentBasicInfo studentBasicInfo,Model view) throws Exception{
-    	Message msg= null;
-    	try {
-			int res = studentBasicInfoService.saveOrUpdate(studentBasicInfo);
-			msg  = res > 0 ? Message.success() : Message.failure();
-		} catch (Exception e) {
-			LOGGER.error("失败:"+e.getMessage(),e);
-			msg = Message.failure();
-		}finally{
-		}
-		return msg;
 	}
 	
 }
