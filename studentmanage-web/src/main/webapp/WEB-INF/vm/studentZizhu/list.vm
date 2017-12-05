@@ -60,7 +60,7 @@
 			<td>$!{item.gjlzjxj}</td>
 			<td>$!{item.gjzxj}</td>
 			<td>$!{item.other}</td>
-			<td>$!{item.updateTime}</td>
+			<!--<td>$!{item.updateTime}</td>-->
 			<td class="textC">
 				<div class="btn-group">
 					<a class="btn btn-mini" onclick="XUI.ajax.delete('/studentZizhu/${item.id}',null,{refresh:true})"><i class="icon-trash"></i> 删除</a>

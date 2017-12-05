@@ -29,7 +29,7 @@
 			<th #sorting($!{studentXueye} "cet4")>英语四级</th>
 			<th #sorting($!{studentXueye} "sanbizi")>三笔字</th>
 			<th #sorting($!{studentXueye} "putonghua")>普通话</th>
-			<th #sorting($!{studentXueye} "updateTime")>更新时间</th>
+			<!--<th #sorting($!{studentXueye} "updateTime")>更新时间</th>-->
 			<th>操作</th>
 		</tr>
 	</thead>
