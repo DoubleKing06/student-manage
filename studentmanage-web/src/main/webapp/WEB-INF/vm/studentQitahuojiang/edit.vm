@@ -11,7 +11,7 @@
 			<td><input type="text" name="name" value="$!{studentQitahuojiang.name}" placeholder="姓名"/></td>
 		</tr>
 		<tr>
-			<td>获奖时间:</td>
+			<td>获奖学期:</td>
 			<td><input type="text" name="xueqi" value="$!{studentQitahuojiang.xueqi}" placeholder="获奖时间"/></td>
 			<td>获奖信息:</td>
 			<td><input type="text" maxlength="10" name="otherhuojianginfo" value="$!{studentQitahuojiang.otherhuojianginfo}" placeholder="获奖信息"/></td>

@@ -59,7 +59,7 @@ public class StudentXueyeController{
 	@RequestMapping(value = "/studentXueyeSearch" ,method = {RequestMethod.GET,RequestMethod.POST})
 	public String studentXueyeSearch(StudentXueyeVO studentXueyeVO,Page<StudentXueyeVO> page,Model view) throws Exception{
 		try {
-			//view.addAttribute("studentXueye",studentXueyeVO);
+			view.addAttribute("studentXueye",studentXueyeVO);
 			
 			if(studentXueyeVO.getXuehao() == null || "".equals(studentXueyeVO.getXuehao())){
 				view.addAttribute("page",studentXueyeVOService.selectPage(studentXueyeVO,page));			

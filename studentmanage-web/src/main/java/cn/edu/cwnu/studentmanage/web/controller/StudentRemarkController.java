@@ -62,7 +62,7 @@ public class StudentRemarkController{
 	@RequestMapping(value = "/studentRemarkSearch" ,method = {RequestMethod.GET,RequestMethod.POST})
 	public String studentRemarkSearch(StudentRemarkVO studentRemarkVO,Page<StudentRemarkVO> page,Model view) throws Exception{
 		try {
-			//view.addAttribute("studentRemark",studentRemarkVO);
+			view.addAttribute("studentRemark",studentRemarkVO);
 			
 			if(studentRemarkVO.getXuehao() == null || "".equals(studentRemarkVO.getXuehao())){
 				view.addAttribute("page",studentRemarkVOService.selectPage(studentRemarkVO,page));			

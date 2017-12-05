@@ -92,7 +92,7 @@ public class StudentChengjiController{
 	@RequestMapping(value = "/studentChengjiSearch" ,method = {RequestMethod.GET,RequestMethod.POST})
 	public String studentChengjiSearch(StudentChengjiVO studentChengjiVO,Page<StudentChengjiVO> page,Model view) throws Exception{
 		try {
-			//view.addAttribute("studentChengji",studentChengjiVO);
+			view.addAttribute("studentChengji",studentChengjiVO);
 			
 			if(studentChengjiVO.getXuehao() == null || "".equals(studentChengjiVO.getXuehao())){
 				view.addAttribute("page",studentChengjiVOService.selectPage(studentChengjiVO,page));			
