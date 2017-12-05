@@ -20,7 +20,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-
 import cn.edu.cwnu.studentmanage.dao.base.BaseDao;
 import cn.edu.cwnu.studentmanage.domain.StudentBasicInfo;
 import cn.edu.cwnu.studentmanage.domain.StudentChengji;
@@ -103,7 +102,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * 
 	 */
 	@Override
-	public Message analysisStudentBasicInfo(InputStream stream) throws Exception {
+	public String analysisStudentBasicInfo(InputStream stream) throws Exception {
 		try{
 			StudentBasicInfo sbi;
 			// TODO Auto-generated method stub
@@ -225,20 +224,23 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	            List<StudentBasicInfo> list =studentBasicInfoService.selectEntryList(studentTemp);
 	            if(list.isEmpty()){
 	            	studentBasicInfoService.insertEntry(sbi);
+	            }else if(list.size()>1){
+	            	continue;
 	            }else{
 	            	sbi.setId(list.get(0).getId());
 	            	studentBasicInfoService.updateByKey(sbi);
 //	            	studentBasicInfoService.insertEntry(sbi);
+
 	            }
 	            
 	        }  
 	        stream.close();
 		}catch (Exception e){
             LOGGER.error("失败:" + e.getMessage(), e);
-            return Message.failure(e.getMessage()); 
+            throw new Exception(e.getMessage()); 
 		}
 		
-		return Message.success();
+		return "";
 	}
 	
 	/**
@@ -248,7 +250,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * @throws Exception 
 	 */
 	@Override
-	public Message analysisStudentChengji(InputStream stream) throws Exception {
+	public String analysisStudentChengji(InputStream stream) throws Exception {
 		try{
 			StudentChengji chengji;
 			//记录姓名与学号和基本信息表不匹配的学号
@@ -357,6 +359,8 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	            if(chengjiTemp.isEmpty()){
 	            	//学期成绩表中不存在excel中的学期成绩，则直接插入数据
 	            	studentChengjiService.insertEntry(chengji);
+	            }else if(chengjiTemp.size()>1){
+	            	continue;
 	            }else{
 	            	//如果数据库中存在此学生excel中学期
 	            	chengji.setId(chengjiTemp.get(0).getId());
@@ -367,9 +371,9 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	        stream.close();
 		}catch (Exception e){
             LOGGER.error("失败:" + e.getMessage(), e);
-            return Message.failure(e.getMessage()); 
+            throw new Exception(e.getMessage());  
 		}
-		return Message.success();
+		return "";
 	}	
 
 	
@@ -380,7 +384,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * @throws Exception 
 	 */
 	@Override
-	public Message analysisStudentXueye(InputStream stream) throws Exception {
+	public String analysisStudentXueye(InputStream stream) throws Exception {
 		try{
 			StudentXueye xueye;
 			//记录姓名与学号和基本信息表不匹配的学号
@@ -489,9 +493,9 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	        stream.close();
 		}catch (Exception e){
             LOGGER.error("失败:" + e.getMessage(), e);
-            return Message.failure(e.getMessage()); 
+            throw new Exception(e.getMessage());  
 		}
-		return Message.success();
+		return "";
 	}
 
 
@@ -502,7 +506,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * @throws Exception 
 	 */
 	@Override
-	public Message analysisStudentZizhu(InputStream stream) throws Exception {
+	public String analysisStudentZizhu(InputStream stream) throws Exception {
 		try{
 
 			StudentZizhu zizhu;
@@ -619,10 +623,10 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 			
 		}catch (Exception e){
             LOGGER.error("失败:" + e.getMessage(), e);
-            return Message.failure(e.getMessage()); 
+            throw new Exception(e.getMessage());  
 		}
 		
-		return Message.success();
+		return "";
 	}
 	
 	/**
@@ -632,7 +636,7 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 	 * @throws Exception 
 	 */
 	@Override
-	public Message analysisStudentPingjiang(InputStream stream) throws Exception {
+	public String analysisStudentPingjiang(InputStream stream) throws Exception {
 		try{
 
 			StudentPingjiang pingjiang;
@@ -756,9 +760,9 @@ public class AnalysisExcelServiceImpl extends BaseServiceImpl<StudentBasicInfo,I
 
 		}catch (Exception e){
             LOGGER.error("失败:" + e.getMessage(), e);
-            return Message.failure(e.getMessage()); 
+            throw new Exception(e.getMessage()); 
 		}
-		return Message.success();
+		return "";
 	}
     
 

@@ -22,6 +22,7 @@ import javax.swing.filechooser.FileSystemView;
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -62,10 +63,14 @@ public class BackAndRecoverController {
     }
     
 	
-	private String hostIP="127.0.0.1";
-	private String userName="root";
-	private String password="123456";
-	private String dataBasename="student-manage";
+    @Value("${jdbc.hostname}")
+	private String hostIP;
+    @Value("jdbc.username")
+	private String userName;
+    @Value("jdbc.password")
+	private String password;
+    @Value("jdbc.dbname")
+	private String dataBasename;
 	
 	@RequestMapping(value="/jdbc/backup",method = {RequestMethod.GET})
 	public @ResponseBody Message backup(HttpServletResponse response,Model view){

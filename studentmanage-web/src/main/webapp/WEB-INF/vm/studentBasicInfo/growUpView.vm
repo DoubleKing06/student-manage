@@ -1,56 +1,55 @@
 <table class="table table-bordered table-striped formLayout m0">
-	<!--<caption><h3>学生成长记录表</h3></caption>-->
+	<caption><h4>学生成长记录表</h4></caption>
 	<tr>
-		<td>姓名:</td>
-		<td>$!{gu.name}</td>
-		<td>学号:</td>
-		<td>$!{gu.xuehao}</td>
-		<td>专业:</td>
-		<td>$!{gu.zhuanye}</td>
-		<td>班级:</td>
-		<td>$!{gu.banji}</td>
+		<td align="center"><b>姓名:</b></td>
+		<td align="center">$!{gu.name}</td>
+		<td align="center"><b>学号:</b></td>
+		<td align="center">$!{gu.xuehao}</td>
+		<td align="center"><b>专业:</b></td>
+		<td align="center">$!{gu.zhuanye}</td>
+		<td align="center"><b>班级:</b></td>
+		<td align="center">$!{gu.banji}</td>
 	</tr>
 	<tr>
-		<td>英语四级:</td>
-		<td>$!{gu.cet4}</td>
-		<td>普通话:</td>
-		<td>$!{gu.putonghua}</td>
-		<td>三笔字:</td>
-		<td>$!{gu.sanbizi}</td>
-		<td>党校学习:</td>
-		<td>$!{gu.dxxx}</td>
+		<td align="center"><b>英语四级:</b></td>
+		<td align="center">$!{gu.cet4}</td>
+		<td align="center"><b>普通话:</b></td>
+		<td align="center">$!{gu.putonghua}</td>
+		<td align="center"><b>三笔字:</b></td>
+		<td align="center">$!{gu.sanbizi}</td>
+		<td align="center"><b>党校学习:</b></td>
+		<td align="center">$!{gu.dxxx}</td>
 	</tr>
 	<tr colspan="7">
-		<td>第一学期:</td>
+		<td><b>第一学期:</b></td>
 		<td  colspan="7">$!{gu.xueQiInfo.get("1")}</td>
 	</tr>
 	<tr colspan="7">
-		<td>第二学期:</td>
+		<td><b>第二学期:</b></td>
 		<td  colspan="7">$!{gu.xueQiInfo.get("2")}</td>
 	</tr>
 	<tr colspan="7">
-		<td>第三学期:</td>
+		<td><b>第三学期:</b></td>
 		<td  colspan="7">$!{gu.xueQiInfo.get("3")}</td>
 	</tr>
 	<tr colspan="7">
-		<td>第四学期:</td>
+		<td><b>第四学期:</b></td>
 		<td  colspan="7">$!{gu.xueQiInfo.get("4")}</td>
 	</tr>
 	<tr colspan="7">
-		<td>第五学期:</td>
+		<td><b>第五学期:</b></td>
 		<td  colspan="7">$!{gu.xueQiInfo.get("5")}</td>
 	</tr>
 	<tr colspan="7">
-		<td>第六学期:</td>
+		<td><b>第六学期:</b></td>
 		<td  colspan="7">$!{gu.xueQiInfo.get("6")}</td>
 	</tr>
 	<tr colspan="7">
-		<td>第七学期:</td>
+		<td><b>第七学期:</b></td>
 		<td  colspan="7">$!{gu.xueQiInfo.get("7")}</td>
 	</tr>
 	<tr colspan="7">
-		<td>第八学期:</td>
+		<td><b>第八学期:</b></td>
 		<td  colspan="7">$!{gu.xueQiInfo.get("8")}</td>
 	</tr>
-
 </table>

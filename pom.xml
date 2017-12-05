@@ -57,6 +57,9 @@
                 <studentmanage.jdbc.datasource.type>dbcp</studentmanage.jdbc.datasource.type>
                 <!-- 数据库 -->
                 <studentmanage.jdbc.driver>com.mysql.jdbc.Driver</studentmanage.jdbc.driver>
+                <studentmanage.jdbc.hostname>127.0.0.1</studentmanage.jdbc.hostname>
+                <studentmanage.jdbc.port>3306</studentmanage.jdbc.port>
+                <studentmanage.jdbc.dbname>student-manage</studentmanage.jdbc.dbname>
                 <studentmanage.jdbc.url>jdbc:mysql://127.0.0.1:3306/student-manage?characterEncoding=utf-8
                 </studentmanage.jdbc.url>
                 <studentmanage.jdbc.username>root</studentmanage.jdbc.username>
