@@ -81,8 +81,9 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 		 */
 		StudentBasicInfo studentTemp =new StudentBasicInfo();
 		studentTemp.setNianji(studentBasicInfo.getNianji());
-		Integer nianjiCount = studentBasicInfoService.selectEntryListCount(studentTemp);
-		sg.setNianjiCount(nianjiCount.toString());
+		//经过确认，专业排名和综合排名分母都为班级总人数，所以注释下两行代码
+//		Integer nianjiCount = studentBasicInfoService.selectEntryListCount(studentTemp);
+//		sg.setNianjiCount(nianjiCount.toString());
 		
 		/**
 		 * 设置班级总人数
@@ -90,6 +91,8 @@ public class GetStudentAllInfoServiceImpl extends BaseServiceImpl<StudentBasicIn
 		studentTemp.setBanji(studentBasicInfo.getBanji());
 		Integer banjiCount = studentBasicInfoService.selectEntryListCount(studentTemp);
 		sg.setBanjiCount(banjiCount.toString());
+		//经过确认，专业排名和综合排名分母都为班级总人数
+		sg.setNianjiCount(banjiCount.toString());
 		
 		/**
 		 * 学业信息
