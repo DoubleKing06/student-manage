@@ -49,7 +49,7 @@ public class StudentZizhuVOServiceImpl extends BaseServiceImpl<StudentZizhuVO,In
 	@Override
 	public HSSFWorkbook studentZizhuExport(StudentZizhuVO studentZizhuVO) throws IOException {
 		List<StudentZizhuVO> list = studentZizhuDaoVO.selectEntryList(studentZizhuVO);
-		String headers[]={"学号","姓名","班级","学期","国家奖学金","国家励志奖学金","国家助学金","其他社会资助"}; 
+		String headers[]={"学号","姓名","学期","国家奖学金","国家励志奖学金","国家助学金","其他社会资助"}; 
 /*		HSSFWorkbook  wb=new HSSFWorkbook();
         HSSFSheet sheet=wb.createSheet("学生资助信息");
         //在sheet中创建一行  
@@ -78,21 +78,18 @@ public class StudentZizhuVOServiceImpl extends BaseServiceImpl<StudentZizhuVO,In
             			rowTemp.createCell(i).setCellValue(list.get(x).getName());
             			break;
             		case 2:
-            			rowTemp.createCell(i).setCellValue(list.get(x).getBanji());
-            			break;
-            		case 3:
             			rowTemp.createCell(i).setCellValue(list.get(x).getXueqi());
             			break;
-            		case 4:
+            		case 3:
             			rowTemp.createCell(i).setCellValue(list.get(x).getGjjxj());
             			break;
-            		case 5:
+            		case 4:
             			rowTemp.createCell(i).setCellValue(list.get(x).getGjlzjxj());
             			break;
-            		case 6:
+            		case 5:
             			rowTemp.createCell(i).setCellValue(list.get(x).getGjzxj());
             			break;
-            		case 7:
+            		case 6:
             			rowTemp.createCell(i).setCellValue(list.get(x).getOther());
             			break;
             	}

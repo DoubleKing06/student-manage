@@ -58,7 +58,7 @@ public class StudentPingjiangVOServiceImpl extends BaseServiceImpl<StudentPingji
         for(int i=0;i<headers.length;i++){
         	row.createCell(i).setCellValue(headers[i]);  
         }*/
-		String headers[]={"学号","姓名","班级","学期","奖学金","单项奖学金","学优","团优","优秀大学毕业生","党校学习"}; 
+		String headers[]={"学号","姓名","学期","奖学金","单项奖学金","学优","团优","优秀大学毕业生","党校学习"}; 
       //excel模板路径    
         File fi= new File(new File(Thread.currentThread().getContextClassLoader().getResource("").getPath()).getParent() + "/template/评优评奖情况-导出.xls");    
         POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(fi));    
@@ -79,27 +79,24 @@ public class StudentPingjiangVOServiceImpl extends BaseServiceImpl<StudentPingji
             			rowTemp.createCell(i).setCellValue(list.get(x).getName());
             			break;
             		case 2:
-            			rowTemp.createCell(i).setCellValue(list.get(x).getBanji());
-            			break;
-            		case 3:
             			rowTemp.createCell(i).setCellValue(list.get(x).getXueqi());
             			break;
-            		case 4:
+            		case 3:
             			rowTemp.createCell(i).setCellValue(list.get(x).getJiangxuejin());
             			break;
-            		case 5:
+            		case 4:
             			rowTemp.createCell(i).setCellValue(list.get(x).getDanxiangjiangxuejin());
             			break;
-            		case 6:
+            		case 5:
             			rowTemp.createCell(i).setCellValue(list.get(x).getXueyou());
             			break;
-            		case 7:
+            		case 6:
             			rowTemp.createCell(i).setCellValue(list.get(x).getTuanyou());
             			break;
-            		case 8:
+            		case 7:
             			rowTemp.createCell(i).setCellValue(list.get(x).getYxdxbys());
             			break;
-            		case 9:
+            		case 8:
             			rowTemp.createCell(i).setCellValue(list.get(x).getDxxx());
             			break;
             	}
