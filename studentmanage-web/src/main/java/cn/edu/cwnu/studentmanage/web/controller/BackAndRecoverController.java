@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,6 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import cn.edu.cwnu.studentmanage.common.tools.DateUtils;
+import cn.edu.cwnu.studentmanage.domain.BackupDataSource;
 import cn.edu.cwnu.studentmanage.domain.Login;
 import cn.edu.cwnu.studentmanage.domain.common.Message;
 import cn.edu.cwnu.studentmanage.web.CustomDateEditor;
@@ -62,26 +64,20 @@ public class BackAndRecoverController {
         return "studentDatabase/database";
     }
     
-	
-    @Value("${jdbc.hostname}")
-	private String hostIP;
-    @Value("jdbc.username")
-	private String userName;
-    @Value("jdbc.password")
-	private String password;
-    @Value("jdbc.dbname")
-	private String dataBasename;
+    @Resource
+    private BackupDataSource backupDataSource;
 	
 	@RequestMapping(value="/jdbc/backup",method = {RequestMethod.GET})
-	public @ResponseBody Message backup(HttpServletResponse response,Model view){
+	public @ResponseBody Message backup(HttpServletResponse response,Model view) throws Exception{
 		String sqlName = "backup_"+DateUtils.format(new Date(),"yyyy-MM-dd")+".sql";//sql文件名称
 		String desktopPath = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
 		desktopPath =desktopPath.replace("\\\\", "\\\\\\\\");
+		System.out.println(desktopPath);
 		 try {  
-	            if (exportDatabaseTool(hostIP, userName, password, desktopPath, sqlName, dataBasename)) {  
+	            if (exportDatabaseTool(backupDataSource.getHostname(), backupDataSource.getUsername(), backupDataSource.getPasswd(), desktopPath, sqlName, backupDataSource.getDbname())) {  
 	                System.out.println("数据库成功备份！！！");  
 	            } else {  
-	                System.out.println("数据库备份失败！！！");  
+	            	throw new Exception("数据库备份失败！！！");
 	            }  
 	        } catch (InterruptedException e) {  
 	            LOGGER.error("失败:" + e.getMessage(), e);
@@ -103,7 +99,7 @@ public class BackAndRecoverController {
      * @param databaseName 要导出的数据库名 
      * @return 返回true表示导出成功，否则返回false。 
      */  
-    public static boolean exportDatabaseTool(String hostIP, String userName, String password, String savePath, String fileName, String databaseName) throws InterruptedException {  
+    public boolean exportDatabaseTool(String hostIP, String userName, String password, String savePath, String fileName, String databaseName) throws InterruptedException {  
         File saveFile = new File(savePath);  
         if (!saveFile.exists()) {// 如果目录不存在  
             saveFile.mkdirs();// 创建文件夹  
@@ -171,7 +167,7 @@ public class BackAndRecoverController {
 	           os.close();
 	           is.close();
 	         
-		        String sql = "mysql -h" + hostIP + " -u" + userName + " -p" + password +" --default-character-set=utf8 " + dataBasename + " --execute=\"source "+ folder+"\"";
+		        String sql = "mysql -h" + backupDataSource.getHostname() + " -u" + backupDataSource.getUsername() + " -p" + backupDataSource.getPasswd() +" --default-character-set=utf8 " + backupDataSource.getDbname() + " --execute=\"source "+ folder+"\"";
 		        Process process = Runtime.getRuntime().exec(sql);
 	           
 	        } catch (Exception e) {

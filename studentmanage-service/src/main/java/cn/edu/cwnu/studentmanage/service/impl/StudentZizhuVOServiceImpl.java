@@ -7,6 +7,7 @@ package cn.edu.cwnu.studentmanage.service.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -59,7 +60,12 @@ public class StudentZizhuVOServiceImpl extends BaseServiceImpl<StudentZizhuVO,In
         	row.createCell(i).setCellValue(headers[i]);  
         }*/
       //excel模板路径    
-        File fi= new File(new File(Thread.currentThread().getContextClassLoader().getResource("").getPath()).getParent() + "/template/资助情况表-导出.xls");    
+		File fileTemp = new File(Thread.currentThread().getContextClassLoader().getResource("").getPath());
+		String pathTemp = fileTemp.getParent()+ "\\template\\资助情况表-导出.xls";
+		String path=URLDecoder.decode(pathTemp,"utf-8");//关键啊 ！  
+		System.out.println(path);
+		
+        File fi= new File(path);    
         POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(fi));    
         //读取excel模板    
         HSSFWorkbook wb1 = new HSSFWorkbook(fs);

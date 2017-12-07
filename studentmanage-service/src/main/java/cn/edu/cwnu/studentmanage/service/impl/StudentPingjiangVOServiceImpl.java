@@ -7,6 +7,7 @@ package cn.edu.cwnu.studentmanage.service.impl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -60,7 +61,13 @@ public class StudentPingjiangVOServiceImpl extends BaseServiceImpl<StudentPingji
         }*/
 		String headers[]={"学号","姓名","学期","奖学金","单项奖学金","学优","团优","优秀大学毕业生","党校学习"}; 
       //excel模板路径    
-        File fi= new File(new File(Thread.currentThread().getContextClassLoader().getResource("").getPath()).getParent() + "/template/评优评奖情况-导出.xls");    
+		File fileTemp = new File(Thread.currentThread().getContextClassLoader().getResource("").getPath());
+		String pathTemp = fileTemp.getParent()+ "\\template\\评优评奖情况-导出.xls";
+		String path=URLDecoder.decode(pathTemp,"utf-8");//关键啊 ！  
+		System.out.println(path);
+		
+		
+        File fi= new File(path);    
         POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(fi));    
         //读取excel模板    
         HSSFWorkbook wb1 = new HSSFWorkbook(fs);

@@ -28,6 +28,13 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 	
+	<bean id="backupDataSource" class="cn.edu.cwnu.studentmanage.domain.BackupDataSource">
+		<property name="hostname" value="${jdbc.hostname}" />	
+		<property name="username" value="${jdbc.username}" />
+		<property name="passwd" value="${jdbc.password}" />
+		<property name="dbname" value="${jdbc.dbname}" />
+	</bean>
+	
 	<!-- 配置事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="masterDataSource" />
