@@ -37,6 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import cn.edu.cwnu.studentmanage.common.tools.DateUtils;
+import cn.edu.cwnu.studentmanage.common.tools.IOUtils;
 import cn.edu.cwnu.studentmanage.domain.BackupDataSource;
 import cn.edu.cwnu.studentmanage.domain.Login;
 import cn.edu.cwnu.studentmanage.domain.common.Message;
@@ -70,7 +71,7 @@ public class BackAndRecoverController {
 	@RequestMapping(value="/jdbc/backup",method = {RequestMethod.GET})
 	public @ResponseBody Message backup(HttpServletResponse response,Model view) throws Exception{
 		String sqlName = "backup_"+DateUtils.format(new Date(),"yyyy-MM-dd")+".sql";//sql文件名称
-		String desktopPath = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
+/*		String desktopPath = FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();
 		desktopPath =desktopPath.replace("\\\\", "\\\\\\\\");
 		System.out.println(desktopPath);
 		 try {  
@@ -82,7 +83,18 @@ public class BackAndRecoverController {
 	        } catch (InterruptedException e) {  
 	            LOGGER.error("失败:" + e.getMessage(), e);
 	            return Message.create("fail", e.getMessage()); 
-	        }  
+	        } */ 
+		try{
+			
+			response.setContentType("application/txt;charset=utf8");  
+			response.setHeader("Content-Disposition", "attachment; filename="+ new String(sqlName.getBytes("utf8"),"ISO-8859-1"));
+			Process process = Runtime.getRuntime().exec("mysqldump -h" + backupDataSource.getHostname() + " -u" + backupDataSource.getUsername() + " -p" + backupDataSource.getPasswd() + " -P3306 --set-charset=UTF8 --databases " + backupDataSource.getDbname()); 
+			IOUtils.transfer(process.getInputStream(), response.getOutputStream());
+		}catch (Exception e){
+			return Message.create("fail", e.getMessage()); 
+		}
+		
+		
 		return Message.success();
 	}
 	
