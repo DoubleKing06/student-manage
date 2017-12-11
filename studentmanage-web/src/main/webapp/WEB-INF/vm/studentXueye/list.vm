@@ -9,7 +9,7 @@
 	<input type="hidden" name="orderField" value="$!{studentXueye.orderField}"/>
 	<input type="hidden" name="orderFieldType" value="$!{studentXueye.orderFieldType}"/>
 	<!-- 查询条件 -->
-	<input class="span2" type="text" name="xuehao" value="$!{studentXueye.xuehao}" placeholder="学号"/>
+	学号：<input class="span2" type="text" name="xuehao" value="$!{studentXueye.xuehao}" placeholder="学号"/>
 	<!--<input class="span2" type="text" name="studentId" value="$!{studentXueye.name}" placeholder="姓名"/>-->
 	<button type="submit" class="btn"><i class="icon-search"></i>搜索</button>
 	<!-- 新增按钮 -->

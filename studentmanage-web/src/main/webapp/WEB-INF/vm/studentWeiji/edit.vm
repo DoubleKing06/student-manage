@@ -18,12 +18,12 @@
 		</tr>
 		<tr>
 			<td>违纪情况:</td>
-			<td colspan="3" align="left" valign="top"><input type="text" maxlength="200" style="width:550px; height:100px;" name="weijiInfo" value="$!{studentWeiji.weijiInfo}" placeholder="违纪情况"/></td>
+			<td colspan="3" align="left" valign="top"><input type="text" maxlength="200" style="width:550px; height:100px;" name="weijiInfo" value="$!{studentWeiji.weijiInfo}" placeholder="请输入违纪情况（200字）"/></td>
 			<!--<td colspan="3"><textarea name="weijiInfo" rows="10" cols="300" value="$!{studentWeiji.weijiInfo}" placeholder="请输入违纪情况（200字）"></textarea></td>-->
 		</tr>
 		<tr>
 			<td>处理结果:</td>
-			<td colspan="3" align="left" valign="top" ><input type="text" maxlength="200" style="width:550px; height:100px;" name="result" value="$!{studentWeiji.result}" placeholder="请输入处理结果"/></td>
+			<td colspan="3" align="left" valign="top" ><input type="text" maxlength="200" style="width:550px; height:100px;" name="result" value="$!{studentWeiji.result}" placeholder="请输入处理结果（200字）"/></td>
 			<!--<td colspan="3"><textarea name="result" rows="10" cols="300" value="$!{studentWeiji.result}" placeholder="请输入处理结果（200字）"></textarea></td>-->
 		</tr>
 	</table>

@@ -19,30 +19,8 @@
 
 <script>
     function backup() {
-        var formData = new FormData($("#backupForm"));
-        $.ajax({
-            url: '/jdbc/backup',
-            type: 'GET',
-            data: formData,
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                if (null != data) {
-                    if (data.code == 'success') {
-                        alert(data.result);
-                        XUI.gotoPage('/jdbc');
-                    }
-                    if (data.code == "fail") {
-                        alert(data.result);
-                    }
-                }
-            },
-            error: function (err) {
-                alert("备份失败！");
-            }
-        });
+    window.location = '/jdbc/backup';
+   
     }
 </script>
 
@@ -100,6 +78,7 @@
         });
     }
 </script>
+
 
 
 

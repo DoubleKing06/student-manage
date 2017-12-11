@@ -86,7 +86,7 @@ public class BackAndRecoverController {
 	        } */ 
 		try{
 			
-			response.setContentType("application/txt;charset=utf8");  
+			response.setContentType("application/x-download;charset=utf8");  
 			response.setHeader("Content-Disposition", "attachment; filename="+ new String(sqlName.getBytes("utf8"),"ISO-8859-1"));
 			Process process = Runtime.getRuntime().exec("mysqldump -h" + backupDataSource.getHostname() + " -u" + backupDataSource.getUsername() + " -p" + backupDataSource.getPasswd() + " -P3306 --set-charset=UTF8 --databases " + backupDataSource.getDbname()); 
 			IOUtils.transfer(process.getInputStream(), response.getOutputStream());

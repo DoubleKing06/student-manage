@@ -55,7 +55,7 @@ public class LoginController {
 			view.addAttribute("error", e.getMessage());
 			return "redirect:/";
 		}
-		return "redirect:/main.html";
+		return "redirect:/index.html";
 	}
 	
 	
@@ -72,7 +72,7 @@ public class LoginController {
 	  //清除Session 
 	  session.invalidate(); 
 	    
-	  return "redirect:/main.html";
+	  return "redirect:/index.html";
 	 } 
 	
 	

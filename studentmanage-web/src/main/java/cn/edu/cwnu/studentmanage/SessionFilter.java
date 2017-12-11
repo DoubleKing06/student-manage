@@ -13,7 +13,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class SessionFilter extends OncePerRequestFilter {
 	
 	//不需要过滤的网络地址
-	private static final String[] notFilter = new String[] { "main.html", "/check","/js","/img","/images","/css"};
+	private static final String[] notFilter = new String[] { "index.html", "/check","/js","/img","/images","/css"};
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
@@ -26,7 +26,7 @@ public class SessionFilter extends OncePerRequestFilter {
 			if (null != obj) {
 				filterChain.doFilter(request, response);
 			} else {
-				response.sendRedirect("/main.html");
+				response.sendRedirect("/index.html");
 			}
 		} else {
 			filterChain.doFilter(request, response);

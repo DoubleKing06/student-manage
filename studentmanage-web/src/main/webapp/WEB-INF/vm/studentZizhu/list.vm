@@ -9,14 +9,14 @@
 	<input type="hidden" name="orderField" value="$!{studentZizhu.orderField}"/>
 	<input type="hidden" name="orderFieldType" value="$!{studentZizhu.orderFieldType}"/>
 	<!-- 查询条件 -->
-	<input class="span2" type="text" id="xuehao" name="xuehao" value="$!{studentZizhu.xuehao}" placeholder="学号"/>
-	<input class="span2" type="text" id="name" name="name" value="$!{studentZizhu.name}" placeholder="姓名"/>
-	<input class="span2" type="text" id="xueqi" name="xueqi" value="$!{studentZizhu.xueqi}" placeholder="学期"/>
-	<input class="span2" type="text" id="banji" name="banji" value="$!{studentZizhu.banji}" placeholder="班级"/>
-	<input class="span2" type="text" id="gjjxj" name="gjjxj" value="$!{studentZizhu.gjjxj}" placeholder="国家奖学金"/>
-	<input class="span2" type="text" id="gjlzjxj" name="gjlzjxj" value="$!{studentZizhu.gjlzjxj}" placeholder="国家励志奖学金"/>
-	<input class="span2" type="text" id="gjzxj" name="gjzxj" value="$!{studentZizhu.gjzxj}" placeholder="国家助学金"/>
-	<input class="span2" type="text" id="other" name="other" value="$!{studentZizhu.other}" placeholder="其他社会资助"/>
+	学号：<input class="span2" type="text" id="xuehao" name="xuehao" value="$!{studentZizhu.xuehao}" placeholder="学号"/>
+	姓名：<input class="span2" type="text" id="name" name="name" value="$!{studentZizhu.name}" placeholder="姓名"/>
+	学期：<input class="span2" type="text" id="xueqi" name="xueqi" value="$!{studentZizhu.xueqi}" placeholder="学期"/>
+	班级：<input class="span2" type="text" id="banji" name="banji" value="$!{studentZizhu.banji}" placeholder="班级"/>
+	国家奖学金：<input class="span2" type="text" id="gjjxj" name="gjjxj" value="$!{studentZizhu.gjjxj}" placeholder="国家奖学金"/><br/>
+	励志奖学金：<input class="span2" type="text" id="gjlzjxj" name="gjlzjxj" value="$!{studentZizhu.gjlzjxj}" placeholder="国家励志奖学金"/>
+	助学金：<input class="span2" type="text" id="gjzxj" name="gjzxj" value="$!{studentZizhu.gjzxj}" placeholder="国家助学金"/>
+	社会资助：<input class="span2" type="text" id="other" name="other" value="$!{studentZizhu.other}" placeholder="其他社会资助"/>
 	<button type="submit" class="btn"><i class="icon-search"></i>搜索</button>
 	<!-- 新增按钮 -->
 	<div class="btn-group pull-right">

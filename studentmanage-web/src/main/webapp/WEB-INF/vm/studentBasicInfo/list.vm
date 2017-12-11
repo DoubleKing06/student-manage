@@ -9,11 +9,11 @@
 	<input type="hidden" name="orderField" value="$!{studentBasicInfo.orderField}"/>
 	<input type="hidden" name="orderFieldType" value="$!{studentBasicInfo.orderFieldType}"/>
 	<!-- 查询条件 -->
-	<input class="span2" type="text" name="xuehao" value="$!{studentBasicInfo.xuehao}" placeholder="学号"/>
-	<input class="span2" type="text" name="name" value="$!{studentBasicInfo.name}" placeholder="姓名"/>
-	<input class="span2" type="text" name="nianji" value="$!{studentBasicInfo.nianji}" placeholder="年级"/>
-	<input class="span2" type="text" name="banji" value="$!{studentBasicInfo.banji}" placeholder="班级"/>
-	<input class="span2" type="text" name="idNumber" value="$!{studentBasicInfo.idNumber}" placeholder="身份证号"/>
+	学号：<input class="span2" type="text" name="xuehao" value="$!{studentBasicInfo.xuehao}" placeholder="学号"/>
+	姓名：<input class="span2" type="text" name="name" value="$!{studentBasicInfo.name}" placeholder="姓名"/>
+	年级：<input class="span2" type="text" name="nianji" value="$!{studentBasicInfo.nianji}" placeholder="年级"/>
+	班级：<input class="span2" type="text" name="banji" value="$!{studentBasicInfo.banji}" placeholder="班级"/>
+	身份证号：<input class="span2" type="text" name="idNumber" value="$!{studentBasicInfo.idNumber}" placeholder="身份证号"/>
 	<button type="submit" class="btn"><i class="icon-search"></i>搜索</button>
 	<!-- 新增按钮 -->
 	<div class="btn-group pull-right">

@@ -9,8 +9,8 @@
 	<input type="hidden" name="orderField" value="$!{studentRemark.orderField}"/>
 	<input type="hidden" name="orderFieldType" value="$!{studentRemark.orderFieldType}"/>
 	<!-- 查询条件 -->
-	<input class="span2" type="text" name="xuehao" value="$!{studentRemark.xuehao}" placeholder="学号"/>
-	<input class="span2" type="text" name="xueqi" value="$!{studentRemark.xueqi}" placeholder="学期"/>
+	学号：<input class="span2" type="text" name="xuehao" value="$!{studentRemark.xuehao}" placeholder="学号"/>
+	学期：<input class="span2" type="text" name="xueqi" value="$!{studentRemark.xueqi}" placeholder="学期"/>
 	<button type="submit" class="btn"><i class="icon-search"></i>搜索</button>
 	<!-- 新增按钮 -->
 	<div class="btn-group pull-right">
